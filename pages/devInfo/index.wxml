@@ -1,0 +1,62 @@
+<view class="containerBox">
+    <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000"  class="loopBox">  
+      <block wx:for="{{imgUrls}}">  
+        <swiper-item>  
+            <image src="{{item.url}}" class="slide-image"/>   
+        </swiper-item>  
+      </block>  
+    </swiper>
+    <view class="openTimeBox">
+        <view class="openTimeLeft">开放时间</view>
+        <view class="openTimeRight">
+            <view class="shareTime">{{devInfoShareTime}}</view>
+        </view>
+    </view>
+    <view class="addressInfo">
+        <view class="addressTop">
+            详细地址
+        </view>
+        <view class="addressBottom">
+            <view class="addressBottomLeft">{{devInfoAddress}}</view>
+            <view class="addressBottomRight">
+                <image  src="../images/A1.jpg" class="a1Img"></image>
+                {{devInfoDistace}}km
+            </view>
+        </view>
+    </view>
+    <view class="priceBox">
+        <view class="priceTop">
+            <view class="priceTopLeft">收费方式</view>
+            <view class="priceTopRight">{{devInfoExpress}}元/度</view>
+        </view> 
+        <view class="priceBottom">提示:停车费需咨询物业</view>       
+    </view>
+    <view class="carBox">
+        <view class="carTop">支持品牌车型</view>
+        <view class="carIconBox">
+            <image  src="../images/car/1.png" class="carImg"></image>
+            <image  src="../images/car/2.png" class="carImg"></image>
+            <image  src="../images/car/3.png" class="carImg"></image>
+            <image  src="../images/car/4.png" class="carImg"></image>
+            <image  src="../images/car/5.png" class="carImg"></image>
+            <image  src="../images/car/6.png" class="carImg"></image>
+            <image  src="../images/car/7.png" class="carImg"></image>
+            <image  src="../images/car/8.png" class="carImg"></image>
+            <image  src="../images/car/9.png" class="carImg"></image>
+            <image  src="../images/car/10.png" class="carImg"></image>
+            <image  src="../images/car/11.png" class="carImg"></image>
+            <image  src="../images/car/12.png" class="carImg"></image>
+        </view>
+    </view>
+    <view class="cutline"></view>
+    <view class="devListBox" wx:for="{{devList}}">
+        <view class="devLeft">{{item.devName}}</view>
+        <view class="devMiddle">{{item.devDescription}}</view>
+        <view class="devRight">
+            <view class="devRightBtn" id="{{item.devSn}}||{{item.devStatusTxt}}||{{item.devType}}" catchtap="yuYue">{{item.devStatusTxt}}</view>
+        </view>
+    </view>
+</view>
+
+
+

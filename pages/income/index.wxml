@@ -1,0 +1,41 @@
+
+<!--收益查看-->
+
+<view class="topBox">
+	<view class="name centerA" >{{userNickName}}</view>
+	<view class="yesterday centerA"><b>昨日收益</b></view>
+	<view class="moneyTxt centerA">{{yestodayIncome}}元</view>
+	<view class="totalMoneyTxt centerA">总收益（元）</view>
+	<view class="totalMoney centerA">{{totalIncome}}</view>
+</view>
+<!--
+<view class="canvasBox">
+		<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+</view>
+-->
+<view class="scrollBox">
+	<view class="scrollTitle">我的充电点</view>
+	<view class="cutListBox" wx:for="{{listArray}}"  catchtap="toIncomeInfo" id="{{item.stationType}}||{{item.stationId}}" >
+		<view class="cutListLeft">
+			<view>{{item.stationName}}</view>
+		</view>
+		<view class="powerBtn">
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>
+	<!--
+	<view class="cutListBox">
+		<view class="cutListLeft">
+			<view>光明B桩</view>
+		</view>
+		<view class="powerBtn">
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>
+	-->
+</view>
+
+
+
+
+

@@ -1,0 +1,26 @@
+/**index.wxss**/
+@import "../images/common.wxss";
+.notesBox{
+  width: 94%;
+  height: 10rpx;
+  padding-top: 100rpx;
+  color: #323232;
+  font-size: 27rpx; 
+  display: flex;
+  flex-direction:column;
+  flex-grow:100;
+}
+.notLine{width:100%; padding-top: 5rpx; padding-bottom: 5rpx;}
+.notesTxt{  
+  font-size: 27rpx; 
+  text-indent: 40rpx;
+  color: #FF0000;
+}
+.notesBottomTxt{  
+  font-size: 28rpx; 
+  font-weight: bold; 
+  color: #FF0000;
+}
+/*color: #FF0000;*/
+
+

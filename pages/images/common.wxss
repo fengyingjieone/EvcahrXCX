@@ -1,0 +1,73 @@
+/**index.wxss**/
+.containerIndex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+} /*主容器*/
+/*全屏容器*/
+.fullBox{
+  height: 100%;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color: #FFFFBF;
+} 
+/*个人中心、我的钱包、列表样式开始*/
+.cutListBox{
+  width: 100%;
+  height: 110rpx;  
+  display: flex;
+  align-items: center;
+  border-bottom: 1px #d2d2d2 solid;
+  background-color: #ffffff;
+}
+.cutListLeft{
+  width:50%;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+}
+.icon{
+  width:37rpx; 
+  height:37rpx;
+  margin-left: 30rpx;
+  margin-right: 10rpx;
+}
+.iconarrow{
+  width:18rpx; 
+  height:32rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.powerBtn{
+  width:50%;
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+
+/*个人中心、我的钱包、列表样式结束*/
+.colorBlue{color: #3DCAE6;}
+.colorGary{color: #9d9d9d;}
+.font12{
+  font-size: 24rpx;
+}
+.font14{
+  font-size: 28rpx;
+}
+.font16{
+  font-size: 32rpx;
+}
+/*内部元素 单行，横排，上下左右居中*/
+.centerA{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

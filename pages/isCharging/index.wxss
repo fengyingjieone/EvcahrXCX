@@ -1,0 +1,246 @@
+/**index.wxss**/
+.containerIndex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+} 
+.register-box{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+  text-align: lefts
+} 
+.login-box{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+  text-align: lefts;  
+} 
+
+.noOrder{width: 100%;}
+.noOrderTxt{ 
+  width: 100%;
+  line-height:40px; 
+  font-size:21px; 
+  color:#8a8a8a;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  }
+
+
+
+
+
+
+/* 没有订单 */
+.topBoxNorder{
+  width:100%;
+  height: 388rpx;
+  position:fixed; 
+  top: 0px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+/* 一个订单 */
+.topBoxNorderone{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+.cirleBox{
+  width:100%; 
+  height:500rpx; 
+  background:url(https://wx.chongdian.club/images/circleBottom.png) left bottom #3DCAE6 no-repeat; 
+  background-size:100% auto;
+  padding-top: 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  }
+    /*充电圆环*/
+.cirleCharging{
+  width:314rpx; 
+  height:314rpx; 
+  border-radius:158rpx;
+  border:1rpx #fff solid;
+  background:url(https://wx.chongdian.club/images/aa.gif) center 40px no-repeat; 
+  background-size:360rpx 380rpx; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+.circleListBox{
+    width: 100%;
+    height: 85rpx;
+    border-bottom: 1rpx #d2d2d2 solid;
+    display: flex;
+    align-items: center;
+}
+.circleListLeftA{
+  width:50%;
+  height: 100%;
+  background:url(https://wx.chongdian.club/images/clock.png) 30rpx 12rpx no-repeat; 
+  background-size: 60rpx auto;
+  text-indent: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.circleListLeftB{
+  width:50%;
+  height: 100%;
+  background:url(https://wx.chongdian.club/images/clock.png) 30rpx -105rpx no-repeat; 
+  background-size: 60rpx auto;
+  text-indent: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.circleListLeftC{
+  width:50%;
+  height: 100%;
+  background:url(https://wx.chongdian.club/images/clock.png) 30rpx -225rpx no-repeat; 
+  background-size: 60rpx auto;
+  text-indent: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.circleListLeftD{
+  width:50%;
+  height: 100%;
+  background:url(https://wx.chongdian.club/images/clock.png) 30rpx -345rpx no-repeat; 
+  background-size: 60rpx auto;
+  text-indent: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.circleListright{
+  width:50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+/*预约开启  取消预约*/
+.bottomBtnBox{
+  width:100%;
+  height: 105rpx;
+  display: flex;
+  flex-direction: rocolumn;
+  align-items: center;
+  justify-content: space-around;
+
+}
+.bottomBtn{
+  width:80%; 
+  height: 80rpx;
+  background-color: #3DCAE6;
+  border-radius: 4rpx;
+  margin-top:25rpx; 
+  color:#fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.bottomBtnTxt{
+  width:100%;
+  height: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color:#A2A3A3;
+  font-size: 24rpx;
+}
+/* 多个订单 */
+.topBoxNorderMore{
+  width:100%;
+}
+
+
+
+
+.scrollBox{ 
+  padding-top: 388rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+/*隐藏元素*/
+.hide{
+    display:none;    
+}
+
+.listBox{
+  width:100%;
+  height: 110rpx;
+  border-bottom: 1rpx #d2d2d2 solid;
+  text-indent:30rpx;
+  align-items: center;
+  display: flex;
+  justify-content:left;
+
+}
+/*预约动画*/
+.canvasBox{
+  width:100%; 
+  height:500rpx; 
+  background:url(https://wx.chongdian.club/images/circleBottom.png) left bottom #3DCAE6 no-repeat; 
+  background-size:100% auto;
+  padding-top: 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  }
+.circleBox{
+  width: 158px; 
+  height: 158px;
+  border-radius:79px; 
+  background-color:#fff;
+  position: relative;
+}
+.canvasCss{
+  width:158px;
+  height: 158px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.circleTxt{
+  width: 158px; 
+  height: 158px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+

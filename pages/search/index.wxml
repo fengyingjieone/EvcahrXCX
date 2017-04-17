@@ -1,0 +1,19 @@
+<view class="topBox">
+    <input class="searchInput" placeholder="请输入关键字搜索"  bindinput="searchInput" bindconfirm="searchBtn"/>
+    <view class="searchBtn"  catchtap="searchBtn">搜索</view>
+</view>
+<view class="allBox">
+    <view class="searchPadding"></view>
+    <view class="searchResultList"  wx:for="{{listArray}}"  catchtap="clickItem" id="{{index}}">
+        <view class="searchTop">
+            <view class="searchLeft">{{item.deviceName}}</view>
+            <view class="searchRight">{{item.distance}}km</view>
+        </view>
+        <view class="searchTop"> 
+            <view class="searchBLeft">{{item.address}}</view>
+            <view class="searchBRight">
+                {{item.devstatusTxt}}
+            </view>
+        </view>
+    </view>
+</view>

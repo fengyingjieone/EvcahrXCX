@@ -1,0 +1,122 @@
+<!--index.wxml-->
+<!--无订单 或者多个订单 开始-->
+<view class="topBoxNorder {{orderLength==0||orderLength==3?'':'hide'}}"><!--没有或者多个订单时显示-->
+    <image mode="widthFix" src="noDevice.png" style="width:100%"></image>
+</view>
+<view class="scrollBox {{orderLength==0||orderLength==3?'':'hide'}}">
+    <view class="topBoxNorderMore {{orderLength==0?'':'hide'}}">
+        <text class="noOrderTxt">您没有正在进行的订单</text>
+    </view>
+    <view class="topBoxNorderMore {{orderLength==3?'':'hide'}}">
+        <view class="listBox" wx:for="{{listArray}}"   catchtap="getChargeOrderStatus" id="{{item.orderId}}">
+              <view class="colorGary font16 listTitle"  >{{item.deviceName}}</view>          
+        </view>
+        <!--
+        <view class="listBox">
+              <view class="colorGary font16 listTitle">45687</view>          
+        </view> 
+        -->       
+    </view>
+</view>
+<!--无订单 或者多个订单结束-->
+
+<!--一个正在充电订单 开始-->
+<view class="topBoxNorderone {{orderLength==1?'':'hide'}}">
+    <view class="cirleBox">
+        <view class="cirleCharging">
+            <view>已充电量</view>
+            <view>{{electricity}}kWh</view>
+        </view>
+    </view>
+  <view class="circleListBox">
+      <view class="circleListLeftA">
+          时间
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">{{timee}}</view></view> 
+  </view>  
+  <view class="circleListBox">
+      <view class="circleListLeftB">
+          共享金额
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">{{money}}元</view></view> 
+  </view>
+  <view class="circleListBox">
+      <view class="circleListLeftC">
+          电压
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">{{voltage}}V</view></view> 
+  </view>
+  <view class="circleListBox">
+      <view class="circleListLeftD">
+          功率
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">{{gonglv}}kW</view></view> 
+  </view>
+  <view class="bottomBtn"catchtap="devOff">关闭充电</view>  
+  <view class="bottomBtnTxt">充电结束时，充电费用将自动从余额中结算。</view>
+</view>
+<!--一个正在充电订单 结束-->
+
+<!--一个预约订单 开始-->
+<view class="topBoxNorderone {{orderLength==6?'':'hide'}}">
+    <view class="canvasBox">
+        <view class="circleBox">
+            <canvas class="canvasCss" canvas-id="firstCanvas"></canvas>
+            <view class="circleTxt">
+                <view>预约倒计时</view>
+                <view>{{timeeB}}</view>
+            </view>
+        </view>
+    
+    <!--
+        <view class="cirleCharging">
+            <view>预约倒计时</view>
+            <view>{{timeeB}}</view>
+        </view>
+    -->
+    </view>
+  <view class="circleListBox">
+      <view class="circleListLeftA">
+          时间
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">00:00:00</view></view> 
+  </view>  
+  <view class="circleListBox">
+      <view class="circleListLeftB">
+          共享金额
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">0元</view></view> 
+  </view>
+  <view class="circleListBox">
+      <view class="circleListLeftC">
+          电压
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">221V</view></view> 
+  </view>
+  <view class="circleListBox">
+      <view class="circleListLeftD">
+          功率
+      </view>   
+      <view class="circleListright"><view style="margin-right:30rpx;">0.0kW</view></view> 
+  </view>
+  <view class="bottomBtnBox">
+        <view class="bottomBtn"catchtap="devOn" style="width:40%;">开启充电</view>
+        <view class="bottomBtn"catchtap="cancleOrder" style="width:40%;">取消订单</view>
+  </view>
+  
+  <view class="bottomBtnTxt">充电结束时，充电费用将自动从余额中结算。</view>
+</view>
+
+<!--一个预约订单 结束-->
+
+
+<!--
+<view class="containerIndex">
+  <view class="noOrder">
+    <image mode="widthFix" src="noDevice.png" style="width:100%"></image>
+  </view>
+  <view >
+    <text class="noOrderTxt">您没有正在进行的订单</text>
+  </view>
+</view>
+-->

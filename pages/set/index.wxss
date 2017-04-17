@@ -1,0 +1,85 @@
+/**index.wxss**/
+@import "../images/common.wxss";
+
+.listCut{
+  height: 45rpx;
+}
+.topBox{
+  width:100%;
+  position:fixed; 
+  top: 0px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+.scrollBox{
+  padding-top: 530rpx;
+}
+.cutLine{
+  width:100%;
+  height:24rpx;
+  background-color: #f2f2f2;
+  border-top: 1rpx #d2d2d2 solid;
+  border-bottom: 1rpx #d2d2d2 solid;
+}
+.listBoxB{
+  width:100%;
+  height: 110rpx;
+  display: block;
+  position: relative;
+}
+.listLeftB{
+  width:50%;
+  height: 110rpx;
+  position: absolute;
+  left: 0rpx;
+  top:0rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;  
+  border-bottom: 1rpx #d2d2d2 solid;
+  text-indent:30rpx;
+}
+.listRightB{
+  width:50%;
+  height: 110rpx;
+  position: absolute;
+  right: 0rpx;
+  top:0rpx;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  border-bottom: 1rpx #d2d2d2 solid;  
+}
+
+
+.listBox{
+  width:100%;
+  height: 110rpx;
+  display: flex;
+}
+.listLeft{
+  width:50%;
+  height: 110rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;  
+  border-bottom: 1rpx #d2d2d2 solid;
+  text-indent:30rpx;
+}
+.listTitle{padding: 2rpx 0rpx;}
+.listMoney{padding-right:30rpx;}
+.listRight{
+  width:50%;
+  height: 110rpx;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  border-bottom: 1rpx #d2d2d2 solid;  
+}
+.hide{
+    display:none;    
+}
+

@@ -1,0 +1,219 @@
+/**index.wxss**/
+@import "../images/common.wxss";
+.containerBox{
+  width:100%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  padding-bottom: 25rpx;
+}
+/*轮播图*/
+.loopBox{
+  width:660rpx;
+  height: 265rpx;
+  background-color: #33fff4;
+}
+.slide-image{  
+    width: 100%;  
+    height: 100%;
+}
+/*开放时间*/  
+.openTimeBox{
+  width: 658rpx;
+  height: 139rpx;
+  border-left: 1rpx #d2d2d2 solid;
+  border-right: 1rpx #d2d2d2 solid;
+  border-bottom: 1rpx #d2d2d2 solid;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+.openTimeLeft{
+  width: 220rpx;
+  height: 100%;
+  text-indent: 17rpx;
+  display: flex;
+  align-items: center;
+}
+.openTimeRight{
+  width: 220rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-grow:10;
+  justify-content:flex-end;
+}
+.shareTime{
+  width:230rpx;
+  height: 75rpx;
+  background-color: #3DCAE6;
+  border-radius: 4rpx;
+  margin-right: 17rpx;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  font-size: 32rpx;
+  color: #fff;
+}
+/*详细地址*/
+.addressInfo{
+  width: 658rpx;
+  height: 153rpx;
+  background-color: #fff;
+  margin-top: 25rpx;
+  border: 1rpx #d2d2d2 solid;
+}
+.addressTop{
+  width: 100%;
+  height: 70rpx;
+  border-bottom: 1rpx #d2d2d2 solid;
+  display: flex;
+  align-items: center;
+  text-indent: 18rpx;
+}
+.addressBottom{
+  width: 100%;
+  height: 83rpx;
+  border-bottom: 1rpx #d2d2d2 solid;
+  display: flex;
+  align-items: center;
+  text-indent: 18rpx;
+}
+.addressBottomLeft{
+  height: 100%;
+  text-indent: 0rpx;
+  padding-left:18rpx;
+  display: flex;
+  align-items: center;
+  flex-grow:10;
+  font-size: 28rpx;
+}
+.addressBottomRight{
+  width:215rpx;
+  height: 100%;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+.a1Img{
+  width:25rpx;
+  height: 32rpx;
+}
+/*收费项*/
+.priceBox{
+  width: 658rpx;
+  height: 123rpx;
+  background-color: #fff;
+  margin-top: 25rpx;
+  border: 1rpx #d2d2d2 solid;
+}
+.priceTop{
+  width:100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+}
+.priceTopLeft{
+  width:30%;
+  height: 80rpx;
+  text-indent: 17rpx;
+  display: flex;
+  align-items: center;
+}
+.priceTopRight{
+  height: 80rpx;
+  flex-grow:10;
+  padding-right:17rpx;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+.priceBottom{
+  width:100%;
+  height: 28rpx;
+  color: #9D9D9D;
+  text-indent: 17rpx;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+}
+/*支持车型*/
+.carBox{
+  width: 658rpx;
+  height: 209rpx;
+  background-color: #fff;
+  padding-top:10rpx;
+  margin-top: 25rpx;
+  border: 1rpx #d2d2d2 solid;
+}
+.carTop{
+  width:100%;
+  height: 60rpx;
+  text-indent: 17rpx;
+  border-bottom: 1rpx #d2d2d2 solid;
+  display: flex;
+  align-items: center;
+}
+.carIconBox{
+  width:100%;
+  height: 145rpx;
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}
+.carImg{width:100rpx; height: 71rpx;}
+.cutline{
+  width:660rpx;
+  height: 24rpx;
+  border-bottom: 1rpx #d2d2d2 solid;
+}
+.devListBox{
+  width:658rpx;
+  height: 110rpx;
+  background-color: #fff;
+  border-left: 1rpx #d2d2d2 solid;
+  border-right: 1rpx #d2d2d2 solid;
+  border-bottom: 1rpx #d2d2d2 solid;
+  color: #3DCAE6;
+  display: flex;
+  align-items: center;
+}
+.devLeft{
+  width:243rpx;
+  height: 100%;
+  font-size:26rpx;
+  display: flex;
+  align-items: center;
+  padding-left: 17rpx;
+}
+.devMiddle{
+  width:240rpx;
+  height: 100%;
+  font-size:26rpx;
+  display: flex;
+  align-items: center;
+}
+.devRight{
+  height: 100%;
+  font-size:26rpx;
+  display: flex;
+  align-items: center;
+  flex-grow:10;
+  justify-content:flex-end;
+}
+.devRightBtn{
+  height: 72rpx;
+  width:130rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  margin-right: 17rpx;
+  background-color: #3DCAE6;
+  color: #FFF;
+  border-radius: 4rpx;
+  font-size:26rpx;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}

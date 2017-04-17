@@ -1,0 +1,41 @@
+
+<!--电量币-->
+<view class="topBox">
+    <view class="coinIcon">
+        <image  src="../images/balance.png" class="iconco"></image>
+    </view>
+    <view class="colorBlue">{{totalmoney}}元</view>
+        <view class="btnBox">
+            <view class="exchangeBtn"catchtap="toTixian">每月1日15日提现</view>
+            <view class="exchangeBtn"catchtap="tochongzhi">充  值</view>
+        </view>        
+    <view class="cutLine"></view>
+    <view class="scrollTitle">余额明细</view>
+</view>
+    
+
+<view class="scrollBox" >
+    <view class="listBox" wx:for="{{listArray}}">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">{{item.capitalName}}</view>
+            <view  class="colorGary font14 listTitle">{{item.createTime}}</view>
+        </view>
+        <view class="listRight">
+            <view class="colorGary font16 listMoney" >{{item.capitalType>0?"":"-"}}{{item.amount}}</view>
+        </view>
+    </view>
+    <!--
+    <view class="listBox">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">充电消费</view>
+            <view  class="colorGary font14 listTitle">2017-01-20 16:55</view>
+        </view>
+        <view class="listRight">
+            <view class="colorGary font16 listMoney" >10.34</view>
+        </view>
+    </view>
+    -->               
+</view>
+
+
+

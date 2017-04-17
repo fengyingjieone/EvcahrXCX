@@ -1,0 +1,177 @@
+.allBox{
+  width: 100%; 
+  height: 100vh;
+  display: flex;
+	flex-direction:column;
+}
+
+/*搜索筛选容器*/
+.topBox{
+  width: 100%;
+  height: 96rpx;
+  background-color: #FFF;
+  border-bottom: 1rpx #d2d2d2 solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	flex-grow:0;
+}
+.topBoxLeft{
+  width:39rpx;
+  height: 100%;
+  padding-right: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.topBoxLeftScan{
+  width:39rpx; 
+  height: 39rpx;
+}
+.topBoxRight{
+  width:610rpx;
+  height: 64rpx;
+  border: 1rpx #d2d2d2 solid;
+  border-radius: 32rpx;
+  color: #c4c4c4;
+  display: flex;
+  align-items: center;
+}
+.searchBox{
+  width: 524rpx;
+  height: 66rpx;
+  border-top-left-radius: 32rpx;
+  border-bottom-left-radius: 32rpx;
+  display: flex;
+  align-items: center;
+}
+.searchImg{
+  width: 34rpx;
+  height: 31rpx;
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+}
+.filter{
+  width:85rpx;
+  height: 66rpx;
+  border-left:1rpx #d2d2d2 solid;
+  border-top-right-radius: 32rpx;
+  border-bottom-right-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+.searchFilter{
+  width:16rpx;
+  height: 16rpx;
+}
+/*标注详情容器*/
+.devMiddleinfo{
+  width: 100%;
+  height: 0rpx;
+  display: flex;
+  flex-direction:row;
+  flex-grow:0;
+  background-color: #FFF;
+}
+.fontColor{color: #9D9D9D;}
+.fontColorB{color:#30CAE6;}
+.devMCutLeft{
+  width:600rpx;
+  height:175rpx;  
+  display: flex;  
+	flex-direction:column;
+  justify-content:space-around;
+}
+.devMTitle{
+  width:100%;
+  height: 54rpx;
+  font-size: 26rpx;
+  white-space:nowrap;
+  text-indent: 53rpx;
+  display: flex;
+  align-items: center;
+  }
+  .devMb{
+  width:100%;
+  height: 54rpx;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  }
+.devMbLeft{
+  width:240rpx;
+  height: 100%;  
+  display: flex;
+  align-items: center;  
+  white-space:nowrap;
+}
+.devMbBottomLeft{
+  width:240rpx;
+  height: 100%;  
+  text-indent: 53rpx;
+  display: flex;
+  align-items: center;  
+  white-space:nowrap;
+}
+.oneInfoImg{
+  width:23rpx;
+  height: 29rpx;
+  margin-left: 53rpx;
+  margin-right: 10rpx;
+}
+.devMbMiddle{
+  width:195rpx;
+  border-left:1rpx #d2d2d2 solid;
+  justify-content:center;
+  display: flex;
+  align-items: center;
+  }
+  
+.devMbRight{
+  border-left:1rpx #d2d2d2 solid;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  flex-grow:10;
+}
+.devMbRightB{
+  border-left:1rpx #FFF solid;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  flex-grow:10;
+}
+.devMnowstatus{
+  width:240rpx;
+  height: 100%;
+  text-indent: 53rpx;
+  display: flex;
+  align-items: center;
+}
+.devMCutRight{
+  width: 10rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-justify:center;
+  flex-grow:10;
+  background:url(http://wx.chongdian.club/images/daohaang.png) center center no-repeat; 
+  background-size: 111rpx 111rpx;
+}/*这个是原来导航栏的位置*/
+/*地图容器*/
+.mapBox{
+  width: 100%;
+  display: flex;
+  flex-grow:10;
+  background-color: #33cc99;  
+}
+
+
+/*隐藏元素*/
+.hide{
+    display:none;    
+}
+
+

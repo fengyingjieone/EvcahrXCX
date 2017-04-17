@@ -1,0 +1,39 @@
+
+<!--设置-->
+    
+<view class="cutLine"></view>
+<picker class="listBoxB {{deviceCount?'':'hide'}}" bindchange="bindPickerChange" value="0" range="{{array}}">
+        <view class="listLeftB">
+            <view class="colorGary font16 listTitle">切换充电桩</view>
+        </view>
+        <view class="listRightB">
+            <view class="colorGary font16 listMoney" >
+                {{devName}} >
+            </view>
+        </view>
+</picker>
+<view class="listBox">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">客服电话</view>
+        </view>
+        <view class="listRight" catchtap="dophone">
+            <view class="colorGary font16 listMoney" >
+                400-756-9360
+            </view>
+        </view>
+</view>
+<view class="listBox" catchtap="toAboutUs">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">关于我们</view>
+        </view>
+        <view class="listRight">
+            <view class="colorGary font16 listMoney" >
+                >
+            </view>
+        </view>
+</view>
+
+
+
+
+

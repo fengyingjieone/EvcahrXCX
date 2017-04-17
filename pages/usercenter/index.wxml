@@ -1,0 +1,85 @@
+
+<!-- 下面是注册页面-->
+<view class="containerIndex">
+<!--用户头像-->
+	<view class="userBox" catchtap="toSet">
+		<view class="userPhoto">
+			<image  src="{{userInfo.avatarUrl}}" style="width:120rpx; height:120rpx"></image>
+		</view>
+		<view class="userName"> {{ userNickName }}</view>
+		<view class="userArrow"><image src="../images/userCenterArrow.png" style="width:18rpx; height:32rpx"></image></view>
+		<!--<view class="userTel">15088709969</view>-->
+	</view>
+	<!--分割线-->
+	<view class="cutLine"></view>
+	<view class="cutListBox {{owner?'':'hide'}}">
+		<view class="cutListLeft">
+			<image  src="../images/powerIcon.png" mode="widthFix" class="icon"></image>
+			<view>开关</view>
+		</view>
+		<view class="powerBtn">
+			<view class="colorGary notOnline"> {{disonlineTxt}} </view>
+			<switch disabled="{{disonline}}" checked="{{powerState}}" bindchange="powerOn_Off" color="#3DCAE6" />
+		</view>	
+	</view>
+	<view class="cutListBox {{owner?'':'hide'}}">
+		<view class="cutListLeft">
+			<image  src="../images/gongLv.png" mode="widthFix" class="icon"></image>
+			<view>可调功率</view>
+		</view>
+		<view class="powerBtn">
+			<view class="colorGary notOnline"> {{disonlineTxtB}} </view>
+			<switch disabled="{{disonline}}" checked="{{capacityStatus==1?true:false}}"  bindchange="gongLvOn_Off" color="#3DCAE6" />
+		</view>	
+	</view>
+	<view class="cutListBox {{owner?'':'hide'}}">
+		<view class="cutListLeft">
+			<image  src="../images/banjiadian.png" mode="widthFix" class="icon"></image>
+			<view>半价电</view>
+		</view>
+		<view class="powerBtn">
+			<switch  disabled="{{disonlineB}}" checked="{{VhalfTime}}"  bindchange="halfP" color="#3DCAE6" />
+		</view>	
+	</view>
+	<view class="cutListBox {{owner?'':'hide'}}">
+		<view class="cutListLeft">
+			<image  src="../images/gongxiang.png" mode="widthFix" class="icon"></image>
+			<view>共享</view>
+		</view>
+		<view class="powerBtn">
+			<switch  disabled="{{disonlineB}}"  checked="{{VshareTime}}" bindchange="shareT"  color="#3DCAE6" />
+		</view>	
+	</view>
+	<view class="cutListBox">
+		<view class="cutListLeft">
+			<image  src="../images/wallet.png" mode="widthFix" class="icon"></image>
+			<view>我的钱包</view>
+		</view>
+		<view class="powerBtn"  catchtap="toWallet">
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>
+	<view class="cutListBox {{incomeFlag?'':'hide'}}">
+		<view class="cutListLeft">
+			<image  src="../images/shouYi.png" mode="widthFix" class="icon"></image>
+			<view>收益查看</view>
+		</view>
+		<view class="powerBtn" catchtap="toIncome">
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>
+	<view class="cutListBox">
+		<view class="cutListLeft">
+			<image  src="../images/dingDan.png" mode="widthFix" class="icon"></image>
+			<view>我的订单</view>
+		</view>
+		<view class="powerBtn" catchtap="toHistoryorder">
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>
+</view>
+
+
+
+
+

@@ -1,0 +1,53 @@
+
+<view class="allBox">
+    <view class="titleTxt">设备状态</view>
+    <view class="ListBox">
+        <view class="ListCut1 {{ListCutBgStatusA?'ListCutOn':'ListCutOff'}}" id="ListCutBgStatusA" catchtap="devStatrs">
+        <image  src="{{StatusImgA}}" class="statusImg"></image>
+            全部
+        </view>
+        <view class="ListCut4 {{ListCutBgStatusD?'ListCutOn':'ListCutOff'}}" id="ListCutBgStatusD" catchtap="devStatrs">
+            <image  src="{{StatusImgB}}" class="statusImg"></image>
+            可用
+        </view>
+        <view class="ListCut5"></view>
+        <view class="ListCut5"></view>
+    </view>
+    <view class="titleTxt">设备类型</view>
+    <view class="ListBox">
+        <view class="ListCut2 {{ListCutBgTypeB?'ListCutOn':'ListCutOff'}}" id="ListCutBgTypeB" catchtap="devStatrs">公共</view>
+        <view class="ListCut1 {{ListCutBgTypeA?'ListCutOn':'ListCutOff'}}" id="ListCutBgTypeA" catchtap="devStatrs">个人</view>        
+        <view class="ListCut5"></view>
+        <view class="ListCut5"></view>
+    </view>
+    <!--
+    <view class="titleTxt">充电桩距离</view>
+    <view class="ListBox">
+        <view class="ListCut1 {{ListCutBgDistanceA?'ListCutOn':'ListCutOff'}}" id="ListCutBgDistanceA" catchtap="devStatrs">5KM</view>
+        <view class="ListCut2 {{ListCutBgDistanceB?'ListCutOn':'ListCutOff'}}" id="ListCutBgDistanceB" catchtap="devStatrs">10KM</view>
+        <view class="ListCut3 {{ListCutBgDistanceC?'ListCutOn':'ListCutOff'}}" id="ListCutBgDistanceC" catchtap="devStatrs">50KM</view>
+        <view class="ListCut4 {{ListCutBgDistanceD?'ListCutOn':'ListCutOff'}}" id="ListCutBgDistanceD" catchtap="devStatrs">全部</view>
+    </view>
+    -->
+    <view class="tixianBtn" catchtap="filterBtn">确定</view>
+
+
+
+    <checkbox-group class="group" bindchange="checkboxChange">
+        <view class="label-1" wx:for="{{checkboxItems}}">
+            <label>
+                <checkbox hidden value="{{item.name}}" checked="{{item.checked}}"></checkbox>
+                <view class="label-1__icon">
+                    <view class="label-1__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view>
+                </view>
+                <text class="label-1__text">{{item.value}}</text>
+            </label>
+        </view>
+    </checkbox-group>
+
+
+
+
+</view>
+
+

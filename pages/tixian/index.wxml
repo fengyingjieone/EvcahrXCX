@@ -1,0 +1,54 @@
+
+<!--设置-->
+    
+<view class="cutLine"></view>
+<view class="cutBox">
+     <view class="cutBoxleft"> 姓 名 :</view>
+     <view class="cutBoxright">
+        <input  placeholder="请输入提现人姓名" class="inputcss" bindblur="getUsername"/>
+     </view>
+</view>
+<view class="cutBox">
+     <view class="cutBoxleft"> 卡 号 :</view>
+     <view class="cutBoxright">
+        <input  placeholder="请输入提现人卡号" class="inputcss" bindblur="getBankid"/>
+     </view>
+</view>
+<view class="cutBox">
+     <view class="cutBoxleft"> 银 行 :</view>
+     <view class="cutBoxright">
+        <input  placeholder="例如：中国银行上海分行西康路支行" class="inputcss" bindblur="getBankname"/>
+     </view>
+</view>
+<view class="cutLine"></view>
+<view class="cutBox">
+     <view class="cutBoxleftB">提现金额:</view>
+     <view class="cutBoxright">
+        <input class="inputcss" bindblur="getBankmoney"/>
+     </view>
+</view>
+<view class="tishi">
+	账户可用余额：{{totalmoney}}元
+</view>
+
+<view class="tishiB">十个工作日内到账</view>
+<view class="tixianBox">
+    <view class="tixianBtn" catchtap="tiXian">提现</view>
+</view>
+<view class="tixianBox">
+    <view class="tixianTxt">
+        <view class="tixianTxtPadding">说明：</view>
+        <view class="tixianTxtPadding">1、每月1号15号可以提现</view>
+        <view class="tixianTxtPadding">2、余额少于50不能提现</view>
+        <view class="tixianTxtPadding">3、申请成功后10个工作日内到账</view>
+        <view class="tixianTxtPadding">提现需提交完善信息（姓名、卡号、银行开户行支行信息）</view>
+        <view class="tixianTxtPadding">示例：张三</view>
+        <view class="tixianTxtPadding">卡号：66563785672678829</view>
+        <view class="tixianTxtPadding">开户行：中国银行上海分行西康路支行 </view>
+    </view>
+</view>
+
+
+
+
+

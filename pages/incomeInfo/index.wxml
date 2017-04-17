@@ -1,0 +1,43 @@
+
+<!--收益查看-->
+
+<view class="topBox">
+	<view class="titleTxt centerA" >{{deviceName}}</view>
+	<view class="btnBox centerB">
+		<view class="btnLeft centerA font16 {{dayMnth?'backColor':''}}" catchtap="dayIncome">每日收益</view>
+		<view class="btnRight centerA font16 {{dayMnth?'':'backColor'}}" catchtap="monthIncome">每月收益</view>
+	</view>
+	<view class="cutLine"></view>
+</view>
+
+
+
+<view class="scrollBox">
+	<view class="cutListBox" wx:for="{{listArray}}">
+		<view class="cutListLeft">
+			<view class="{{dayMnth?'':'hide'}}">{{item.day}}</view>
+            <view class="{{dayMnth?'hide':''}}">{{item.month}}</view>
+		</view>
+		<view class="powerBtn" catchtap="toIncomeInfo">
+			<view style="margin-right:30rpx;">{{item.totalDegree}}元</view>
+			<!--<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>-->
+		</view>	
+	</view>
+	<!--
+	<view class="cutListBox">
+		<view class="cutListLeft">
+			<view>2017-01-31</view>
+		</view>
+		<view class="powerBtn" catchtap="toIncomeInfo">
+		23元
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>
+	-->
+	   
+</view>
+
+
+
+
+

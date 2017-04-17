@@ -1,0 +1,23 @@
+
+<!--关于我们-->
+<view class="contentBox">
+    <view class="titleTxt">惠充电</view>
+    <view class="contentInfo">让充电像呼吸一样轻松！</view>
+    <view class="contentInfoB">
+        惠充电拥有强大的软硬云三端核心技术、产品、平台研发创新及商业模式落地能力，提倡共享充电：以产品、平台、云服务、社群、运维、共享充电的方式解决新能源车企、商业地产、政府、充电运营商及车主充电难的问题，通过本平台可实现居住地、工作地、目的地充电桩的查询、预约、充电、支付等便捷功能。让充电更方便、驾驶更愉快、世界更环保。
+    </view>
+    <view class="contentInfoB">
+        专业从事新能源汽车智能充电桩研发、生产、销售、运营及新能源汽车销售的新创企业，致力于为新能源汽车制造商、新能源汽车车主、充电设施运营商提供完整的充电设备、充电系统、充电平台以及充电运营增值服务等整体解决方案。
+    </view>
+    <view>
+        <image src="../images/Catch2.jpg" style="width:280rpx; height:280rpx;"></image>
+    </view>
+    <view class="contentInfoBttom">当前版本号2.0</view>
+    <view class="contentInfoBttomB"  catchtap="toxieyi">服务协议</view>
+</view>
+
+
+
+
+
+

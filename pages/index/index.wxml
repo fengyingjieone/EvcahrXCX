@@ -1,0 +1,53 @@
+<view class="allBox">
+	<view class="topBox">
+		<view class="topBoxLeft" catchtap="scan">
+			<image  src="../images/sacan.png" class="topBoxLeftScan"></image>
+		</view>
+		<view class="topBoxRight">
+			<view class="searchBox" catchtap="toSearch">
+				<image  src="../images/search.png" class="searchImg"></image>
+				{{searchStr}}
+			</view>	
+			<view class="filter" catchtap="toFilter">
+				<image  src="{{filterImg}}" class="searchImg"></image>
+			</view>		
+		</view>
+	</view>
+	<!--标注详情开始-->
+	<view class="devMiddleinfo" animation="{{animationDataVa}}">
+		<view class="devMCutLeft">
+			<view class="devMTitle">{{OneDevName}}</view>
+			<view class="devMb fontColor">
+				<view class="devMbLeft">
+					<image  src="../images/oneInfoImg.png" class="oneInfoImg"></image>{{oneDevDistance}}km
+				</view>
+				<view class="devMbMiddle">共<text class="fontColorB">{{ONeDevCount}}</text>个充电桩</view>
+				<view class="devMbRight fontColorB" catchtap="toDevInfo" id="{{OneDevId}}||{{oneDevDistance}}">点击查看详情</view>
+			</view>
+			<view class="devMb">
+				<view class="devMbBottomLeft" catchtap="toRoute">
+					当前状态
+				</view>
+				<view class="devMbMiddle fontColorB">{{OneDevStatus}}</view>
+				<view class="devMbRightB" >点击查看详情</view>
+			</view>			
+		</view>
+		<view class="devMCutRight" catchtap="openMap"></view>
+	</view>
+	<!--标注详情开始-->
+
+	<map class="mapBox" id="map" longitude="{{Vlongitude}}" latitude="{{Vlatitude}}" scale="12" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location  bindtap="handleTap1" bindregionchange="fcc"></map>
+
+</view>
+
+<!--
+<view class="devMiddleinfo {{hideFlagg?'hide':''}}" animation="{{animationData}}"></view>
+<view class="infoMask  {{hideFlag?'hide':''}}" catchtap="toHide"></view>
+	<map  class="mapBox" id="map" longitude="{{Mlongitude}}" latitude="{{Mlatitude}}" scale="11" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location ></map>
+	
+<view animation="{{animationData}}" class="infoMiddle"></view>
+
+	<map id="map" longitude="120.324520" latitude="29.899994" scale="8" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location class="mapBox"></map>
+-->
+
+

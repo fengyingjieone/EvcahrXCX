@@ -1,0 +1,175 @@
+.allBox{
+  width: 100%; 
+  display: flex;
+	flex-direction:column;
+  align-items: center;
+}
+.titleTxt{
+  width:100%;
+  height: 66rpx;
+  margin-top: 15rpx;
+  display: flex;
+  align-items: center;
+  text-indent: 32rpx;
+}
+.ListBox{
+  width:100%;
+  height: 120rpx;
+  font-size:28rpx;
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+}
+.ListCutOn{
+  background:url(https://wx.chongdian.club/images/sxStateOn.png);
+}
+.ListCutOff{
+  background:url(https://wx.chongdian.club/images/sxStateOff.png);
+}
+.ListCut1{
+  width:140rpx;
+  height: 120rpx;
+  font-size:28rpx;
+
+
+  background-color: #eaeaea;
+  background-position-x: right;
+  background-position-y: top;
+  background-size: 32rpx 32rpx;
+  background-repeat: no-repeat;
+
+
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+}
+.ListCut2{
+  width:140rpx;
+  height: 120rpx;
+
+  background-color: #eaeaea;
+  background-position-x: right;
+  background-position-y: top;
+  background-size: 32rpx 32rpx;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+}
+.ListCut3{
+  width:140rpx;
+  height: 120rpx;
+
+  background-color: #eaeaea;
+  background-position-x: right;
+  background-position-y: top;
+  background-size: 32rpx 32rpx;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+}
+.ListCut4{
+  width:140rpx;
+  height: 120rpx;
+  background-color: #eaeaea;
+  background-position-x: right;
+  background-position-y: top;
+  background-size: 32rpx 32rpx;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+}
+.ListCut5{
+  width:140rpx;
+  height: 120rpx;
+  background-position-x: right;
+  background-position-y: top;
+  background-size: 32rpx 32rpx;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+}
+
+
+.tixianBtn{
+  width:580rpx;
+  height: 80rpx;
+  background-color: #30CAE6;
+  border-radius: 4rpx;
+  color: #fff;
+  margin-top:92rpx;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+.statusImg{
+  width:43rpx;
+  height: 55rpx;
+  margin-bottom: 6rpx;
+}
+
+
+
+
+.label-1, .label-2{
+    margin-bottom: 15px;
+}
+.label-1__text, .label-2__text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.label-1__icon {
+    position: relative;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    background: #fcfff4;
+}
+
+.label-1__icon-checked {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 12px;
+    height: 12px;
+    background: #1aad19;
+}
+
+
+.label-2__icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    background: #fcfff4;
+    border-radius: 50px;
+}
+
+.label-2__icon-checked {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 12px;
+    height: 12px;
+    background: #1aad19;
+    border-radius: 50%;
+}
+
+.label-4_text{
+    text-align: center;
+    margin-top: 15px;
+}

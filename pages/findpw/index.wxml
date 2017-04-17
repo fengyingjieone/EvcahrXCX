@@ -1,0 +1,21 @@
+
+<!-- 下面是注册页面-->
+<view class="register-box">	
+  <view class="mobileInput">
+		<input  placeholder="请输入手机号" bindblur="userMobile" type="number" value="{{defaultTel}}"  focus="{{inputStatus}}" class="inputcss"/>
+	</view>
+	<view class="mobileInputB">
+		<input  placeholder="请输入新密码" password   bindblur="userPW" value="{{defaultPwd}}" focus="{{inputStatus}}" class="inputcss"/>
+	</view>
+	<view class="mobileInputB">
+		<input  placeholder="请输入验证码" class="mobileInput" value="{{defaulSms}}" focus="{{inputStatus}}" bindblur="userSms" class="inputcss"/>		
+	</view>
+  
+	  <view class="btn-area">
+		<button class="getSms" disabled="{{btnstatus}}"  catchtap="findpwInputErr">{{leftBtn}}</button>
+		<button class="find" catchtap="findpwBtnInputErr">重置密码</button>
+	  </view>
+</view>
+
+
+
