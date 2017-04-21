@@ -78,7 +78,7 @@ Page({
         console.log("appkey"+wx.getStorageSync('evcharAppkey'))
         console.log("mobile"+tel)
         wx.request({
-            url: 'https://wx.chongdian.club/userNameLoginAndRegister.php',//找回密码和注册以及发短信
+            url: app.getHostURL()+'/userNameLoginAndRegister.php',//找回密码和注册以及发短信
             method:'POST',
             data: {
               'evUrl':'/sms/verifycode/fetch',
@@ -145,7 +145,7 @@ Page({
           return;
       }
       wx.request({
-          url: 'https://wx.chongdian.club/userNameLoginAndRegister.php',//php上固定地址
+          url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
           method:'POST',
           data: {
             'evUrl':'/user/regist',

@@ -30,7 +30,7 @@ Page({
       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceId":'+onDevInfo[0]+'}');
       console.log('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceId":'+onDevInfo[0]+'}')
       wx.request({
-          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+          url: app.getHostURL()+'/getData.php',//php上固定地址
           method:'POST',
           data: {
               'evUrl':'/device/listDeviceAllDetail',
@@ -121,7 +121,7 @@ Page({
         console.log("头部信息"+evheader)
 
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/capital/listUserCapitals',
@@ -162,7 +162,7 @@ yuYue:function(e)
                   
                     var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceSn":"'+DevsnInfo[0]+'","openType":"2"}');
                     wx.request({
-                        url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                        url: app.getHostURL()+'/getData.php',//php上固定地址
                         method:'POST',
                         data: {
                             'evUrl':'/order/makeChargeOrder',
@@ -215,7 +215,7 @@ yuYue:function(e)
           var sn= (res.result).substr((res.result).indexOf("sn=")+3);           
           var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceSn":"'+sn+'","openType":"3"}');
           wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                     'evUrl':'/order/makeChargeOrder',
@@ -237,7 +237,7 @@ yuYue:function(e)
                       var that = this;    
                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+sn+'"}');
                       wx.request({
-                        url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                        url: app.getHostURL()+'/getData.php',//php上固定地址
                         method:'POST',
                         data: {
                           'evUrl':'/device/checkIsCharging',

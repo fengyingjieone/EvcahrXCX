@@ -58,7 +58,7 @@ Page({
         console.log(evheader)
 
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/usercenter/getUserCenterInfo',
@@ -187,7 +187,7 @@ Page({
           }) 
           var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","appId":1002,"deviceSn":"'+defaultSn+'","openType":1}');
           wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                 'evUrl':'/order/makeChargeOrder',
@@ -222,7 +222,7 @@ Page({
      
                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
                       wx.request({
-                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                          url: app.getHostURL()+'/getData.php',//php上固定地址
                           method:'POST',
                           data: {
                               'evUrl':'/device/checkIsCharging',
@@ -249,7 +249,7 @@ Page({
                                       console.log("第二次")
                                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
                                       wx.request({
-                                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                                          url: app.getHostURL()+'/getData.php',//php上固定地址
                                           method:'POST',
                                           data: {
                                               'evUrl':'/device/checkIsCharging',
@@ -276,7 +276,7 @@ Page({
                                                       console.log("第三次")
                                                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
                                                       wx.request({
-                                                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                                                          url: app.getHostURL()+'/getData.php',//php上固定地址
                                                           method:'POST',
                                                           data: {
                                                               'evUrl':'/device/checkIsCharging',
@@ -376,7 +376,7 @@ Page({
           var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceId":"'+defaultDeviceid+'"}');
           console.log(evheader)
           wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                 'evUrl':'/device/operateOff',
@@ -410,7 +410,7 @@ Page({
                       console.log("第a1次")
                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
                       wx.request({
-                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                          url: app.getHostURL()+'/getData.php',//php上固定地址
                           method:'POST',
                           data: {
                               'evUrl':'/device/checkIsCharging',
@@ -436,7 +436,7 @@ Page({
                                       console.log("第a2次")
                                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
                                       wx.request({
-                                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                                          url: app.getHostURL()+'/getData.php',//php上固定地址
                                           method:'POST',
                                           data: {
                                               'evUrl':'/device/checkIsCharging',
@@ -462,7 +462,7 @@ Page({
                                                       console.log("第a3次")
                                                       var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
                                                       wx.request({
-                                                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                                                          url: app.getHostURL()+'/getData.php',//php上固定地址
                                                           method:'POST',
                                                           data: {
                                                               'evUrl':'/device/checkIsCharging',
@@ -561,7 +561,7 @@ Page({
       {
           var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceId":"'+defaultDeviceid+'","capacity":2}');
           wx.request({
-            url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+            url: app.getHostURL()+'/getData.php',//php上固定地址
             method:'POST',
             data: {
               'evUrl':'/device/capacity',
@@ -596,7 +596,7 @@ Page({
                   setIntervalClockGLHeight=setInterval(function(){
                       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceSn":"'+defaultSn+'"}');
                       wx.request({
-                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                          url: app.getHostURL()+'/getData.php',//php上固定地址
                           method:'POST',
                           data: {
                               'evUrl':'/device/getDeviceCapacity',
@@ -671,7 +671,7 @@ Page({
       {
           var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceId":"'+defaultDeviceid+'","capacity":1}');
           wx.request({
-            url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+            url: app.getHostURL()+'/getData.php',//php上固定地址
             method:'POST',
             data: {
               'evUrl':'/device/capacity',
@@ -705,7 +705,7 @@ Page({
                   setIntervalClockGLLow=setInterval(function(){
                       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceSn":"'+defaultSn+'"}');
                       wx.request({
-                          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                          url: app.getHostURL()+'/getData.php',//php上固定地址
                           method:'POST',
                           data: {
                               'evUrl':'/device/getDeviceCapacity',
@@ -792,7 +792,7 @@ Page({
             })
             var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","openType":2,"deviceId":"'+defaultDeviceid+'"}');
             wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                 'evUrl':'/device/closeTime',
@@ -840,7 +840,7 @@ Page({
             })
             var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","openType":2,"deviceId":"'+defaultDeviceid+'"}');
             wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                 'evUrl':'/device/openTime',
@@ -908,7 +908,7 @@ Page({
             })
             var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","openType":1,"deviceId":"'+defaultDeviceid+'"}');
             wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                 'evUrl':'/device/closeTime',
@@ -957,7 +957,7 @@ Page({
             })
             var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","openType":1,"deviceId":"'+defaultDeviceid+'"}');
             wx.request({
-              url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+              url: app.getHostURL()+'/getData.php',//php上固定地址
               method:'POST',
               data: {
                 'evUrl':'/device/openTime',
@@ -1013,7 +1013,7 @@ onShareAppMessage: function () { 
     checkIsChargingReturn:function(){
         var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+defaultSn+'"}');
         wx.request({
-            url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+            url: app.getHostURL()+'/getData.php',//php上固定地址
             method:'POST',
             data: {
                 'evUrl':'/device/checkIsCharging',

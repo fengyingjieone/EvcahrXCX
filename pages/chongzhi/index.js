@@ -6,7 +6,7 @@ Page({
   {
       var evheader=app.EvcharHeader('{"money":5000,"type":3,"bizType":1,"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
       wx.request({
-          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+          url: app.getHostURL()+'/getData.php',//php上固定地址
           method:'POST',
           data: {
             'evUrl':'/order/weixin/makeRechargeOrder',
@@ -57,7 +57,7 @@ Page({
   {
       var evheader=app.EvcharHeader('{"money":10000,"type":3,"bizType":1,"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
       wx.request({
-          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+          url: app.getHostURL()+'/getData.php',//php上固定地址
           method:'POST',
           data: {
             'evUrl':'/order/weixin/makeRechargeOrder',
@@ -109,7 +109,7 @@ Page({
   {
       var evheader=app.EvcharHeader('{"money":20000,"type":3,"bizType":1,"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
       wx.request({
-          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+          url: app.getHostURL()+'/getData.php',//php上固定地址
           method:'POST',
           data: {
             'evUrl':'/order/weixin/makeRechargeOrder',
@@ -161,7 +161,7 @@ Page({
   {
       var evheader=app.EvcharHeader('{"money":50000,"type":3,"bizType":1,"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
       wx.request({
-          url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+          url: app.getHostURL()+'/getData.php',//php上固定地址
           method:'POST',
           data: {
             'evUrl':'/order/weixin/makeRechargeOrder',

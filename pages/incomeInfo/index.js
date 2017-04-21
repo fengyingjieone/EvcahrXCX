@@ -24,7 +24,7 @@ Page({
         var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceId":"'+stationId+'","pageNum":1,"pageSize":45}');
         console.log("头部信息"+evheader);
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/order/vPIcomeByDay',
@@ -60,7 +60,7 @@ Page({
       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceId":"'+stationId+'","pageNum":1,"pageSize":45}');
         console.log("头部信息"+evheader);
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/order/vPIcomeByDay',
@@ -94,7 +94,7 @@ Page({
       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","deviceId":"'+stationId+'","pageNum":1,"pageSize":45}');
         console.log("头部信息"+evheader);
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/order/vPIcomeByMonth',
