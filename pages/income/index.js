@@ -17,7 +17,7 @@ Page({
     var that=this;
     var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/capital/getUserIncomeTotalAndYes',
@@ -40,7 +40,7 @@ Page({
               })//昨日收益 总收益
               var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
               wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/device/listUserChargeStations',
@@ -63,7 +63,7 @@ Page({
               })//充电点列表
       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/capital/listUserIncome',

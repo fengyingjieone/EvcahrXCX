@@ -15,7 +15,7 @@ Page({
       var that=this;
         var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","pageNum":1,"pageSize":45}');
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/order/listOrdersApp',
@@ -44,7 +44,7 @@ Page({
           //下面是折线图
         var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'"}');
         wx.request({
-                url: 'https://wx.chongdian.club/getData.php',//php上固定地址
+                url: app.getHostURL()+'/getData.php',//php上固定地址
                 method:'POST',
                 data: {
                   'evUrl':'/order/listUserDegreeByDay',
