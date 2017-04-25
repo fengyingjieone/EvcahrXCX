@@ -158,6 +158,13 @@ Page({
                   lineStyle: 'straight'//straight 直线 curve 曲线
               }
           }); 
+  },onShow:function()
+  {
+    var that=this;
+    var res = wx.getSystemInfoSync()
+    that.setData({
+          scrollHeight:res.windowHeight-250
+    })
   },
   onShareAppMessage: function () { 
     return { 

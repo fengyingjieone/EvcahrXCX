@@ -1,7 +1,16 @@
-
 <!--下面是已有账号登陆-->
 <view class="containerIndex" style="height:100vh" >
 	<view class="cutListBox" style="border-top: 1px #d2d2d2 solid">
+		<view class="cutListLeft">
+			<image  src="../images/balanceIcon.png" mode="widthFix" class="icon"></image>
+			<view>余额</view>
+		</view>
+		<view class="powerBtn" catchtap="toBalance">
+			<view class="font14">{{money}}元</view>
+			<image src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>			
+		</view>	
+	</view>
+	<view class="cutListBox">
 		<view class="cutListLeft">
 			<image  src="../images/batteryIcon.png" mode="widthFix" class="icon"></image>
 			<view>电量币</view>
@@ -21,20 +30,11 @@
 			<image src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>			
 		</view>	
 	</view>
-	<view class="cutListBox">
-		<view class="cutListLeft">
-			<image  src="../images/balanceIcon.png" mode="widthFix" class="icon"></image>
-			<view>我的余额</view>
-		</view>
-		<view class="powerBtn" catchtap="toBalance">
-			<view class="font14">{{money}}元</view>
-			<image src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>			
-		</view>	
-	</view>
+	
 	<view class="notesBox">
 		<view class="notLine">1、电量币充值后只可做充电消费，不可提现，没有有效期。</view>
 		<view class="notLine">2、优惠券即惠充电做活动赠送，建议在有效期内使用。</view>
-		<view class="notLine">3、我的余额即用户现金充值账户，可做充电消费，可提现。</view>
+		<view class="notLine">3、余额即用户现金充值账户，可做充电消费，可提现。</view>
 		<view class="notLine">4、提现：每月1日15日为提现日，提现需提交完善信息（姓名、卡号、银行开户行支行信息）</view>
 		<view class="notesTxt notLine">示例：张三</view>
 		<view class="notesTxt notLine">卡号：66563785672678829</view>
@@ -42,8 +42,3 @@
 		<view class="notesBottomTxt notLine">注：余额大于 50 元即可提现，低于 50 元无法充电。</view>
 	</view>
 </view>
-
-
-
-
-

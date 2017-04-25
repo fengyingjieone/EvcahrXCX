@@ -7,7 +7,7 @@
             <image  src="../images/moneyIcon.png" class="iconco"></image>
         </view>
         <view class="colorBlue">{{totalBatteryCoin}}个</view>
-        <view class="exchangeBtn"catchtap="toRechargeCoin">兑  换</view>
+        <view class="exchangeBtn"catchtap="toRechargeCoin">电量币充值</view>
         <view class="cutLine"></view>
         <view class="scrollTitle">余额明细</view>
     </view>

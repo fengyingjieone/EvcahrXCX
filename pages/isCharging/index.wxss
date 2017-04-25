@@ -68,12 +68,22 @@
 }
 .cirleBox{
   width:100%; 
-  height:500rpx; 
-  background:url(https://wx.chongdian.club/images/circleBottom.png) left bottom #3DCAE6 no-repeat; 
+  height:430rpx; 
+  background:url(https://wxtt.evchar.cn/images/circleBottom.png) left bottom #3DCAE6 no-repeat; 
   background-size:100% auto;
   padding-top: 40rpx;
   display: flex;
-  flex-direction: row;
+  flex-direction:column;
+  align-items: center;
+  justify-content:flex-start;
+  }
+.deviecTitle{
+  width:100%;
+  height: 86rpx; 
+  border-top: 1rpx #d2d2d2 solid;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
   justify-content: center;
   }
     /*充电圆环*/
@@ -82,7 +92,7 @@
   height:314rpx; 
   border-radius:158rpx;
   border:1rpx #fff solid;
-  background:url(https://wx.chongdian.club/images/aa.gif) center 40px no-repeat; 
+  background:url(https://wxtt.evchar.cn/images/aa.gif) center 40px no-repeat; 
   background-size:360rpx 380rpx; 
   display: flex;
   flex-direction: column;
@@ -99,7 +109,7 @@
 .circleListLeftA{
   width:50%;
   height: 100%;
-  background:url(https://wx.chongdian.club/images/clock.png) 30rpx 12rpx no-repeat; 
+  background:url(https://wxtt.evchar.cn/images/clock.png) 30rpx 12rpx no-repeat; 
   background-size: 60rpx auto;
   text-indent: 100rpx;
   display: flex;
@@ -109,7 +119,7 @@
 .circleListLeftB{
   width:50%;
   height: 100%;
-  background:url(https://wx.chongdian.club/images/clock.png) 30rpx -105rpx no-repeat; 
+  background:url(https://wxtt.evchar.cn/images/clock.png) 30rpx -105rpx no-repeat; 
   background-size: 60rpx auto;
   text-indent: 100rpx;
   display: flex;
@@ -119,7 +129,7 @@
 .circleListLeftC{
   width:50%;
   height: 100%;
-  background:url(https://wx.chongdian.club/images/clock.png) 30rpx -225rpx no-repeat; 
+  background:url(https://wxtt.evchar.cn/images/clock.png) 30rpx -225rpx no-repeat; 
   background-size: 60rpx auto;
   text-indent: 100rpx;
   display: flex;
@@ -129,7 +139,7 @@
 .circleListLeftD{
   width:50%;
   height: 100%;
-  background:url(https://wx.chongdian.club/images/clock.png) 30rpx -345rpx no-repeat; 
+  background:url(https://wxtt.evchar.cn/images/clock.png) 30rpx -345rpx no-repeat; 
   background-size: 60rpx auto;
   text-indent: 100rpx;
   display: flex;
@@ -209,8 +219,8 @@
 /*预约动画*/
 .canvasBox{
   width:100%; 
-  height:500rpx; 
-  background:url(https://wx.chongdian.club/images/circleBottom.png) left bottom #3DCAE6 no-repeat; 
+  height:430rpx; 
+  background:url(https://wxtt.evchar.cn/images/circleBottom.png) left bottom #3DCAE6 no-repeat; 
   background-size:100% auto;
   padding-top: 40rpx;
   display: flex;

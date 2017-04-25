@@ -628,19 +628,27 @@ function getYAxisTextList(series, opts, config) {
     var eachRange = (maxRange - minRange) / config.yAxisSplit;
 
     for (var i = 0; i <= config.yAxisSplit; i++) {
-        range.push(minRange + eachRange * i);
+        range.push(eachRange * i);
     }
     return range.reverse();
 }
 
 function calYAxisData(series, opts, config) {
-
-    var ranges = getYAxisTextList(series, opts, config);
+    // console.log("探索y轴刻度是怎么来的")
+    // console.log("参数series")
+    // console.log(series)
+    // console.log("参数opts")
+    // console.log(opts)
+    // console.log("参数config")
+    // console.log(config)
+    var ranges = getYAxisTextList(series, opts, config);//运行了这个方法
     var yAxisWidth = config.yAxisWidth;
     var rangesFormat = ranges.map(function (item) {
         item = util.toFixed(item, 2);
         item = opts.yAxis.format ? opts.yAxis.format(Number(item)) : item;
         yAxisWidth = Math.max(yAxisWidth, measureText(item) + 5);
+        //console.log("AAA")
+        //console.log(item)
         return item;
     });
     if (opts.yAxis.disabled === true) {
@@ -962,6 +970,7 @@ function drawToolTip(textList, offset, opts, config, context) {
     context.closePath();
 }
 
+//冯营杰 y轴标题
 function drawYAxisTitle(title, opts, config, context) {
     var startX = config.xAxisHeight + (opts.height - config.xAxisHeight - measureText(title)) / 2;
     context.save();
@@ -1051,7 +1060,7 @@ function drawAreaDataPoints(series, opts, config, context) {
             // 绘制区域数据
             context.beginPath();
             context.setStrokeStyle(eachSeries.color);
-            context.setFillStyle(eachSeries.color);
+            context.setFillStyle('#3DCAE6');
             context.setGlobalAlpha(0.6);
             context.setLineWidth(2);
             if (points.length > 1) {
@@ -1060,13 +1069,25 @@ function drawAreaDataPoints(series, opts, config, context) {
 
                 context.moveTo(firstPoint.x, firstPoint.y);
                 if (opts.extra.lineStyle === 'curve') {
+                    var start_Y=firstPoint.y;//起始点坐标
+                    var start_X=firstPoint.x;//起始点坐标    冯营杰                  
                     points.forEach(function (item, index) {
-                        if (index > 0) {
+                                            
+                        if (index > 0&&start_Y!=item.y) {                            
+                            start_Y=item.y;//改变前一个start_Y
                             var ctrlPoint = createCurveControlPoints(points, index - 1);
-                            context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
+                            console.log(ctrlPoint.ctrB.x-ctrlPoint.ctrA.x)
+                //context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
+                            context.quadraticCurveTo(ctrlPoint.ctrA.x-10, ctrlPoint.ctrA.y,item.x, item.y);
+                        }else{
+                            if (index > 0) {
+                                context.lineTo(item.x, item.y-1);
+                                start_Y=item.y;//改变前一个start_Y
+                             }
                         }
                     });
                 } else {
+                    
                     points.forEach(function (item, index) {
                         if (index > 0) {
                             context.lineTo(item.x, item.y);
@@ -1209,7 +1230,7 @@ function drawXAxis(categories, opts, config, context) {
             xAxisPoints.forEach(function (item, index) {
                 if (index > 0) {
                     context.moveTo(item - eachSpacing / 2, startY);
-                    context.lineTo(item - eachSpacing / 2, startY + 4);
+                    context.lineTo(item - eachSpacing / 2, 12);
                 }
             });
         } else {
@@ -1263,7 +1284,7 @@ function drawXAxis(categories, opts, config, context) {
         });
     }
 }
-
+//冯营杰 y轴 分割线
 function drawYAxis(series, opts, config, context) {
     if (opts.yAxis.disabled === true) {
         return;
@@ -1271,7 +1292,7 @@ function drawYAxis(series, opts, config, context) {
 
     var _calYAxisData4 = calYAxisData(series, opts, config),
         rangesFormat = _calYAxisData4.rangesFormat;
-
+        //console.log(rangesFormat)
     var yAxisTotalWidth = config.yAxisWidth + config.yAxisTitleWidth;
 
     var spacingValid = opts.height - 2 * config.padding - config.xAxisHeight - config.legendHeight;
@@ -1607,6 +1628,7 @@ Animation.prototype.stop = function () {
     this.isStop = true;
 };
 
+//入口第二步
 function drawCharts(type, opts, config, context) {
     var _this = this;
 
@@ -1638,13 +1660,13 @@ function drawCharts(type, opts, config, context) {
     var duration = opts.animation ? 1000 : 0;
     this.animationInstance && this.animationInstance.stop();
     switch (type) {
-        case 'line':
+        case 'line'://捕获到折线图
             this.animationInstance = new Animation({
                 timing: 'easeIn',
                 duration: duration,
                 onProcess: function onProcess(process) {
-                    drawYAxis(series, opts, config, context);
-                    drawXAxis(categories, opts, config, context);
+                    drawYAxis(series, opts, config, context);//y轴分割线
+                    drawXAxis(categories, opts, config, context);//x轴分割线
 
                     var _drawLineDataPoints = drawLineDataPoints(series, opts, config, context, process),
                         xAxisPoints = _drawLineDataPoints.xAxisPoints,
@@ -1653,7 +1675,7 @@ function drawCharts(type, opts, config, context) {
                     _this.chartData.xAxisPoints = xAxisPoints;
                     _this.chartData.calPoints = calPoints;
                     drawLegend(opts.series, opts, config, context);
-                    drawCanvas(opts, context);
+                    drawCanvas(opts, context);//猜测，画出图片
                 },
                 onAnimationFinish: function onAnimationFinish() {
                     _this.event.trigger('renderComplete');
@@ -1758,13 +1780,13 @@ Event.prototype.trigger = function () {
 		});
 	}
 };
-
+//冯营杰 入口
 var Charts = function Charts(opts) {
-    opts.title = opts.title || {};
-    opts.subtitle = opts.subtitle || {};
-    opts.yAxis = opts.yAxis || {};
-    opts.xAxis = opts.xAxis || {};
-    opts.extra = opts.extra || {};
+    opts.title = opts.title || {};//获取参数中的title
+    opts.subtitle = opts.subtitle || {};//
+    opts.yAxis = opts.yAxis || {};//y轴信息
+    opts.xAxis = opts.xAxis || {};//x轴信息
+    opts.extra = opts.extra || {};//
     opts.legend = opts.legend === false ? false : true;
     opts.animation = opts.animation === false ? false : true;
     var config$$1 = assign({}, config);
@@ -1806,9 +1828,12 @@ Charts.prototype.addEventListener = function (type, listener) {
 Charts.prototype.getCurrentDataIndex = function (e) {
     if (e.touches && e.touches.length) {
         var _e$touches$ = e.touches[0],
-            x = _e$touches$.x,
-            y = _e$touches$.y;
-
+            x = _e$touches$.x,//得到点击点的x坐标
+            y = _e$touches$.y;//得到点击点的y坐标
+            //console.log("----pppp----")
+            //console.log(x)
+            //console.log(y)
+            //console.log("----pppp----")
         if (this.opts.type === 'pie' || this.opts.type === 'ring') {
             return findPieChartCurrentIndex({ x: x, y: y }, this.chartData.pieData);
         } else if (this.opts.type === 'radar') {

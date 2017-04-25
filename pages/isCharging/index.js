@@ -16,6 +16,10 @@ var setIntervalClockG;//从订单列表里选择一个具体订单时 定时任�
 var yuyueDsaojishi; //开启充电 取消订单的时候应该取消
 var chongdianDsaojishi;//关闭充电的时候应取消
 
+var surperSetInterval;//超级定时器，开启一个定时器之前必须关闭在他前面的所有定时器
+var orderSetInterval;//订单状态轮询
+var controlSetInterval;//开启或关闭后的3次轮询
+
 Page({
   data: {
   },
@@ -26,22 +30,9 @@ Page({
               duration: 10000,
         mask:true
           })
-    clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-    setIntervalClockB=null;
-    setIntervalClockC=null;
-    setIntervalClockCA=null;
-    setIntervalClockD=null;
-    setIntervalClockE=null;
-    setIntervalClockF=null;
-    setIntervalClockG=null;
-    yuyueDsaojishi=null;
-    chongdianDsaojishi=null;
+    clearInterval(surperSetInterval);
+    clearInterval(orderSetInterval);
+    clearInterval(controlSetInterval);
     var that=this;
       console.log(wx.getStorageSync('openid'))
       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","pageSize":40,"pageNum":1}');
@@ -94,6 +85,12 @@ Page({
                           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                           console.log("充电状态返回")
                           console.log(res)
+                          if(res.data.Edata[0].data.deviceName!=undefined)
+                          {
+                              that.setData({
+                                          deviceTitle:res.data.Edata[0].data.deviceName
+                                    })
+                          }
                           if(res.data.Edata[0].data.orderStatus==1)//预约单
                           {
                               console.log("预约单");
@@ -101,10 +98,12 @@ Page({
                               orderDevId=res.data.Edata[0].data.deviceId;
                               orderDevSn=res.data.Edata[0].data.deviceSn;
                               var tim=res.data.Edata[0].data.createTime;
-                              console.log("")
+                              that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
+                              console.log("创建时间="+tim)
 
                               var nowTime=res.data.timestamp;
-                              yuyueDsaojishi=setInterval(function(){
+                              clearInterval(surperSetInterval);
+                              surperSetInterval=setInterval(function(){
                                   console.log(1)
                                     nowTime=Number(nowTime)+1000;
                                     var showTime=app.clocktimeB(nowTime,tim)
@@ -112,7 +111,7 @@ Page({
                                           timeeB:showTime
                                     })
                                 },1000);//预约自读倒计时
-
+                                
                               that.setData({
                                   orderLength:6
                               })
@@ -124,7 +123,8 @@ Page({
                               //var showTime;
 
                               var nowTime=res.data.timestamp;
-                              chongdianDsaojishi=setInterval(function(){
+                              clearInterval(surperSetInterval);
+                              surperSetInterval=setInterval(function(){
                                   if(tim==null){
                                       clearInterval(chongdianDsaojishi)
                                       chongdianDsaojishi=null
@@ -150,7 +150,8 @@ Page({
                       }
                   })
                   //只有一个订单的情况 判断是预约单/开始单  先请求一次，后面再定时请求 结束
-                  setIntervalClockB=setInterval(function(){
+                  clearInterval(orderSetInterval);
+                  orderSetInterval=setInterval(function(){
                       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","orderId":"'+res.data.Edata[0].data[0].orderId+'"}');
                       //console.log("请求头"+evheader)
                       wx.request({
@@ -177,39 +178,18 @@ Page({
                                   orderDevSn=res.data.Edata[0].data.deviceSn;
                                   var tim=res.data.Edata[0].data.createTime;
                                   //var showTime=app.clocktimeB(res.data.timestamp,tim);
-                                  that.canvasDaojishi(tim)
+                                  that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                                   that.setData({
                                           orderLength:6
                                   })
                               }else if(res.data.Edata[0].data.orderStatus==12)//用户把枪
-                              {
-                                  clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-                                  clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-                                  clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-                                  yuyueDsaojishi=null;
-                                  chongdianDsaojishi=null;
+                              {                                  
                                   that.getOrderListt();
-                              }else 
+                              }else  if(res.data.Edata[0].data.orderStatus==4)//正在充电
                               {
                                   orderDevId=res.data.Edata[0].data.deviceId;
                                   orderDevSn=res.data.Edata[0].data.deviceSn;
-                                  var tim=res.data.Edata[0].data.startTime;
-                                //   var showTime;
-                                //   if(tim==null)
-                                //   {
-                                //       showTime="00:00:00";
-                                //   }else
-                                //   {
-                                //       showTime=app.clocktime(res.data.timestamp,tim);
-                                //   }
-
-
+                                  var tim=res.data.Edata[0].data.startTime;                                
                                   that.setData({
                                     orderLength:1,
                                     electricity:((res.data.Edata[0].data.electricity)*0.01).toFixed(2),//订单数量
@@ -223,7 +203,7 @@ Page({
                                 console.log("获取充电信息")
                           }
                       })
-                  },2000)
+                  },4051)
               }
           },
           fail: function(res) {
@@ -269,7 +249,8 @@ Page({
                           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                           console.log("关机指令下发成功，下面应该去确认有没有关闭成功")
                           var checkTimes=0;
-                          setIntervalClockE=setInterval(function(){
+                          clearInterval(controlSetInterval);
+                          controlSetInterval=setInterval(function(){
                               var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+orderDevSn+'"}');
                               wx.request({
                                   url: app.getHostURL()+'/getData.php',//php上固定地址
@@ -290,12 +271,6 @@ Page({
                                       if(res.data.Edata[0].code==0&&!res.data.Edata[0].data)
                                       {
                                           console.log("接口状态码是0，设备状态是false，说明关机成功，下面取消定时器，下面获取设备列表")
-                                          clearInterval(chongdianDsaojishi)
-                                          clearInterval(setIntervalClockB)
-                                          clearInterval(setIntervalClockD)//结束充电成功 清除getOrderListt  getChargeOrderStatusList 2秒一次 结束充电时
-                                          clearInterval(setIntervalClockE);//结束充电成功 取消检查
-                                          clearInterval(setIntervalClockG);
-                                          clearInterval(setIntervalClockCA)
                                           wx.hideToast();
                                           console.log("延迟6秒")
                                           that.getOrderListt();
@@ -310,7 +285,7 @@ Page({
                                                   duration: 1000,
                                                   mask:true
                                               })
-                                              clearInterval(setIntervalClockE);//结束充电失败 取消检查
+                                              clearInterval(controlSetInterval);//结束充电失败 取消检查
                                               console.log("提示关闭失败")
                                           }
                                       }
@@ -370,7 +345,14 @@ Page({
           },  
           success: function(res) {
             //返回的结果要判断是预约单还是正在进行的单子  是预约的单子要有动画
+            wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
             console.log(res);
+            if(res.data.Edata[0].data.deviceName!=undefined)
+            {
+                that.setData({
+                    deviceTitle:res.data.Edata[0].data.deviceName
+                })
+            }
             wx.hideToast();
              orderDevSn=res.data.Edata[0].data.deviceSn;
              orderDevId=res.data.Edata[0].data.deviceId;
@@ -380,7 +362,8 @@ Page({
                 var tim=res.data.Edata[0].data.createTime;
 	            //var showTime=app.clocktimeB(res.data.timestamp,tim);
                 var nowTime=res.data.timestamp;
-                                    yuyueDsaojishi=setInterval(function(){
+                clearInterval(surperSetInterval);
+                                    surperSetInterval=setInterval(function(){
                                         console.log(52)
                                         nowTime=Number(nowTime)+1000;
                                         var showTime=app.clocktimeB(nowTime,tim)
@@ -388,7 +371,7 @@ Page({
                                             timeeB:showTime
                                         }) 
                                     },1000);//预约自读倒计时
-                that.canvasDaojishi(tim)
+                that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                 that.setData({
                   orderLength:6
                 })
@@ -401,7 +384,8 @@ Page({
                 var tim=res.data.Edata[0].data.startTime;
 	              //var showTime=app.clocktime(res.data.timestamp,tim);
                   var nowTime=res.data.timestamp;
-                              chongdianDsaojishi=setInterval(function(){
+                  clearInterval(surperSetInterval);
+                              surperSetInterval=setInterval(function(){
                                   if(tim==null){
                                       clearInterval(chongdianDsaojishi)
                                       chongdianDsaojishi=null
@@ -431,8 +415,8 @@ Page({
 
 
 
-
-    setIntervalClockG=setInterval(function(){    
+    clearInterval(orderSetInterval);   
+    orderSetInterval=setInterval(function(){    
         var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","orderId":"'+e.currentTarget.id+'"}');
         console.log("请求头"+evheader)
         wx.request({
@@ -447,6 +431,7 @@ Page({
             'Content-Type': 'application/x-www-form-urlencoded'
           },  
           success: function(res) {
+              wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
             //返回的结果要判断是预约单还是正在进行的单子  是预约的单子要有动画
             console.log(res);
             wx.hideToast();
@@ -455,53 +440,21 @@ Page({
             if(res.data.Edata[0].data.orderStatus==1)//预约单
             {
                 console.log("预约单")
-                var tim=res.data.Edata[0].data.createTime;
-	            //var showTime=app.clocktimeB(res.data.timestamp,tim);
-                // var nowTime=res.data.timestamp;
-                //                     yuyueDsaojishi=setInterval(function(){
-                //                         console.log(5)
-                //                         nowTime=Number(nowTime)+1000;
-                //                         var showTime=app.clocktimeB(nowTime,tim)
-                //                         that.setData({
-                //                             timeeB:showTime
-                //                         }) 
-                //                     },1000);//预约自读倒计时
-                
-                that.canvasDaojishi(tim)
+                var tim=res.data.Edata[0].data.createTime;                
+                that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                 that.setData({
                   orderLength:6
                 })
             }else if(res.data.Edata[0].data.orderStatus==12)//用户把枪
-                              {
-                                  clearInterval(setIntervalClockB);
-                                    clearInterval(setIntervalClockC);
-                                    clearInterval(setIntervalClockCA);
-                                    clearInterval(setIntervalClockD);
-                                    clearInterval(setIntervalClockE);
-                                    clearInterval(setIntervalClockF);
-                                    clearInterval(setIntervalClockG);
-                                  clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-                                  clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-                                  yuyueDsaojishi=null;
-                                  chongdianDsaojishi=null;
-                                  that.getOrderListt()
-                              }else
+            {
+                that.getOrderListt()
+            }else if(res.data.Edata[0].data.orderStatus==4)
             {
                 console.log("充电单")
                 wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                 orderDevId=res.data.Edata[0].data.deviceId;
                 orderDevSn=res.data.Edata[0].data.deviceSn;
                 var tim=res.data.Edata[0].data.startTime;
-	              //var showTime=app.clocktime(res.data.timestamp,tim);
-                //   var nowTime=res.data.timestamp;
-                //               chongdianDsaojishi=setInterval(function(){
-                //                   console.log(2)
-                //                     nowTime=Number(nowTime)+1000;
-                //                     var showTime=app.clocktime(nowTime,tim)
-                //                     that.setData({
-                //                           timee:showTime
-                //                     })
-                //                 },1000);//充电中自读计时
                 that.setData({
                   orderLength:1,
                   electricity:((res.data.Edata[0].data.electricity)*0.01).toFixed(2),//订单数量
@@ -517,7 +470,7 @@ Page({
           }
           
         })                                           
-    },2000)
+    },4051)
 
 
 
@@ -579,7 +532,8 @@ Page({
                       //开启成功
                       console.log("开机指令下发成功，下面应该去确认有没有开启成功")
                       var checkTimes=0;
-                      setIntervalClockC=setInterval(function(){
+                      clearInterval(controlSetInterval);
+                      controlSetInterval=setInterval(function(){
                           var evheader=app.EvcharHeader('{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","deviceSn":"'+orderDevSn+'"}');
                           wx.request({
                               url: app.getHostURL()+'/getData.php',//php上固定地址
@@ -601,24 +555,7 @@ Page({
                                   {
                                       console.log("接口状态码是0，设备状态是true，说明开机成功，下面取消定时器，下面获取设备列表")
                                       console.log("开启成功，清除倒计时")
-                                      clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-    clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-    clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-    setIntervalClockB=null;
-    setIntervalClockC=null;
-    setIntervalClockCA=null;
-    setIntervalClockD=null;
-    setIntervalClockE=null;
-    setIntervalClockF=null;
-    setIntervalClockG=null;
-    yuyueDsaojishi=null;
-    chongdianDsaojishi=null;
+                                      clearInterval(controlSetInterval);
                                       wx.hideToast();
                                       console.log("延迟7秒")
                                       //that.getOrderListt();
@@ -642,6 +579,12 @@ Page({
                                                   wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                                                   console.log("充电状态返回")
                                                   console.log(res)
+                                                  if(res.data.Edata[0].data.deviceName!=undefined)
+                                                    {
+                                                        that.setData({
+                                                                    deviceTitle:res.data.Edata[0].data.deviceName
+                                                                })
+                                                    }
                                                   if(res.data.Edata[0].data.orderStatus==1)//预约单
                                                   {//因为这里是开启充电，可能不会有预约单的情况，先不删
                                                       console.log("预约单");
@@ -650,9 +593,10 @@ Page({
                                                       orderDevSn=res.data.Edata[0].data.deviceSn;
                                                       var tim=res.data.Edata[0].data.createTime;
                                                       //var showTime=app.clocktimeB(res.data.timestamp,tim);
-
+                                                      that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                                                     var nowTime=res.data.timestamp;
-                                                    yuyueDsaojishi=setInterval(function(){
+                                                    clearInterval(surperSetInterval);
+                                                    surperSetInterval=setInterval(function(){
                                                         console.log(3)
                                                         nowTime=Number(nowTime)+1000;
                                                         var showTime=app.clocktimeB(nowTime,tim)
@@ -660,9 +604,6 @@ Page({
                                                             timeeB:showTime
                                                         })
                                                     },1000);//预约自读倒计时
-
-
-                                                      that.canvasDaojishi(tim)
                                                       that.setData({
                                                               orderLength:6
                                                       })
@@ -671,17 +612,9 @@ Page({
                                                       orderDevId=res.data.Edata[0].data.deviceId;
                                                       orderDevSn=res.data.Edata[0].data.deviceSn;
                                                       var tim=res.data.Edata[0].data.startTime;
-                                                    //   var showTime;
-                                                    //   if(tim==null)
-                                                    //   {
-                                                    //       showTime="00:00:00";
-                                                    //   }else
-                                                    //   {
-                                                    //       showTime=app.clocktime(res.data.timestamp,tim);
-                                                    //   }
-
                                                     var nowTime=res.data.timestamp;
-                                                    chongdianDsaojishi=setInterval(function(){
+                                                    clearInterval(surperSetInterval);
+                                                    surperSetInterval=setInterval(function(){
                                                         if(tim==null){
                                                             clearInterval(chongdianDsaojishi)
                                                             chongdianDsaojishi=null
@@ -715,7 +648,8 @@ Page({
 
 
 
-                                      setIntervalClockCA=setInterval(function(){
+                                          clearInterval(orderSetInterval);
+                                      orderSetInterval=setInterval(function(){
                                           //console.log("只有一个订单CA")
                                           //orderid  是点击开启按钮是获取到的
                                           var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","orderId":"'+orderDevOrderId+'"}');
@@ -747,39 +681,18 @@ Page({
 
 
 
-                                                      that.canvasDaojishi(tim)
+                                                      that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                                                       that.setData({
                                                               orderLength:6
                                                       })
                                                   }else if(res.data.Edata[0].data.orderStatus==12)//用户把枪
                                                     {
-                                                        clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-                                                        clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-                                                        clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-                                                        yuyueDsaojishi=null;
-                                                        chongdianDsaojishi=null;
                                                         that.getOrderListt()
-                                                    }else
+                                                    }else if(res.data.Edata[0].data.orderStatus==4)//正在充电
                                                   {
                                                       orderDevId=res.data.Edata[0].data.deviceId;
                                                       orderDevSn=res.data.Edata[0].data.deviceSn;
                                                       var tim=res.data.Edata[0].data.startTime;
-                                                    //   var showTime;
-                                                    //   if(tim==null)
-                                                    //   {
-                                                    //       showTime="00:00:00";
-                                                    //   }else
-                                                    //   {
-                                                    //       showTime=app.clocktime(res.data.timestamp,tim);
-                                                    //   }
-
-
                                                       that.setData({
                                                         orderLength:1,
                                                         electricity:((res.data.Edata[0].data.electricity)*0.01).toFixed(2),//订单数量
@@ -793,7 +706,7 @@ Page({
                                                     console.log("获取充电信息")
                                               }
                                           })
-                                      },2000)
+                                      },4051)
                                     ////开启后显示当前订单的一些情况  结束
                                   }else
                                   {
@@ -857,24 +770,7 @@ Page({
                   {
                     console.log("取消成功")
                     wx.hideToast();
-                    clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-    clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-    clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-    setIntervalClockB=null;
-    setIntervalClockC=null;
-    setIntervalClockCA=null;
-    setIntervalClockD=null;
-    setIntervalClockE=null;
-    setIntervalClockF=null;
-    setIntervalClockG=null;
-    yuyueDsaojishi=null;
-    chongdianDsaojishi=null;
+                    clearInterval(surperSetInterval);
                     that.getOrderListt()
                   }
 
@@ -885,6 +781,10 @@ Page({
         })  
   },
   getOrderListt:function(){
+    //取消已下三个定时器，说明关闭或者开启或者取消成功
+    clearInterval(surperSetInterval);// 取消倒计时定时器
+    clearInterval(orderSetInterval);//取消订单状态定时器
+    clearInterval(controlSetInterval);//取消  开启或者关闭后的轮询定时器
       var that=this;
       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","pageSize":40,"pageNum":1}');
       console.log("请求头"+evheader)
@@ -903,7 +803,6 @@ Page({
               wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
               console.log("订单列表KKKKK");
               console.log(res)
-
               if(res.data.Edata[0].data.length==0)//无订单
               {
                   console.log("没有订单")
@@ -940,6 +839,12 @@ Page({
                               wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                               console.log("充电状态返回")
                               console.log(res)
+                               if(res.data.Edata[0].data.deviceName!=undefined)
+                                {
+                                    that.setData({
+                                        deviceTitle:res.data.Edata[0].data.deviceName
+                                    })
+                                }
                               if(res.data.Edata[0].data.orderStatus==1)//预约单
                               {
                                   console.log("预约单");
@@ -949,7 +854,8 @@ Page({
                                   var tim=res.data.Edata[0].data.createTime;
                                   //var showTime=app.clocktimeB(res.data.timestamp,tim);
                                   var nowTime=res.data.timestamp;
-                                    yuyueDsaojishi=setInterval(function(){
+                                  clearInterval(surperSetInterval);
+                                    surperSetInterval=setInterval(function(){
                                         console.log(51)
                                         nowTime=Number(nowTime)+1000;
                                         var showTime=app.clocktimeB(nowTime,tim)
@@ -958,7 +864,7 @@ Page({
                                         })
                                     },1000);//预约自读倒计时
 
-                                  that.canvasDaojishi(tim)
+                                  that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                                   that.setData({
                                           orderLength:6,
                                        
@@ -978,7 +884,8 @@ Page({
                                 //   }
 
                                 var nowTime=res.data.timestamp;
-                              chongdianDsaojishi=setInterval(function(){
+                                clearInterval(surperSetInterval);
+                              surperSetInterval=setInterval(function(){
                                   if(tim==null){
                                       clearInterval(chongdianDsaojishi)
                                       chongdianDsaojishi=null
@@ -1000,8 +907,9 @@ Page({
                                     })
                               }
                               //获取列表后只有一个订单  开始
-                              setIntervalClockD=setInterval(function(){
-                      console.log("只有一个订单4-获取订单列表")
+                              clearInterval(orderSetInterval);
+                              orderSetInterval=setInterval(function(){
+                      console.log("只有一个订单-获取订单列表--电量定时器")
                       var evheader=app.EvcharHeader('{"accessToken":"'+wx.getStorageSync('accessToken')+'","orderId":"'+oneOrderId+'"}');
                       console.log("请求头"+evheader)
                       wx.request({
@@ -1027,26 +935,15 @@ Page({
                                   orderDevId=res.data.Edata[0].data.deviceId;
                                   orderDevSn=res.data.Edata[0].data.deviceSn;
                                   var tim=res.data.Edata[0].data.createTime;
-                                  that.canvasDaojishi(tim)
+                                  that.canvasDaojishi(res.data.timestamp-res.data.Edata[0].data.createTime)//画布显示 当前服务器时间—创建时间
                                   that.setData({
                                           orderLength:6,
                                        
                                   })
                               }else if(res.data.Edata[0].data.orderStatus==12)//用户把枪
                               {
-                                  clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-                                  clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-                                  clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-                                  yuyueDsaojishi=null;
-                                  chongdianDsaojishi=null;
                                   that.getOrderListt()
-                              }else
+                              }else if(res.data.Edata[0].data.orderStatus==4)//正在充电
                               {
                                   orderDevId=res.data.Edata[0].data.deviceId;
                                   orderDevSn=res.data.Edata[0].data.deviceSn;
@@ -1064,7 +961,7 @@ Page({
                                 console.log("获取充电信息")
                           }
                       })
-                  },2000)
+                  },4051)
 //获取列表后只有一个订单  结束
 
 
@@ -1096,30 +993,10 @@ Page({
   },canvasIdErrorCallback: function (e) {
     console.error(e.detail.errMsg)
   },
-  onReady: function (e) {
-
-    // 使用 wx.createContext 获取绘图上下文 context
-    //var context = wx.createCanvasContext('firstCanvas')
-
-
-    //context.setStrokeStyle("#ff0000")////画布描边
-    //context.setLineWidth(12)
-    //context.beginPath()
-    //context.arc(79, 79, 65, 0, 2 * Math.PI, true)
-    //context.setStrokeStyle('#333333')
-    //context.stroke()
-
-    //context.beginPath()
-    //context.arc(79, 79, 65, 1.9, 1.5 * Math.PI, true)
-    //context.setStrokeStyle('#ff0000')
-    //context.stroke()
-
-    // 调用 wx.drawCanvas，通过 canvasId 指定在哪张画布上绘制，通过 actions 指定绘制行为
-    //context.draw()
-  },
   canvasDaojishi:function(tim){
+    var that=this;
       //console.log("画布倒计时")
-    var times =3600 - Date.parse(new Date())*0.001 + tim*0.001;//距离超时还有多少秒
+    var times =3600 - tim*0.001;//距离超时还有多少秒    
     var days=Math.floor(times/86400);
 	var hourtime=times-days*86400;
 	var hours=Math.floor(hourtime/3600);
@@ -1130,77 +1007,35 @@ Page({
     var context = wx.createCanvasContext('firstCanvas')
     context.setStrokeStyle("#3DCAE6")////画布描边
     context.setLineWidth(12)
-	if(times<=5)
-	{
-		return "预约超时";
-        for(var i=0;i<times;i++)
-	    {
-            context.arc(79,79,65,(3.4826-i*0.1666)*Math.PI,(3.4826-i*0.1666)*Math.PI,false)
-            context.stroke()//画出当前路径的边框。默认颜色色为黑色。即上面定义的边框
-            // 调用 wx.drawCanvas，通过 canvasId 指定在哪张画布上绘制，通过 actions 指定绘制行为        
-            wx.drawCanvas({
-                canvasId: 'firstCanvas',
-                actions: context.getActions() // 获取绘图动作数组
-            })
-        }        
-	}else{
+    console.log("剩余总分钟数="+minutes);
+    console.log("剩余总秒数"+times);    
 		//return days+"天"+hours+"小时"+minutes+"分"+second+"秒";
+    if(times<=0){//剩余总秒数
+        context.beginPath();
+        context.clearRect(0, 0, 200, 200)
+        context.draw()
+        //setTimeout(function(){
+            //that.getOrderListt();//倒计时结束  刷新列表
+        //},2000)
+        return;
+    }
 		var circleCut=parseInt(minutes/5)+1
-		//console.log(circleCut)
+		console.log(circleCut)
 		for(var i=0;i<circleCut;i++)
 	    {
             context.beginPath();
             context.arc(79,79,65,(3.3326-i*0.1666)*Math.PI,(3.4826-i*0.1666)*Math.PI,false);//起点为12点钟方向，逆时针，2π为完整圆环	
             context.stroke();
             context.closePath();
-
-
-            //context.beginPath()
-            //context.arc(79,79,65,(3.3326-i*0.1666)*Math.PI,(3.4826-i*0.1666)*Math.PI,false)
-            //context.setStrokeStyle('#ff0000')
-            //context.stroke()
-           
-
-            //console.log(times)
-            //context.beginPath()
-            //context.arc(79,79,65,(3.3326-i*0.1666)*Math.PI,(3.4826-i*0.1666)*Math.PI,false)
-            //context.stroke()//画出当前路径的边框。默认颜色色为黑色。即上面定义的边框
-            // 调用 wx.drawCanvas，通过 canvasId 指定在哪张画布上绘制，通过 actions 指定绘制行为      
-            //context.draw()
         } 
          context.draw();
-         //context.fill();
-
-
-		if(hours<10){hours="0"+hours}
-		if(minutes<10){minutes="0"+minutes}
-		if(second<10){second="0"+second}
-		return hours+":"+minutes+":"+second;
-	}
-    console.log(times)
   },
   onHide:function()
   {
       //页面隐藏的时候 取消所有定时器
       console.log("页面隐藏")
-    clearInterval(setIntervalClockB);
-    clearInterval(setIntervalClockC);
-    clearInterval(setIntervalClockCA);
-    clearInterval(setIntervalClockD);
-    clearInterval(setIntervalClockE);
-    clearInterval(setIntervalClockF);
-    clearInterval(setIntervalClockG);
-    clearInterval(yuyueDsaojishi); //开启充电 取消订单的时候应该取消
-    clearInterval(chongdianDsaojishi);//关闭充电的时候应取消
-    setIntervalClockB=null;
-    setIntervalClockC=null;
-    setIntervalClockCA=null;
-    setIntervalClockD=null;
-    setIntervalClockE=null;
-    setIntervalClockF=null;
-    setIntervalClockG=null;
-    yuyueDsaojishi=null;
-    chongdianDsaojishi=null;
+      clearInterval(surperSetInterval);
+      clearInterval(orderSetInterval);
   },
 onShareAppMessage: function () { 
     return { 

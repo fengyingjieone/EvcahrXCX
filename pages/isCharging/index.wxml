@@ -21,7 +21,8 @@
 <!--无订单 或者多个订单结束-->
 
 <!--一个正在充电订单 开始-->
-<view class="topBoxNorderone {{orderLength==1?'':'hide'}}">
+<view class="topBoxNorderone {{orderLength==1?'':'hide'}}">    
+    <view class="deviecTitle">{{deviceTitle}}</view>
     <view class="cirleBox">
         <view class="cirleCharging">
             <view>已充电量</view>
@@ -59,6 +60,7 @@
 
 <!--一个预约订单 开始-->
 <view class="topBoxNorderone {{orderLength==6?'':'hide'}}">
+<view class="deviecTitle">{{deviceTitle}}</view>
     <view class="canvasBox">
         <view class="circleBox">
             <canvas class="canvasCss" canvas-id="firstCanvas"></canvas>

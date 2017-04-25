@@ -1,9 +1,9 @@
 <!--电量币-->
 <view class="containerIndex" style="border-top:1px #d2d2d2 solid;border-bottom:1px #d2d2d2 solid;background-color: #fff; ">
-    <view class="titleTxt">选择面额兑换电量币</view>
+    <view class="titleTxt">选择面额充值电量币</view>
     <view class="rechargeBtn" catchtap="moneyB">2000元</view>
     <view class="rechargeBtn" catchtap="moneyA">100元</view>
-    <view class="notes colorGary">友情提示：人民币兑换电量币是一比一的比例，即一元人民币兑换一电量币,电量币只可用作充电消费，不可提现</view>
+    <view class="notes colorGary">友情提示：人民币充值电量币是一比一的比例，即一元人民充值一电量币,电量币只可用作充电消费，不可提现</view>
 </view>
 
 

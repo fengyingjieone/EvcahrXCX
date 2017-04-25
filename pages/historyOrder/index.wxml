@@ -1,58 +1,25 @@
+<view class="canvasBox">		
+	<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+</view>	
 
-<!--我的订单-->
-<!--
-<view class="topBox centerB">
+<view class="titleBox">
 	<view class="titleTxtA centerA" >类别</view>
 	<view class="titleTxtB centerA" >创建时间</view>
 	<view class="titleTxtC centerA" >充电时长</view>
 	<view class="titleTxtD centerA" >电量</view>
 	<view class="titleTxtE centerA" >金额</view>
-</view>
+</view>	
 
+	<view class="listBox" style="height:{{scrollHeight}}px">
 
-
-<view class="scrollBox">
-	<view  wx:for="{{listArray}}">
-		<view  wx:if="{{item.startTime!=null}}">
-			<view class="cutListBox">
-				<view class="titleTxtA centerA font16" >{{item.freeFlag==1?"免费":"收费"}}</view>
-				<view class="titleTxtB centerA font16" >{{item.createTime}}</view>
-				<view class="titleTxtC centerA font16" >{{item.chargeTime}}</view>
-				<view class="titleTxtD centerA font16" >{{(item.endDegree)*0.01*100/100}}度</view>
-				<view class="titleTxtE centerA font16" >{{(item.totalPrice)*0.01*100/100}}元</view>
-			</view>
-		</view>  
-	</view> 
-</view>
--->
-<view class="allBox">
-	<view class="canvasBox">
-		<!--<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>-->
-		<view class="titleBox">
-			<view class="titleTxtA centerA" >类别</view>
-			<view class="titleTxtB centerA" >创建时间</view>
-			<view class="titleTxtC centerA" >充电时长</view>
-			<view class="titleTxtD centerA" >电量</view>
-			<view class="titleTxtE centerA" >金额</view>
-		</view>
-	</view>	
-
-	
-
-	<view class="listBox">
-		<view  wx:for="{{listArray}}">
-			<view  wx:if="{{item.startTime!=null}}">
-				<view class="cutListBox">
+				<view class="cutListBox"   wx:for="{{listArray}}" wx:if="{{item.startTime!=null}}">
 					<view class="titleTxtA centerA font28" >{{item.freeFlag==1?"免费":"收费"}}</view>
 					<view class="titleTxtB centerA font28" >{{item.createTime}}</view>
 					<view class="titleTxtC centerA font28" >{{item.chargeTime}}</view>
 					<view class="titleTxtD centerA font28" >{{item.endDegree}}度</view>
 					<view class="titleTxtE centerA font28" >{{item.totalPrice}}元</view>
 				</view>
-			</view>  
-		</view>
 	</view>
-</view>
 
 
 
