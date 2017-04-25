@@ -583,11 +583,7 @@ Page({
     })
   },
   onShareAppMessage: function () {
-    return {
-      title: '惠充电，新能源汽车充电平台',
-      desc: '实现居住地、工作地、目的地充电桩的查询、预约、充电、支付等便捷功能。',
-      path: '/pages/index/index'
-    }
+    return app.onShareAppMessage();
   },
   BdTotencent: function (bd_lon, bd_lat) {
     var x_pi = 3.14159265358979324 * 3000.0 / 180.0;
@@ -644,7 +640,7 @@ Page({
     lng = z * Math.cos(theta) + 0.0065;
     lat = z * Math.sin(theta) + 0.006;
     return [lng, lat]
-  }
+  },
 })
 
 

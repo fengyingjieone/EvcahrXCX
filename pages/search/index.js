@@ -123,7 +123,7 @@ Page({
         console.log(res);
       }
     })
-  }, 
+  },
   searchInput: function (e) {
     console.log(searchStr)
     searchStr = e.detail.value;
@@ -133,7 +133,7 @@ Page({
     console.log(e.currentTarget.id)
     wx.setStorageSync('clickItemLock', 6);//全局缓存一个桩 选择锁
     var searchArray = new Array(searchMark[e.currentTarget.id])
-    console.log("clickItem event currentTarget.id:",e.currentTarget.id);
+    console.log("clickItem event currentTarget.id:", e.currentTarget.id);
     wx.setStorageSync('markersArrar', searchArray);//全局缓存一个桩的mark信息  数组
     console.log(wx.getStorageSync('searchArray'))
     wx.navigateBack({
@@ -141,11 +141,7 @@ Page({
     })
   },
   onShareAppMessage: function () {
-    return {
-      title: '惠充电，新能源汽车充电平台',
-      desc: '实现居住地、工作地、目的地充电桩的查询、预约、充电、支付等便捷功能。',
-      path: '/pages/index/index'
-    }
+    return app.onShareAppMessage();
   },
 
 })
