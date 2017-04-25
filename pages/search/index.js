@@ -40,16 +40,11 @@ Page({
     var searchCoordinate = app.qqTobd(centerLatitude, centerLongitude);
     var myLatLng = app.qqTobd(myLatitude, myLongitude);
     var evdata = '{"appKey":"' + evcharAppkey + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
-    var evheader = app.EvcharHeader(evdata);
-    console.log("头部信息" + evheader)
-    console.log(evdata);
-
     wx.request({
-      url: app.getHostURL() + '/getData.php',//php上固定地址
+      url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
         'evUrl': '/device/getAllDevices',
-        'evheader': evheader,
         'evdata': evdata
       },
       header: {
@@ -60,7 +55,7 @@ Page({
         wx.hideToast();
         console.log("搜索结果")
         console.log(res)
-        var reqData = res.data.Edata[0].data;
+        var reqData = res.data.data;
         var resArrar = new Array();
         for (var i = 0; i < reqData.length; i++) {
           var reqDevStatus;

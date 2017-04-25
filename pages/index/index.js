@@ -84,6 +84,7 @@ Page({
     }
   },
   onLoad: function (e) {
+    console.log("执行一次 or 执行多次")
     wx.setStorageSync('statusValA', 1);//筛选默认值
     wx.setStorageSync('statusValD', 0);//筛选默认值
     wx.setStorageSync('devTypeA', 1);//筛选默认值
@@ -290,7 +291,6 @@ Page({
     if (wx.getStorageSync('filter') == 1) {
       console.log(12666)
       console.log("执行筛选结果")//这里要获取地图中心坐标
-      console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + wx.getStorageSync('centerLatitude') + ',"longitude":' + wx.getStorageSync('centerLongitude') + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + '}')
       that.drawMap();
       wx.setStorageSync('filter', 0);
     }
@@ -327,7 +327,7 @@ Page({
     var searchCoordinate = that.qqTobd(wx.getStorageSync('centerLatitude'), wx.getStorageSync('centerLongitude'));
     var myLatLng = that.qqTobd(myLatitude, myLongitude);
     console.log(searchCoordinate)
-    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + searchCoordinate[1] + ',"longitude":' + searchCoordinate[0] + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + '}')
+    console.log( '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + searchCoordinate[1] + ',"longitude":' + searchCoordinate[0] + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}')
     wx.request({
       url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
