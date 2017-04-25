@@ -38,8 +38,9 @@ Page({
       return;
     }
     var searchCoordinate = app.qqTobd(centerLatitude, centerLongitude);
-    var myLatLng = app.qqTobd(myLatitude, myLongitude);
+    var myLatLng = app.qqTobd(wx.getStorageSync('myLatitude'), wx.getStorageSync('myLongitude'));
     var evdata = '{"appKey":"' + evcharAppkey + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
+    console.log(evdata)
     wx.request({
       url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',

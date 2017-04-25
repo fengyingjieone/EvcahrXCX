@@ -13,8 +13,8 @@ var markerId;
 /**
  * shanghai:31.212592 121.609184
  */
-var myLatitude = 30.209658;//我的位置 计算距离用
-var myLongitude = 120.207956;//我的位置 计算距离用
+var myLatitude = 31.212592;//我的位置 计算距离用
+var myLongitude = 121.609184;//我的位置 计算距离用
 
 wx.setStorageSync('MareaCode', null);//区域信息
 wx.setStorageSync('MdeviceTypeList', "[1,2]");//筛选公私桩数组  默认全部
