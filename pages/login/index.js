@@ -2,18 +2,18 @@
 //获取应用实例
 var userName;
 var password;
-var evcharAppkey,openId;
+var evcharAppkey, openId;
 var app = getApp();
 Page({
   loginMobile: function (e) {
     userName = e.detail.value;
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     userName = wx.getStorageSync('userName');
     password = wx.getStorageSync('password');
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     openId = wx.getStorageSync('openid');
-    console.log("evcharAppkey:"+evcharAppkey,"openId:"+openId);
+    console.log("evcharAppkey:" + evcharAppkey, "openId:" + openId);
   },
   onShow: function () {
     this.setData({
@@ -26,7 +26,7 @@ Page({
   },
   loginWidthUsernameBtn: function () {
     wx.request({
-      url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
+      url: app.getHostURL() + '/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
         'evUrl': '/user/login',
@@ -38,12 +38,12 @@ Page({
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         wx.setStorage({
-          key:'userName',
-          value:userName
+          key: 'userName',
+          value: userName
         });
         wx.setStorage({
-          key:'password',
-          value:password
+          key: 'password',
+          value: password
         });
         console.log("登陆结果")
         console.log(res)
@@ -96,9 +96,10 @@ Page({
     setTimeout(function () {
       that.loginWidthUsernameBtn()
     }, 400)
-  }
-
-
+  },
+  onShareAppMessage: function () {
+    return app.onShareAppMessage();
+  },
 })
 
 
