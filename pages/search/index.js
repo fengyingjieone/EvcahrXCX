@@ -8,7 +8,7 @@ var centerLatitude = wx.getStorageSync('centerLatitude');
 var centerLongitude = wx.getStorageSync('centerLongitude');
 var myLatitude = wx.getStorageSync('myLatitude');
 var myLongitude = wx.getStorageSync('myLongitude');
-var evcharAppkey = wx.getStorageSync('evcharAppkey');
+var evcharAppkey;
 var MareaCode = wx.getStorageSync('MareaCode');
 var MdeviceTypeList = wx.getStorageSync('MdeviceTypeList');
 var Mkm = wx.getStorageSync('Mkm');
@@ -19,6 +19,7 @@ Page({
     console.log(e)
   },
   onShow: function () {
+    evcharAppkey = wx.getStorageSync('evcharAppkey');
     wx.setStorageSync('clickItemLock', 0);//全局缓存一个桩 选择锁
   },
   searchBtn: function () {
@@ -39,7 +40,7 @@ Page({
     }
     var searchCoordinate = app.qqTobd(centerLatitude, centerLongitude);
     var myLatLng = app.qqTobd(wx.getStorageSync('myLatitude'), wx.getStorageSync('myLongitude'));
-    var evdata = '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
+    var evdata = '{"appKey":"' + evcharAppkey + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
     console.log(evdata)
     wx.request({
       url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址

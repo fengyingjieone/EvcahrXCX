@@ -1,25 +1,30 @@
 //index.js
 //获取应用实例
-var userName = wx.getStorageSync('userName');
-var password = wx.getStorageSync('password');
+var userName;
+var password;
+var evcharAppkey,openId;
 var app = getApp();
-var evcharAppkey = wx.getStorageSync('evcharAppkey');
-var openId = wx.getStorageSync('openid');
 Page({
   loginMobile: function (e) {
     userName = e.detail.value;
+  },
+  onLoad: function(options) {
+    userName = wx.getStorageSync('userName');
+    password = wx.getStorageSync('password');
+    evcharAppkey = wx.getStorageSync('evcharAppkey');
+    openId = wx.getStorageSync('openid');
+    console.log("evcharAppkey:"+evcharAppkey,"openId:"+openId);
   },
   onShow: function () {
     this.setData({
       defaultTel: userName,
       defaultPwd: password
-    })
+    });
   },
   loginPW: function (e) {
     password = e.detail.value;
   },
   loginWidthUsernameBtn: function () {
-    console.log("已有账号登陆参数");
     wx.request({
       url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
