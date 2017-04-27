@@ -1,0 +1,21 @@
+
+<!-- 下面是注册页面-->
+<view class="containerIndex">
+	<!--分割线-->
+	<view class="cutLine"></view>
+	<view class="cutListBox">
+		<view class="cutListLeft" style="text-indent: 30rpx;">
+			半价电开关
+		</view>
+		<view class="powerBtn">
+			<switch checked="{{powerState}}" bindchange="powerOn_Off" color="#3DCAE6" />
+		</view>	
+	</view>
+
+
+</view>
+
+
+
+
+

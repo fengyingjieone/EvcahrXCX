@@ -135,7 +135,12 @@ Page({
       }
     })
 
-  }
+  },
+  toMessageSet: function () {
+    wx.navigateTo({
+      url: '../messageSet/index'
+    })
+  },
 
 
 

@@ -21,6 +21,7 @@
   "pages/devInfo/index",
   "pages/filter/index",
   "pages/xieyi/index",
+  "pages/messageSet/index",
   "pages/login/index"
 
   ],
