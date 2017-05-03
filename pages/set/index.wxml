@@ -32,7 +32,7 @@
             </view>
         </view>
 </view>
-<view class="listBox" catchtap="toMessageSet">
+<view class="listBox {{owner?'':'hide'}}" catchtap="toMessageSet">
         <view class="listLeft">
             <view class="colorGary font16 listTitle">消息推送设置</view>
         </view>

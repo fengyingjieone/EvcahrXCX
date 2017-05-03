@@ -6,8 +6,8 @@ var devArrayAll;
 Page({
   data: {
     deviceCount: false,//设 默认只有一个设备
-    array: ['美国', '中国', '巴西', '日本'],
-
+    owner:false,
+    array: ['美国', '中国', '巴西', '日本'],    
     date: '2016-09-01',
     time: '12:01'
   },
@@ -34,6 +34,11 @@ Page({
         console.log((res))
         if(res.data.Edata[0].data==null){
           return;
+        }else
+        {
+          that.setData({
+            owner: true//是桩主
+          })
         }
         if (res.data.Edata[0].data.length > 1) {
           console.log("这位大人有" + res.data.Edata[0].data.length + "个桩");
