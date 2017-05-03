@@ -30,7 +30,11 @@ Page({
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         console.log("设置返回数据")
+        console.log(res.data.Edata[0].data)
         console.log((res))
+        if(res.data.Edata[0].data==null){
+          return;
+        }
         if (res.data.Edata[0].data.length > 1) {
           console.log("这位大人有" + res.data.Edata[0].data.length + "个桩");
           var defaultDevName;

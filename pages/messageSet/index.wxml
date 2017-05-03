@@ -8,7 +8,7 @@
 			半价电开关
 		</view>
 		<view class="powerBtn">
-			<switch checked="{{powerState}}" bindchange="powerOn_Off" color="#3DCAE6" />
+			<switch checked="{{halfPriceStatus}}" bindchange="halfPriceSwitch" color="#3DCAE6" />
 		</view>	
 	</view>
 
