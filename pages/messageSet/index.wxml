@@ -5,7 +5,7 @@
 	<view class="cutLine"></view>
 	<view class="cutListBox">
 		<view class="cutListLeft" style="text-indent: 30rpx;">
-			半价电开关
+			半价电通知
 		</view>
 		<view class="powerBtn">
 			<switch checked="{{halfPriceStatus}}" bindchange="halfPriceSwitch" color="#3DCAE6" />
