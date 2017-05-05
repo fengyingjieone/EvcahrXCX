@@ -95,17 +95,24 @@ Page({
                     
                 },
                 fail: function (res) {
+                    wx.hideToast();
+                    wx.showToast({
+                        title: '开启消息推送失败',
+                        icon: 'loading',
+                        duration: 1000,
+                        mask: true
+                    })
                     console.log("开启半价电失败")
                 }
             })//查看当前开关状态
         }else if(halfPriceStatus){
             //当前是开启状态
             wx.showToast({
-            title: '关闭中..',
-            icon: 'loading',
-            duration: 10000,
-            mask: true
-        })
+                title: '关闭中..',
+                icon: 'loading',
+                duration: 10000,
+                mask: true
+            })
             var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","bizCode":"HalfPrice","flag":0}');
             // 设置开关标识0|1, 0:关闭 1：开启
             wx.request({
@@ -128,12 +135,10 @@ Page({
                             halfPriceStatus:false//默认开关状态                      
                         })
                     }else{
-                        if(res.data.Edata[0].code==0){
-                            halfPriceStatus=true;
-                            that.setData({
-                                halfPriceStatus:true//默认开关状态                      
-                            })
-                        }
+                        halfPriceStatus=true;
+                        that.setData({
+                            halfPriceStatus:true//默认开关状态                      
+                        })
                         wx.showToast({
                             title: '关闭消息推送失败',
                             icon: 'loading',
@@ -144,6 +149,13 @@ Page({
                     
                 },
                 fail: function (res) {
+                    wx.hideToast();
+                    wx.showToast({
+                        title: '关闭消息推送失败',
+                        icon: 'loading',
+                        duration: 1000,
+                        mask: true
+                    })
                     console.log("关闭半价电失败")
                 }
             })
