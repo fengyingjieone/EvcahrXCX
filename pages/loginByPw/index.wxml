@@ -1,0 +1,16 @@
+
+<!--下面是已有账号登陆-->
+<view class="register-box" >
+	<view  class="mobileInput">
+		<input  placeholder="请输入手机号" bindblur="loginMobile" value="{{defaultTel}}"   focus="{{inputStatus}}"  type="number" class="inputcss"/> 
+	</view>
+	<view  class="mobileInputB">
+		<input  placeholder="请输人密码" bindblur="loginPW" value="{{defaultPwd}}"   password  focus="{{inputStatus}}"  class="inputcssSms"/>
+	</view>
+	<view class="loginBtn" catchtap="loginInputErr">  登    录  </view>	
+</view>
+
+
+
+
+

@@ -100,16 +100,6 @@ Page({
   onShareAppMessage: function () {
     return app.onShareAppMessage();
   },
-  toLoginByPw:function(){
-    wx.navigateTo({
-      url: '../loginByPw/index'
-    })
-  },
-  toResetPw:function(){
-    wx.navigateTo({
-      url: '../resetPw/index'
-    })
-  }
 })
 
 

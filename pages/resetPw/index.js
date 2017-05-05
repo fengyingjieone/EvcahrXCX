@@ -104,11 +104,6 @@ Page({
     wx.navigateTo({
       url: '../loginByPw/index'
     })
-  },
-  toResetPw:function(){
-    wx.navigateTo({
-      url: '../resetPw/index'
-    })
   }
 })
 

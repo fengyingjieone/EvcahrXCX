@@ -22,7 +22,9 @@
   "pages/filter/index",
   "pages/xieyi/index",
   "pages/messageSet/index",
-  "pages/login/index"
+  "pages/login/index",
+  "pages/loginByPw/index",
+  "pages/resetPw/index"
 
   ],
   "window":{
