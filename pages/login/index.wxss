@@ -41,6 +41,7 @@
   background-size:34rpx 44rpx;
   display: flex;
   align-items: center;
+  justify-content:space-between;
   }
 .inputcss{
   width: 100%;
@@ -77,3 +78,23 @@
   color: #3DCAE6;
   justify-content: space-between;
 }
+/*密码登陆改验证码登陆*/
+.inputcssSms{
+  width: 50%;
+  height: 100%;
+  color: #808080;
+}
+.getSms{
+  width: 40%;
+  height: 90%;
+  color: #FFF;
+  border-right: 6rpx #fff solid;
+  background-color: #3DCAE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+

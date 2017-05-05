@@ -49,6 +49,8 @@ Page({
             },
             success: function (res) {
                 wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
+                console.log("获取订单列表")
+                console.log(res)
                 wx.hideToast();
                 if (res.data.Edata[0].data.length == 0)//无订单
                 {
@@ -68,6 +70,8 @@ Page({
                     //只有一个订单的情况  先请求一次，后面再定时请求 开始
                     var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","orderId":"' + res.data.Edata[0].data[0].orderId + '"}');
                     console.log("请求头" + evheader)
+                    console.log("请求参数")
+                    console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","orderId":"' + res.data.Edata[0].data[0].orderId + '"}')
                     wx.request({
                         url: app.getHostURL() + '/getData.php',//php上固定地址
                         method: 'POST',

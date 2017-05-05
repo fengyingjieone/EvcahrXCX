@@ -150,6 +150,19 @@ Page({
       url: '../messageSet/index'
     })
   },
+  logout:function(){
+    wx.showModal({
+      title: '提示',
+      content: "退出当前账号",
+      confirmText: "确定",
+      cancelText:"取消",
+      success: function (res) {
+        if (res.confirm) {
+          console.log("点击了确定")
+        }
+      }
+    })
+  }
 
 
 
