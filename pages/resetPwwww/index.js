@@ -1,9 +1,9 @@
 //index.js
 //获取应用实例
 var tel;
+var newpassword;
 var sms;
 var evcharAppkey, openId;
-var intSecond;//倒计时任务
 var app = getApp();
 Page({
   data: {
@@ -12,30 +12,20 @@ Page({
   },
   loginMobile: function (e) {
     tel = e.detail.value;
-    console.log(tel)
-  },
-    loginSms: function (e) {
-    sms = e.detail.value;
   },
   onLoad: function (options) {
     tel = wx.getStorageSync('tel');
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     openId = wx.getStorageSync('openid');
+    console.log("evcharAppkey:" + evcharAppkey, "openId:" + openId);
   },
   onShow: function () {
     this.setData({
       defaultTel: tel
     });
   },
-  findPasswordPage: function () {
-    wx.navigateTo({
-      url: '../findpw/index'
-    })
-  },
-  register: function () {
-    wx.navigateTo({
-      url: '../register/index'
-    })
+  loginPW: function (e) {
+    newpassword = e.detail.value;
   },
   getSms: function () {
     var that = this;
@@ -74,7 +64,7 @@ Page({
       }, 1000)
       console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":3}')
       wx.request({
-        url: app.getHostURL()+'/userNameLoginAndRegister.php',//找回密码和注册以及发短信
+        url: app.getHostURL() + '/userNameLoginAndRegister.php',//找回密码和注册以及发短信
         method: 'POST',
         data: {
           'evUrl': '/sms/verifycode/fetch',
@@ -93,23 +83,13 @@ Page({
       })
     }
   },
-  loginBySms: function () {
-    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms + '","userName":"' + tel + '"}')
-    wx.showToast({
-      title: '正在登陆',
-      icon: 'loading',
-      duration: 10000
-    })
-    var that = this;
-    that.setData({
-      inputStatus: false
-    })
+  loginWidthUsernameBtn: function () {
     wx.request({
       url: app.getHostURL() + '/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
-        'evUrl': '/user/smsLogin',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms + '","userName":"' + tel + '"}'
+        'evUrl': '/user/login',
+        'evdata': '{"appKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + newpassword + '","userName":"' + tel + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -142,21 +122,23 @@ Page({
         })
       }
     })
-    
-
+  },
+  loginInputErr: function () {
+    wx.showToast({
+      title: '正在登陆',
+      icon: 'loading',
+      duration: 10000
+    })
+    var that = this;
+    that.setData({
+      inputStatus: false
+    })
+    setTimeout(function () {
+      that.loginWidthUsernameBtn()
+    }, 400)
   },
   onShareAppMessage: function () {
     return app.onShareAppMessage();
-  },
-  toLoginByPw:function(){
-    wx.navigateTo({
-      url: '../loginByPw/index'
-    })
-  },
-  toResetPw:function(){
-    wx.navigateTo({
-      url: '../resetPw/index'
-    })
   }
 })
 

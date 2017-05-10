@@ -86,6 +86,20 @@ Page({
             }
           }
           that.drawCanvas(timeList, MoneyList)
+        }else if (res.data.Edata[0].code == "0" && res.data.Edata[0].data != null){
+          var timeList = new Array();//日期
+          for (var i = 0; i < 15; i++)//15天电量
+          {
+            //第一步   获取当前时间戳
+            var lockStr = 0;
+            var nowTime = that.timeToTimestamp(that.TimestampToTime(new Date().getTime())) - 86400000 * i
+            //因为时间戳精度不一致①获取当前日期②转成js时间戳 //获取时间格式太复杂了  		
+
+
+              var timee = (that.TimestampToTime(nowTime)).substr(5, 5);
+              timeList.unshift(timee)//在数组前面增加元素
+          }
+          that.drawCanvas(timeList, [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
         }
       },
       fail: function (res) {

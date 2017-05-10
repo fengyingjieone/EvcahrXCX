@@ -24,6 +24,7 @@ wx.setStorageSync('centerLongitude', myLongitude);//自己所在地
 wx.setStorageSync('Mrecommend', false);//是否推荐  默认不推荐
 wx.setStorageSync('Msearch', null);//收索字符  默认没有
 wx.setStorageSync('MstatusList', "[1,2,3,4,5,6]");//筛选状态数组 默认全部
+wx.setStorageSync('logout', 0);//退出识别
 
 var onLoadOnshowLock;
 var markersArrar;//标注数组

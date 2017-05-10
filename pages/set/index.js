@@ -64,6 +64,16 @@ Page({
       }
     })
   },
+  onShow:function(){
+    console.log("返回测试")
+    console.log(wx.getStorageSync('logout'))
+    if (wx.getStorageSync('logout')){
+      wx.navigateBack({
+        delta: 4
+      })
+    }
+    
+  },
   bindPickerChange: function (e) {
     wx.showToast({
       title: '正在设置',
@@ -158,7 +168,42 @@ Page({
       cancelText:"取消",
       success: function (res) {
         if (res.confirm) {
-          console.log("点击了确定")
+          var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '"}');
+          wx.request({
+            url: app.getHostURL() + '/getData.php',//php上固定地址
+            method: 'POST',
+            data: {
+              'evUrl': '/user/logout',
+              'evheader': evheader,
+              'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '"}'
+            },
+            header: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (res) {              
+              console.log(res)
+              if(res.data.Edata[0].code==0){
+                wx.setStorageSync('logout', 1);//区域信息
+                wx.reLaunch({
+                  url: '../index/index'
+                })                
+              }else{
+                wx.showToast({
+                  title: '退出失败',
+                  icon: 'loading',
+                  duration: 1000
+                })
+              }                
+            },
+            fail: function (res) {
+              console.log("获取钱包信息失败");
+              wx.showToast({
+                title: '退出失败',
+                icon: 'loading',
+                duration: 1000
+              })
+            }
+          })
         }
       }
     })

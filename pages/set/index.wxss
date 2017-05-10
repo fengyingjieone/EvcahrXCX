@@ -59,6 +59,7 @@
   width:100%;
   height: 110rpx;
   display: flex;
+  background-color: #fff;
 }
 .listLeft{
   width:50%;

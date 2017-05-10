@@ -9,22 +9,19 @@ Page({
     userName = e.detail.value;
   },
   onLoad: function (options) {
-    userName = wx.getStorageSync('userName');
-    password = wx.getStorageSync('password');
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     openId = wx.getStorageSync('openid');
     console.log("evcharAppkey:" + evcharAppkey, "openId:" + openId);
   },
-  onShow: function () {
-    this.setData({
-      defaultTel: userName,
-      defaultPwd: password
-    });
+  onShow:function(){
+    userName=null;
+    password=null;
   },
   loginPW: function (e) {
     password = e.detail.value;
   },
   loginWidthUsernameBtn: function () {
+    console.log('{"appKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + password + '","userName":"' + userName + '"}')
     wx.request({
       url: app.getHostURL() + '/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
@@ -72,16 +69,6 @@ Page({
       }
     })
 
-  },
-  findPasswordPage: function () {
-    wx.navigateTo({
-      url: '../findpw/index'
-    })
-  },
-  register: function () {
-    wx.navigateTo({
-      url: '../register/index'
-    })
   },
   loginInputErr: function () {
     wx.showToast({

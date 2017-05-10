@@ -85,8 +85,7 @@
   color: #808080;
 }
 .getSms{
-  border: none;
-  width: 50%;
+  width: 40%;
   height: 90%;
   color: #FFF;
   border-right: 6rpx #fff solid;

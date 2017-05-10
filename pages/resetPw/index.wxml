@@ -2,16 +2,16 @@
 <!--下面是已有账号登陆-->
 <view class="register-box" >
 	<view  class="mobileInput">
-		<input  placeholder="请输入手机号" bindblur="loginMobile" value="{{defaultTel}}"   focus="{{inputStatus}}"  type="number" class="inputcss"/> 
+		<input  placeholder="请输入手机号" bindinput="loginMobile" value="{{defaultTel}}"   focus="{{inputStatus}}"  type="number"   disabled="{{btnstatus}}" class="inputcss"/> 
+	</view>
+  <view  class="mobileInputB">
+		<input  placeholder="请输入新密码" bindinput="newpassword" value="{{defaultTel}}"   focus="{{inputStatus}}"  password  class="inputcss"/> 
 	</view>
 	<view  class="mobileInputB">
-		<input  placeholder="请输入新密码" bindblur="loginMobile" value="{{defaultTel}}"   focus="{{inputStatus}}"  type="number" class="inputcss"/> 
+		<input  placeholder="请输人验证码" bindinput="loginSms" value="{{defaultPwd}}"     type="number"  focus="{{inputStatus}}"  class="inputcssSms"/>
+		<button class="getSms"  disabled="{{btnstatus}}"  catchtap="getSms">{{leftBtn}}</button>
 	</view>
-	<view  class="mobileInputB">
-		<input  placeholder="请输人验证码" bindblur="loginPW" value="{{defaultPwd}}"   password  focus="{{inputStatus}}"  class="inputcssSms"/>
-		<view class="getSms">获取验证码</view>
-	</view>
-	<view class="loginBtn" catchtap="loginInputErr">重置密码 </view>	
+	<view class="loginBtn" catchtap="findPW" >重置密码  </view>	
 </view>
 
 
