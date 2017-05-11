@@ -64,16 +64,6 @@ Page({
       }
     })
   },
-  onShow:function(){
-    console.log("返回测试")
-    console.log(wx.getStorageSync('logout'))
-    if (wx.getStorageSync('logout')){
-      wx.navigateBack({
-        delta: 4
-      })
-    }
-    
-  },
   bindPickerChange: function (e) {
     wx.showToast({
       title: '正在设置',
