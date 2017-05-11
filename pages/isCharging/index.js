@@ -22,6 +22,8 @@ var controlSetInterval;//开启或关闭后的3次轮询
 
 Page({
     data: {
+      timee: "00:00:00",//充电计时
+      timeeB: "00:00:00"//预约计时
     },
     onShow: function () {
         wx.showToast({
