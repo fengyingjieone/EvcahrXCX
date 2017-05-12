@@ -30,7 +30,7 @@ Page({
   },
   onShow: function () {
     this.setData({
-      defaultTel: wx.getStorageSync('tel_third'),
+      tel_third: wx.getStorageSync('tel_third'),
       sms_third: wx.getStorageSync('sms_third'),
       newpassword_third: wx.getStorageSync('newpassword_third')
     });

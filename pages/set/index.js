@@ -174,6 +174,13 @@ Page({
               console.log(res)
               if(res.data.Edata[0].code==0){
                 wx.setStorageSync('logout', 1);//区域信息
+                wx.setStorageSync('tel_index', '');//退出后清空缓存
+                wx.setStorageSync('sms_index', '');//退出后清空缓存
+                wx.setStorageSync('userName_second', '');//退出后清空缓存
+                wx.setStorageSync('password_second', '');//退出后清空缓存
+                wx.setStorageSync('tel_third', '');//退出后清空缓存
+                wx.setStorageSync('newpassword_third', '');//退出后清空缓存
+                wx.setStorageSync('sms_third', '');//退出后清空缓存
                 wx.reLaunch({
                   url: '../index/index'
                 })                
