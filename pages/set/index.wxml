@@ -22,6 +22,16 @@
             </view>
         </view>
 </view>
+<!--<view class="listBox" catchtap="toActivated">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">激活</view>
+        </view>
+        <view class="listRight">
+            <view class="colorGary font16 listMoney" >
+                >
+            </view>
+        </view>
+</view>-->
 <view class="listBox">
         <view class="listLeft">
             <view class="colorGary font16 listTitle">客服电话</view>

@@ -1,0 +1,15 @@
+<view class="box">
+    <view class="titleBox center-x"  ontouchend="window.history.back()">
+        <view class="goBack"><image src="../images/back.png" width="10" height="19"></image></view>
+        激活 </view>
+    <view class="scanBtnBox center-x" onClick='window.location.href="checkDeviceSn.html"'>
+    	<view class="scanBtn center-x">
+    		<image src="../images/sacan.png" width="20" height="20"></image>扫码激活
+        </view>
+    </view>
+    <view class="scanBtnBox center-x">
+    	<view class="scanBtn center-x" onClick='window.location.href="checkDeviceSn.html"'>
+    		输入设备号激活
+        </view>
+    </view>
+</view>

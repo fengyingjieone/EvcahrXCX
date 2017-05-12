@@ -197,6 +197,11 @@ Page({
         }
       }
     })
+  },
+  toActivated:function (){
+    wx.navigateTo({
+      url: '../activated/index'
+    })
   }
 
 

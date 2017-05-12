@@ -24,7 +24,8 @@
   "pages/messageSet/index",
   "pages/login/index",
   "pages/loginByPw/index",
-  "pages/resetPw/index"
+  "pages/resetPw/index",
+  "pages/activated/index"
 
   ],
   "window":{

@@ -222,7 +222,7 @@ Page({
           clearInterval(intSecond)
           console.log("开始跳转")
           wx.redirectTo({
-            url: '../login/index'
+            url: '../loginByPw/index'
           })
           console.log("结束跳转")
         }
