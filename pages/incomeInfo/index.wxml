@@ -19,7 +19,7 @@
             <view class="{{dayMnth?'hide':''}}">{{item.month}}</view>
 		</view>
 		<view class="powerBtn" catchtap="toIncomeInfo">
-			<view style="margin-right:30rpx;">{{item.amout}}元</view>
+			<view style="margin-right:30rpx;">{{item.amount}}元</view>
 			<!--<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>-->
 		</view>	
 	</view>
