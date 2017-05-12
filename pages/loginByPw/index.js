@@ -42,6 +42,7 @@ Page({
         console.log(res)
         if (res.data.code == 0) {
           //登陆成功后返回主入口重新登陆
+          wx.setStorageSync('logout', 0);//退出识别
           setTimeout(function () {
             wx.switchTab({
               url: '/pages/index/index'

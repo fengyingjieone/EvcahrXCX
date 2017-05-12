@@ -170,8 +170,9 @@ Page({
             header: {
               'Content-Type': 'application/x-www-form-urlencoded'
             },
-            success: function (res) {              
-              console.log(res)
+            success: function (res) {        
+              console.log("退出结果")      
+              console.log(res)              
               if(res.data.Edata[0].code==0){
                 wx.setStorageSync('logout', 1);//区域信息
                 wx.setStorageSync('tel_index', '');//退出后清空缓存

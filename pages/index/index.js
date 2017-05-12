@@ -24,7 +24,6 @@ wx.setStorageSync('centerLongitude', myLongitude);//自己所在地
 wx.setStorageSync('Mrecommend', false);//是否推荐  默认不推荐
 wx.setStorageSync('Msearch', null);//收索字符  默认没有
 wx.setStorageSync('MstatusList', "[1,2,3,4,5,6]");//筛选状态数组 默认全部
-wx.setStorageSync('logout', 0);//退出识别
 
 var onLoadOnshowLock;
 var markersArrar;//标注数组
@@ -112,7 +111,6 @@ Page({
       duration: 20000
     })
     wx.setStorageSync('searchStr', "");//搜索的字符串 设置为空
-    console.log(e.id)
     app.getUserInfo(function (userInfo) {
       //更新数据
       that.setData({
@@ -170,10 +168,12 @@ Page({
                           if (eData.code != 0){
                             console.log("登陆失败，跳转到账号密码登陆,关闭当前页面")
                             wx.redirectTo({
-                              url: '/pages/login/index'
-                            })
+                              url: '/pages/login/index',
+                              fail: function (res) { console.log(res) }
+                            }) 
                             return;
                           }
+                          wx.setStorageSync('logout', 0);//退出识别
                           wx.setStorageSync('clickItemLock', 0);//全局缓存一个桩 选择锁
                           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                           wx.setStorageSync('userID', eData.data.id);//缓存用户id
@@ -256,6 +256,9 @@ Page({
 
   },
   onShow: function () {
+    if (wx.getStorageSync('logout') == 1) {
+      this.onLoad();
+    }
     var that = this;
     wx.showToast({
       title: "加载中..",
