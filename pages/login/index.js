@@ -151,12 +151,12 @@ Page({
     return app.onShareAppMessage();
   },
   toLoginByPw:function(){
-    wx.navigateTo({
+    wx.reLaunch({
       url: '../loginByPw/index'
     })
   },
   toResetPw:function(){
-    wx.navigateTo({
+    wx.reLaunch({
       url: '../resetPw/index'
     })
   }
