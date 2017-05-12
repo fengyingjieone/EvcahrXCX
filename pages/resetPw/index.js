@@ -1,8 +1,8 @@
 //index.js
 //获取应用实例
-var tel;
-var sms;
-var newpassword;
+var tel_third;
+var sms_third;
+var newpassword_third;
 var evcharAppkey, openId;
 var intSecond;//倒计时任务
 var app = getApp();
@@ -12,26 +12,27 @@ Page({
     btnstatus: false
   },
   loginMobile: function (e) {
-    tel = e.detail.value;
-    console.log(tel)
+    tel_third = e.detail.value;
+    wx.setStorageSync('tel_third', tel_third);
   },
   newpassword:function(e){
-    newpassword = e.detail.value;
+    newpassword_third = e.detail.value;
+    wx.setStorageSync('newpassword_third', newpassword_third);
   },
   loginSms: function (e) {
-    sms = e.detail.value;
+    sms_third = e.detail.value;
+    wx.setStorageSync('sms_third', sms_third);
   },
   onLoad: function (options) {
-    tel = wx.getStorageSync('tel');
+    tel_third = wx.getStorageSync('tel_third');
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     openId = wx.getStorageSync('openid');
   },
   onShow: function () {
-    tel=null;
-    sms=null;
-    newpassword=null;
     this.setData({
-      defaultTel: tel
+      defaultTel: wx.getStorageSync('tel_third'),
+      sms_third: wx.getStorageSync('sms_third'),
+      newpassword_third: wx.getStorageSync('newpassword_third')
     });
   },
   findPasswordPage: function () {
@@ -46,13 +47,13 @@ Page({
   },
   getSms: function () {
     var that = this;
-    if (tel == '' || tel == undefined) {
+    if (tel_third == '' || tel_third == undefined) {
       wx.showToast({
         title: '手机号不能为空',
         icon: 'loading',
         duration: 1000
       })
-    } else if (tel.length != 11) {
+    } else if (tel_third.length != 11) {
       wx.showToast({
         title: '手机号不正确',
         icon: 'loading',
@@ -79,13 +80,13 @@ Page({
         }
 
       }, 1000)
-      console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":2}')
+      console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel_third + '","smsVerifyCodeType":2}')
       wx.request({
         url: app.getHostURL()+'/userNameLoginAndRegister.php',//找回密码和注册以及发短信
         method: 'POST',
         data: {
           'evUrl': '/sms/verifycode/fetch',
-          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":2}'
+          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel_third + '","smsVerifyCodeType":2}'
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -115,7 +116,7 @@ Page({
       method: 'POST',
       data: {
         'evUrl': '/user/smsLogin',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms + '","userName":"' + tel + '"}'
+        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_third + '","userName":"' + tel_third + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -165,17 +166,16 @@ Page({
     })
   },
   findPW: function () {
-    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + newpassword + '","code":"' + sms + '","userName":"' + tel + '"}')
-    console.log(newpassword)
+    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + newpassword_third + '","code":"' + sms_third + '","userName":"' + tel_third + '"}')
     var patt1 = /[^a-zA-Z0-9]/;//如果出现字母和数字组合外的字符，为true
-    if (newpassword == "" || newpassword == undefined) {
+    if (newpassword_third == "" || newpassword_third == undefined) {
       wx.showToast({
         title: '密码不能为空',
         icon: 'loading',
         duration: 1000
       })
       return;
-    } else if (patt1.test(newpassword)) {
+    } else if (patt1.test(newpassword_third)) {
       wx.showToast({
         title: '密码只能为字母和数字组合',
         icon: 'loading',
@@ -183,7 +183,7 @@ Page({
       })
       return;
     }
-    if (sms == "" || sms == undefined) {
+    if (sms_third == "" || sms_third == undefined) {
       wx.showToast({
         title: '验证码不能为空',
         icon: 'loading',
@@ -196,7 +196,7 @@ Page({
       method: 'POST',
       data: {
         'evUrl': '/user/resetUserPassword',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + newpassword + '","code":"' + sms + '","userName":"' + tel + '"}'
+        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + newpassword_third + '","code":"' + sms_third + '","userName":"' + tel_third + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'

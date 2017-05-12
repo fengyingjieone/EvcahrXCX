@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
-var tel;
-var sms;
+var tel_index;
+var sms_index;
 var evcharAppkey, openId;
 var intSecond;//倒计时任务
 var app = getApp();
@@ -11,20 +11,22 @@ Page({
     btnstatus: false
   },
   loginMobile: function (e) {
-    tel = e.detail.value;
-    console.log(tel)
+    tel_index = e.detail.value;
+    wx.setStorageSync('tel_index', tel_index);//
   },
     loginSms: function (e) {
-    sms = e.detail.value;
+      sms_index = e.detail.value;
+      wx.setStorageSync('sms_index', sms_index);//
   },
   onLoad: function (options) {
-    tel = wx.getStorageSync('tel');
+    tel_index = wx.getStorageSync('tel_index');
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     openId = wx.getStorageSync('openid');
   },
   onShow: function () {
     this.setData({
-      defaultTel: tel
+      defaultTel: wx.getStorageSync('tel_index'),
+      defaultPwd: wx.getStorageSync('sms_index')
     });
   },
   findPasswordPage: function () {
@@ -39,13 +41,13 @@ Page({
   },
   getSms: function () {
     var that = this;
-    if (tel == '' || tel == undefined) {
+    if (tel_index == '' || tel_index == undefined) {
       wx.showToast({
         title: '手机号不能为空',
         icon: 'loading',
         duration: 1000
       })
-    } else if (tel.length != 11) {
+    } else if (tel_index.length != 11) {
       wx.showToast({
         title: '手机号不正确',
         icon: 'loading',
@@ -72,13 +74,13 @@ Page({
         }
 
       }, 1000)
-      console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":3}')
+      console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel_index + '","smsVerifyCodeType":3}')
       wx.request({
         url: app.getHostURL()+'/userNameLoginAndRegister.php',//找回密码和注册以及发短信
         method: 'POST',
         data: {
           'evUrl': '/sms/verifycode/fetch',
-          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":3}'
+          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel_index + '","smsVerifyCodeType":3}'
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -94,7 +96,7 @@ Page({
     }
   },
   loginBySms: function () {
-    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms + '","userName":"' + tel + '"}')
+    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '"}')
     wx.showToast({
       title: '正在登陆',
       icon: 'loading',
@@ -109,7 +111,7 @@ Page({
       method: 'POST',
       data: {
         'evUrl': '/user/smsLogin',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms + '","userName":"' + tel + '"}'
+        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
