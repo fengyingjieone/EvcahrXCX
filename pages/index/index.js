@@ -90,7 +90,6 @@ Page({
     wx.setStorageSync('statusValD', 0);//筛选默认值
     wx.setStorageSync('devTypeA', 1);//筛选默认值
     wx.setStorageSync('devTypeB', 1);//筛选默认值
-    wx.setStorageSync('clickItemLock', 0);//全局缓存一个桩 选择锁
     onLoadOnshowLock = 1;
     var that = this;
     this.mapCtx = wx.createMapContext('map');
@@ -175,6 +174,7 @@ Page({
                             })
                             return;
                           }
+                          wx.setStorageSync('clickItemLock', 0);//全局缓存一个桩 选择锁
                           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                           wx.setStorageSync('userID', eData.data.id);//缓存用户id
                           wx.setStorageSync('accessKey', eData.data.accessKey);//缓存accessKey   加密信息用到

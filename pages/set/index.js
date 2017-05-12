@@ -11,6 +11,13 @@ Page({
     date: '2016-09-01',
     time: '12:01'
   },
+  onShow: function () {
+    if (wx.getStorageSync('logout')){
+      wx.navigateBack({
+        delta: 5
+      })
+    }
+  },
   onLoad: function (e) {
     var that = this;
     var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '"}');
@@ -170,7 +177,8 @@ Page({
             header: {
               'Content-Type': 'application/x-www-form-urlencoded'
             },
-            success: function (res) {              
+            success: function (res) {   
+              console.log("退出结果")           
               console.log(res)
               if(res.data.Edata[0].code==0){
                 wx.setStorageSync('logout', 1);//区域信息
