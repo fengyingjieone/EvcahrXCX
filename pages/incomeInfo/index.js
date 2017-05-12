@@ -36,7 +36,7 @@ Page({
         success: function (res) {
           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
           for (var i = 0; i < (res.data.Edata[0].data).length; i++) {
-            (res.data.Edata[0].data[i]).totalDegree = (Number((res.data.Edata[0].data[i]).totalDegree) * 0.01).toFixed(2);
+            (res.data.Edata[0].data[i]).amout = (Number((res.data.Edata[0].data[i]).amout) * 0.01).toFixed(2);
           }
           that.setData({
             deviceName: res.data.Edata[0].data[0].deviceName,
@@ -70,7 +70,7 @@ Page({
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         for (var i = 0; i < (res.data.Edata[0].data).length; i++) {
-          (res.data.Edata[0].data[i]).totalDegree = (Number((res.data.Edata[0].data[i]).totalDegree) * 0.01).toFixed(2);
+          (res.data.Edata[0].data[i]).amout = (Number((res.data.Edata[0].data[i]).amout) * 0.01).toFixed(2);
         }
         that.setData({
           listArray: res.data.Edata[0].data,//明细列表
@@ -102,7 +102,7 @@ Page({
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         for (var i = 0; i < (res.data.Edata[0].data).length; i++) {
-          (res.data.Edata[0].data[i]).totalDegree = (Number((res.data.Edata[0].data[i]).totalDegree) * 0.01).toFixed(2);
+          (res.data.Edata[0].data[i]).amout = (Number((res.data.Edata[0].data[i]).amout) * 0.01).toFixed(2);
         }
         that.setData({
           listArray: res.data.Edata[0].data,//明细列表
