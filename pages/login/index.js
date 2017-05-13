@@ -117,6 +117,8 @@ Page({
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
+        console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '"}')
+        console.log(res)
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         console.log("登陆结果")
         console.log(res)

@@ -19,6 +19,8 @@ Page({
       userName_second: wx.getStorageSync('userName_second'),
       password_second: wx.getStorageSync('password_second')
     });
+    userName_second=wx.getStorageSync('userName_second');
+    password_second=wx.getStorageSync('password_second');
   },
   loginPW: function (e) {
     password_second = e.detail.value;
