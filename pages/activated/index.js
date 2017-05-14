@@ -40,7 +40,7 @@ Page({
             wx.navigateTo({
               url: 'perfectedData/index'
             })            
-          } if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.available) {
+          }else if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.available) {
             wx.showToast({
               title: "SN错误",
               icon: 'loading',
