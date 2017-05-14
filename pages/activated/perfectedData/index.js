@@ -108,6 +108,8 @@ Page({
     },
     onShow:function(){
       devicesn="";
+      deviceName="";
+      electricityPrice="";
     },
     inputSN:function (e){
         devicesn = e.detail.value;
@@ -230,7 +232,7 @@ Page({
               content: "激活成功",
               confirmText: "确定",
               success: function (res) {
-
+                wx.setStorageSync('activatedSN', '');
               }
             })
           }else{
