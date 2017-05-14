@@ -231,6 +231,7 @@ Page({
               title: '提示',
               content: "激活成功",
               confirmText: "确定",
+              showCancel:false,
               success: function (res) {
                 wx.hideToast()
               }
