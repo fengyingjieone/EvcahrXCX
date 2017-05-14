@@ -14,6 +14,7 @@ var electricityPrice='';
 var cityCode = '';
 var deviceLng = '';
 var deviceLat = '';
+var electricityPriceCode=6;
 Page({
     onLoad:function(){
       var that=this;
@@ -161,12 +162,15 @@ Page({
     },
     inputElectricityPrice: function (e) {
       electricityPrice=e.detail.value;
+      electricityPriceCode = e.detail.value;
     },
     saveBtn:function(){
       var that=this;   
+      console.log(electricityPrice)
       address = address.replace(/(^\s+)|(\s+$)/g, "");
       deviceName = deviceName.replace(/(^\s+)|(\s+$)/g, "");
       electricityPrice = electricityPrice.replace(/(^\s+)|(\s+$)/g, "");
+
       wx.showToast({
         title: '正在激活',
         icon: 'loading',
@@ -190,30 +194,37 @@ Page({
       } 
       console.log(electricityPrice)
       console.log(electricityPrice * 100)
-      var electricityPriceErr = Number(electricityPrice);
-      if (electricityPriceErr * 100> 200) {
-        wx.showToast({
-          title: "共享电价不能高于2元/度",
-          icon: 'loading',
-          duration: 1500
-        })
-        return;
-      } else if(electricityPriceErr * 100 <0) {
-        wx.showToast({
-          title: "共享电价不能低于0元/度",
-          icon: 'loading',
-          duration: 1500
-        })
-        return;
-      } else if (!electricityPriceErr) {
-        console.log("未执行？？")
-        wx.showToast({
-          title: "共享电价定价错误",
-          icon: 'loading',
-          duration: 1500
-        })
-        return;
-      }  
+       
+        var electricityPriceErr = Number(electricityPrice);
+        if (electricityPriceErr * 100 > 200) {
+          wx.showToast({
+            title: "共享电价不能高于2元/度",
+            icon: 'loading',
+            duration: 1500
+          })
+          return;
+        } else if (electricityPriceErr * 100 < 0) {
+          wx.showToast({
+            title: "共享电价不能低于0元/度",
+            icon: 'loading',
+            duration: 1500
+          })
+          return;
+        }else if (!electricityPriceErr) {
+          if (electricityPriceCode==0){
+            console.log("输入0")
+          }else{
+            console.log("未执行？？")
+            wx.showToast({
+              title: "共享电价定价错误",
+              icon: 'loading',
+              duration: 1500
+            })
+            return;
+          }          
+        }  
+
+      
       var electricityPriceCents = parseInt(electricityPrice * 100);      
       var locationSeat = that.qqTobd(deviceLat, deviceLng);
       console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + wx.getStorageSync('activatedSN') + '","areaCode":"' + cityCode + '","deviceLng":"' + locationSeat[0] + '","deviceLat":"' + locationSeat[1] + '","address":"' + address + '","deviceName":"' + deviceName + '","electricityPrice":' + electricityPriceCents + '}')
