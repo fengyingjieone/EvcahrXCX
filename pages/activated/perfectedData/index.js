@@ -193,7 +193,14 @@ Page({
       var electricityPriceErr = Number(electricityPrice);
       if (electricityPriceErr * 100> 200) {
         wx.showToast({
-          title: "定价不能高于2元",
+          title: "共享电价不能高于2元/度",
+          icon: 'loading',
+          duration: 1500
+        })
+        return;
+      } else if(electricityPriceErr * 100 <0) {
+        wx.showToast({
+          title: "共享电价不能低于0元/度",
           icon: 'loading',
           duration: 1500
         })
@@ -201,7 +208,7 @@ Page({
       } else if (!electricityPriceErr) {
         console.log("未执行？？")
         wx.showToast({
-          title: "定价错误",
+          title: "共享电价定价错误",
           icon: 'loading',
           duration: 1500
         })
@@ -233,7 +240,10 @@ Page({
               confirmText: "确定",
               showCancel:false,
               success: function (res) {
-                wx.hideToast()
+                wx.hideToast();
+                wx.switchTab({
+                  url: '../../usercenter/index'
+                })
               }
             })
           }else{
