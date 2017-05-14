@@ -217,7 +217,7 @@ Page({
         data: {
           'evUrl': '/activation/commitDeviceActivationInfo',
           'evheader': evheader,
-          'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + wx.getStorageSync('activatedSN') + '","areaCode":"' + cityCode + '","deviceLng":"' + deviceLng + '","deviceLat":"' + deviceLat + '","address":"' + address + '","deviceName":"' + deviceName + '","electricityPrice":' + electricityPriceCents + '}'
+          'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + wx.getStorageSync('activatedSN') + '","areaCode":"' + cityCode + '","deviceLng":"' + locationSeat[0] + '","deviceLat":"' + locationSeat[1] + '","address":"' + address + '","deviceName":"' + deviceName + '","electricityPrice":' + electricityPriceCents + '}'
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -232,7 +232,7 @@ Page({
               content: "激活成功",
               confirmText: "确定",
               success: function (res) {
-                wx.setStorageSync('activatedSN', '');
+                wx.hideToast()
               }
             })
           }else{
@@ -245,6 +245,7 @@ Page({
           }
         },
         fail: function (res) {
+          wx.hideToast()
           console.log("获取钱包信息失败")
         }
       })//充电点列表
