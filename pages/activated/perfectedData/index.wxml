@@ -22,7 +22,7 @@
     </view>
     <view class="streetBox center-x">
     	<view class="streetName center-x">定价(元):<view class="fontred">*</view></view>
-        <input id="electricityPrice" value="" bindinput="inputElectricityPrice" type="number"/>
+        <input id="electricityPrice" value="" bindinput="inputElectricityPrice" type="text"/>
     </view>
     <view class="saveBen center-x" catchtap="saveBtn">  激活</view>
 </view>

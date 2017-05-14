@@ -33,7 +33,6 @@ Page({
         },
         success: function (res) {
           //wx.hideToast();activatedSN available
-          wx.hideToast();
           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间        
           console.log(res)
           wx.setStorageSync('activatedSN', devicesn);

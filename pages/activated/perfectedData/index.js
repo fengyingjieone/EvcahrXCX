@@ -162,6 +162,9 @@ Page({
     },
     saveBtn:function(){
       var that=this;   
+      address = address.replace(/(^\s+)|(\s+$)/g, "");
+      deviceName = deviceName.replace(/(^\s+)|(\s+$)/g, "");
+      electricityPrice = electricityPrice.replace(/(^\s+)|(\s+$)/g, "");
       wx.showToast({
         title: '正在激活',
         icon: 'loading',
@@ -185,15 +188,15 @@ Page({
       } 
       console.log(electricityPrice)
       console.log(electricityPrice * 100)
-      electricityPrice = Number(electricityPrice);
-      if (electricityPrice * 100> 200) {
+      var electricityPriceErr = Number(electricityPrice);
+      if (electricityPriceErr * 100> 200) {
         wx.showToast({
           title: "定价不能高于2元",
           icon: 'loading',
           duration: 1500
         })
         return;
-      } else if (!electricityPrice) {
+      } else if (!electricityPriceErr) {
         console.log("未执行？？")
         wx.showToast({
           title: "定价错误",
@@ -220,7 +223,6 @@ Page({
         success: function (res) {
           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳    
           console.log(res)    
-          wx.hideToast();
           if (res.data.Edata[0].code==0){
             //激活成功
             wx.showModal({
