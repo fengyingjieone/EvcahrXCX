@@ -1,0 +1,12 @@
+<view class="box">
+    <view class="scanBtnBox center-x">
+    		<view class="checkDeviceSnInput center-x">
+        	<view class="checkDeviceSnDevName center-x">设备号：</view>
+    		  <input type="text" id="sn"  bindinput="inputSN" />
+        </view>
+    </view>
+    <view class="next">
+    	<view class="nextBtn center-x" >上一步</view>
+    	<view class="nextBtn center-x" catchtap="nextStep">下一步</view>
+    </view>
+</view>

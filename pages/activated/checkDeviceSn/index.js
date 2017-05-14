@@ -1,26 +1,25 @@
+var devicesn;
 var app = getApp();
 Page({
     onShareAppMessage: function () {
         return app.onShareAppMessage();
     },
-    scanSn: function () {
-      var that=this;
-      wx.scanCode({
-        success: function (res) {
-          console.log(res.result)
-          that.nextStep(res.result)    
-        }
-      })
+    onShow:function(){
+      //devicesn="";
     },
-    nextStep: function (devicesn) {
+    inputSN:function (e){
+        devicesn = e.detail.value;
+        console.log(devicesn)
+    },
+    nextStep:function(){
       var that = this;
       wx.showToast({
-        title: '',
+        title: "",
         icon: 'loading',
         duration: 15000
       })
       console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + devicesn + '"}')
-      var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + devicesn + '"}');
+      var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' +devicesn+'"}');
       wx.request({
         url: app.getHostURL() + '/getData.php',//php上固定地址
         method: 'POST',
@@ -33,14 +32,17 @@ Page({
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         success: function (res) {
+          //wx.hideToast();activatedSN available
           wx.hideToast();
           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间        
+          console.log(res)
+          wx.setStorageSync('activatedSN', devicesn);
           if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.available) {
-            wx.setStorageSync('activatedSN', devicesn);
+            console.log("验证sn成功")
             wx.navigateTo({
-              url: 'perfectedData/index'
-            })            
-          }else{
+              url: '../perfectedData/index'
+            })  
+          } else {
             wx.showToast({
               title: res.data.Edata[0].msg,
               icon: 'loading',
@@ -55,12 +57,19 @@ Page({
         }
       })//查看当前开关状态
     },
-    toCheckDeviceSn:function()
-    {
-      wx.navigateTo({
-        url: 'checkDeviceSn/index'
+    scanSn: function () {
+      wx.scanCode({
+        success: function (res) {
+          console.log(res.result)
+          wx.setStorageSync('activatedSN', res.result);//缓存时间戳
+          wx.navigateTo({
+            url: '../wallet/index'
+          })
+          //var sn = (res.result).substr((res.result).indexOf("sn=") + 3);
+          
+        }
       })
-    }
+    },
 })
 
 

@@ -1,7 +1,8 @@
 /**index.wxss**/
-@import "../images/common.wxss";
+@import "../../images/common.wxss";
 .box{
 	width:100%;
+  min-height: 100%;
 	display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,3 +40,44 @@
 	position:relative;
 }
 .scanimg{width: 39rpx; height: 39rpx; margin-right: 10rpx;}
+
+/*输入sn*/
+.checkDeviceSnInput{
+	width:90%; 
+	height:80rpx;
+	border-radius:3rpx;
+	font-size:34rpx;
+	color:#323232; 
+	position:relative;
+}
+.checkDeviceSnDevName{
+	width:160rpx;
+	height:100%;
+}
+.checkDeviceSnInput input{
+	height:70rpx; 
+	border:1rpx #d2d2d2 solid;
+	display: flex;
+	background-color:#FFF;
+	flex-grow:50;
+}
+
+.next{
+	width:90%;
+	height:110rpx;
+	margin-top:50rpx;
+	padding-left:5%;
+	padding-right:5%;
+	background-color:#fff;
+	position:absolute;
+	bottom:60rpx;
+	left:0rpx;
+	display: flex;
+  	flex-direction:row;
+  	align-items: center;
+	justify-content:space-between;
+}
+.nextBtn{
+	width:25%;
+	height:100%; 
+}

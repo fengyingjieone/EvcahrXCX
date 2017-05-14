@@ -25,7 +25,9 @@
   "pages/login/index",
   "pages/loginByPw/index",
   "pages/resetPw/index",
-  "pages/activated/index"
+  "pages/activated/index",
+  "pages/activated/checkDeviceSn/index",
+  "pages/activated/perfectedData/index"
 
   ],
   "window":{

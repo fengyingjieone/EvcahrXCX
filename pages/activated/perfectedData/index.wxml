@@ -1,0 +1,28 @@
+<view class="box">
+    <map class="mapBox" id="mapDevice" longitude="{{SNlongitude}}" latitude="{{SNlatitude}}" scale="12" bindregionchange="getCenterSeat"  controls="{{controls}}" bindtap="getCenterSeat"></map>
+    <view class="streetBox center-x" style="margin-top:20px;">
+    	<view class="streetName center-x">省:<view class="fontred">*</view></view>
+        <input id="province" value="{{province}}" disabled bindinput="inputProvince"/>
+    </view>
+    <view class="streetBox center-x" >
+    	<view class="streetName center-x">市:<view class="fontred" bindinput="inputCity">*</view></view>
+        <input id="city" value="{{city}}" disabled/>
+    </view>
+    <view class="streetBox center-x" >
+    	<view class="streetName center-x">区/县:<view class="fontred">*</view></view>
+        <input id="district" value="{{district}}" disabled bindinput="inputDistrict"/>
+    </view>
+    <view class="streetBox center-x" >
+    	<view class="streetName center-x" style="width:240rpx">详细地址:<view class="fontred">*</view></view>
+        <textarea id="address" value="{{address}}" rows="2" class="textareacss" bindinput="inputAddress"/>
+    </view>
+    <view class="streetBox center-x">
+    	<view class="streetName center-x">设备名称:<view class="fontred">*</view></view>
+        <input id="deviceName" value="" bindinput="inputDeviceName"/>
+    </view>
+    <view class="streetBox center-x">
+    	<view class="streetName center-x">定价(元):<view class="fontred">*</view></view>
+        <input id="electricityPrice" value="" bindinput="inputElectricityPrice"/>
+    </view>
+    <view class="saveBen center-x" catchtap="saveBtn">  激活</view>
+</view>
