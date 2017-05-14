@@ -18,11 +18,11 @@
     </view>
     <view class="streetBox center-x">
     	<view class="streetName center-x">设备名称:<view class="fontred">*</view></view>
-        <input id="deviceName" value="" bindinput="inputDeviceName"/>
+        <input id="deviceName" value="" bindinput="inputDeviceName"type="text"/>
     </view>
     <view class="streetBox center-x">
     	<view class="streetName center-x">定价(元):<view class="fontred">*</view></view>
-        <input id="electricityPrice" value="" bindinput="inputElectricityPrice"/>
+        <input id="electricityPrice" value="" bindinput="inputElectricityPrice" type="number"/>
     </view>
     <view class="saveBen center-x" catchtap="saveBtn">  激活</view>
 </view>

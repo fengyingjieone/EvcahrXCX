@@ -167,6 +167,14 @@ Page({
         icon: 'loading',
         duration: 15000
       })  
+      if (!address){
+        wx.showToast({
+          title: "详细地址不能为空",
+          icon: 'loading',
+          duration: 1500
+        })
+        return;
+      }
       if (!deviceName){
         wx.showToast({
           title: "设备名不能为空",
@@ -177,6 +185,7 @@ Page({
       } 
       console.log(electricityPrice)
       console.log(electricityPrice * 100)
+      electricityPrice = Number(electricityPrice);
       if (electricityPrice * 100> 200) {
         wx.showToast({
           title: "定价不能高于2元",
@@ -192,7 +201,7 @@ Page({
           duration: 1500
         })
         return;
-      }      
+      }  
       var electricityPriceCents = parseInt(electricityPrice * 100);      
       var locationSeat = that.qqTobd(deviceLat, deviceLng);
       console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + wx.getStorageSync('activatedSN') + '","areaCode":"' + cityCode + '","deviceLng":"' + locationSeat[0] + '","deviceLat":"' + locationSeat[1] + '","address":"' + address + '","deviceName":"' + deviceName + '","electricityPrice":' + electricityPriceCents + '}')

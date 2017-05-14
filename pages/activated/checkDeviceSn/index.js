@@ -70,6 +70,11 @@ Page({
         }
       })
     },
+    Backup:function(){
+      wx.navigateBack({
+        delta: 1
+      })
+    }
 })
 
 
