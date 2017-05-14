@@ -23,7 +23,7 @@ Page({
           id: 1009,
           iconPath: '../../images/pin.png',
           position: {
-            left: systemInfo.windowWidth*0.5-20,
+            left: systemInfo.windowWidth*0.5-5,
             top: 77,
             width: 10,
             height: 23
@@ -163,6 +163,10 @@ Page({
     inputElectricityPrice: function (e) {
       electricityPrice=e.detail.value;
       electricityPriceCode = e.detail.value;
+      if (e.detail.value==''){
+        electricityPriceCode=6
+      }
+      console.log(electricityPriceCode)
     },
     saveBtn:function(){
       var that=this;   
@@ -245,13 +249,13 @@ Page({
           console.log(res)    
           if (res.data.Edata[0].code==0){
             //激活成功
+            wx.hideToast();
             wx.showModal({
               title: '提示',
               content: "激活成功",
               confirmText: "确定",
               showCancel:false,
-              success: function (res) {
-                wx.hideToast();
+              success: function (res) {                
                 wx.switchTab({
                   url: '../../usercenter/index'
                 })

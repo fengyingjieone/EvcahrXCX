@@ -43,7 +43,7 @@ Page({
             })  
           }else if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.available) {
             wx.showToast({
-              title: "SN错误",
+              title: "该设备已被使用",
               icon: 'loading',
               duration: 1500
             })
