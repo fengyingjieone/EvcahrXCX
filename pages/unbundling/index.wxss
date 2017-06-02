@@ -1,0 +1,111 @@
+/**index.wxss**/
+@import "../images/common.wxss";
+.cutLine{
+  width:100%;
+  height:24rpx;
+  background-color: #f2f2f2;
+  border-top: 1rpx #d2d2d2 solid;
+  border-bottom: 1rpx #d2d2d2 solid;
+}
+.listBox{
+  width:100%;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-bottom: 1rpx #d2d2d2 solid;
+}
+.listLeft{
+  height: 110rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;  
+  text-indent:30rpx;
+}
+.listTitle{padding: 2rpx 0rpx;}
+.listMoney{padding-right:30rpx;}
+.listRight{
+  width:100rpx;
+  height: 60rpx;
+  margin-right: 30rpx;
+  background-color: #3DCAE6;
+  color: #fff;
+  font-size: 28rpx;
+  border-radius: 5rpx;  
+  display: flex;
+  align-items: center;
+  justify-content:center; 
+}
+.hide{
+    display:none;    
+}
+.maskNone{display: none;}
+.maskFlex{display: flex;}
+.unbundlingMask{
+  width:100%;
+  height: 100vh;
+  top: 0rpx;
+  left: 0rpx;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 1000;  
+  align-items: center;
+  justify-content:center; 
+}
+.verifyingBox{
+  width:90%;
+  height: 300rpx;
+  position: fixed;
+  z-index: 1001;  
+  top: 50%;
+  left: 5%;
+  margin-top: -150rpx;
+  background-color: #f2f2f2;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-around;
+}
+.telInputB{
+  width:85%;
+  height: 90rpx;
+  margin-top: 18rpx;
+  background-color: #fff;
+  padding-left: 56rpx;
+  background:url(https://wx.chongdian.club/images/lock.png) 15rpx center #fff  no-repeat; 
+  background-size:34rpx 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+}
+.unbundlingBtn{
+  width:85%;
+  height: 90rpx;
+  padding-left: 28rpx;
+  padding-right: 28rpx;
+  margin-bottom: 18rpx;
+  color: #fff;
+  background-color: #3DCAE6;
+  border-radius: 8rpx;
+  font-size: 46rpx;
+  display: flex;
+  align-items: center;
+  justify-content:center; 
+}
+.inputcssSms{
+  /*width: 50%;*/
+  height: 100%;
+  color: #808080;
+}
+.getSms{
+  width: 40%;
+  height: 90%;
+  font-size: 26rpx;
+  color: #FFF;
+  border-right: 6rpx #fff solid;
+  background-color: #3DCAE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

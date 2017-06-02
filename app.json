@@ -27,7 +27,8 @@
   "pages/resetPw/index",
   "pages/activated/index",
   "pages/activated/checkDeviceSn/index",
-  "pages/activated/perfectedData/index"
+  "pages/activated/perfectedData/index",
+  "pages/unbundling/index"
 
   ],
   "window":{

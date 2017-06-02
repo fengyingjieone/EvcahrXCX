@@ -1,0 +1,28 @@
+
+<!--绑定-->    
+<view class="cutLine"></view>
+<view class="listBox" catchtap="listBtn" wx:for="{{devArray}}" id="{{item.id}}">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">{{item.deviceName}}</view>
+        </view>
+        <view class="listRight">
+                解绑
+        </view>
+</view>
+<view class="unbundlingMask {{maskHidden?'maskNone':'maskFlex'}}" catchtap="maskBtn"></view>
+<view class="verifyingBox {{maskHidden?'maskNone':'maskFlex'}}">
+    <view class="telInputB" placeholder="请输人验证码">
+      <input  placeholder="请输人验证码" bindblur="getSmsVal" maxlength="6" value="{{defaultSms}}"  focus="{{inputStatus}}"  class="inputcssSms"/>
+		  <button class="getSms"  disabled="{{btnstatus}}"  catchtap="getSms">{{leftBtn}}</button>
+    </view>
+    <view class="unbundlingBtn" catchtap="unbundling">解绑</view>
+</view>
+
+
+
+
+
+
+
+
+

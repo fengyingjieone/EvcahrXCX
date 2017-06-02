@@ -210,6 +210,11 @@ Page({
     wx.navigateTo({
       url: '../activated/index'
     })
+  },toUnbundling:function(){
+    console.log(123456789);
+    wx.navigateTo({
+      url: '../unbundling/index'
+    })
   }
 
 
