@@ -11,11 +11,13 @@ Page({
   },
   onShow:function(){
     this.setData({
-      defaultSms: sms,
-      maskHidden: true
+      defaultSms: sms
     })
   },
   onLoad: function (e) {
+    this.setData({
+      maskHidden: true
+    })
     this.listDevice();
   },
   listDevice: function (e) {
