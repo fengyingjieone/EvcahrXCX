@@ -12,6 +12,7 @@ Page({
     time: '12:01'
   },
   onLoad: function (e) {
+    devArray = new Array();
     var that = this;
     var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '"}');
     console.log("头部信息" + evheader)
@@ -51,6 +52,74 @@ Page({
             }
             devArray[i] = res.data.Edata[0].data[i].deviceName;
           }
+          console.log("要推送到前台的数据");
+          console.log(devArray)
+          that.setData({
+            array: devArray,
+            devName: defaultDevName,
+            deviceCount: true//设 默认只有一个设备
+          })
+        }
+
+      },
+      fail: function (res) {
+        console.log("获取钱包信息失败")
+      }
+    })
+  },
+  onShow: function (e) {
+    devArray = new Array();
+    var that = this;
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '"}');
+    console.log("头部信息" + evheader)
+
+    wx.request({
+      url: app.getHostURL() + '/getData.php',//php上固定地址
+      method: 'POST',
+      data: {
+        'evUrl': '/device/listDevicesByOwner',
+        'evheader': evheader,
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '"}'
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
+        console.log("设置返回数据")
+        console.log(res.data.Edata[0].data)
+        console.log((res))
+        if (res.data.Edata[0].data == null) {
+          return;
+        } else {
+          that.setData({
+            owner: true//是桩主
+          })
+        }
+        if (res.data.Edata[0].data.length > 1) {
+          console.log("这位大人有" + res.data.Edata[0].data.length + "个桩");
+          var defaultDevName;
+          devArrayAll = res.data.Edata[0].data;
+          for (var i = 0; i < res.data.Edata[0].data.length; i++) {
+            console.log(i)
+            if (res.data.Edata[0].data[i].defaultFlag) {
+              defaultDevName = res.data.Edata[0].data[i].deviceName;
+            }
+            devArray[i] = res.data.Edata[0].data[i].deviceName;
+          }
+          console.log("要推送到前台的数据");
+          console.log(devArray)
+          console.log(defaultDevName)
+          that.setData({
+            array: devArray,
+            devName: defaultDevName,
+            deviceCount: true//设 默认只有一个设备
+          })
+        } else if (res.data.Edata[0].data.length == 1){
+          //有一个桩
+          var defaultDevName;
+          defaultDevName = res.data.Edata[0].data[i].deviceName;
+          devArray[i] = res.data.Edata[0].data[i].deviceName;
           that.setData({
             array: devArray,
             devName: defaultDevName,

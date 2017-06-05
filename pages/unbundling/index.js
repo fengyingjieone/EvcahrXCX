@@ -39,6 +39,42 @@ Page({
         console.log("设置返回数据")
         console.log(res.data.Edata[0].data)
         console.log((res))
+        if (res.data.Edata[0].data.length > 1 || res.data.Edata[0].data.length == 1) {
+          console.log("这位大人有" + res.data.Edata[0].data.length + "个桩");
+          var defaultDevName;
+          for (var i = 0; i < res.data.Edata[0].data.length; i++) {
+            if (res.data.Edata[0].data[i].defaultFlag) {
+              defaultDevName = res.data.Edata[0].data[i].deviceName;
+            }
+          }//检测有没有默认桩，如果没有要设置默认桩
+          if (defaultDevName == undefined) {
+            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + res.data.Edata[0].data[0].id + '"}');
+            wx.request({
+              url: app.getHostURL() + '/getData.php',//php上固定地址
+              method: 'POST',
+              data: {
+                'evUrl': '/device/setDefaultDevice',
+                'evheader': evheader,
+                'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + res.data.Edata[0].data[0].id + '"}'
+              },
+              header: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              success: function (res) {
+                wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
+                console.log("设置默认桩")
+                console.log((res))
+                if (res.data.Edata[0].code == 0) {
+                  console.log("设置成功")
+                }
+
+              },
+              fail: function (res) {
+                console.log("设置默认桩失败");
+              }
+            })
+          }
+        }
         devArray = res.data.Edata[0].data;
         that.setData({
           devArray: res.data.Edata[0].data//明细列表
@@ -177,7 +213,7 @@ Page({
             clearInterval(intSecond);  
             that.setData({
               btnstatus: false,
-              maskHidden: true,
+              maskHidden: false,
               leftBtn: "获取验证码"
             })
         }
