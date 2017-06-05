@@ -39,7 +39,7 @@ Page({
         console.log("设置返回数据")
         console.log(res.data.Edata[0].data)
         console.log((res))
-        if (res.data.Edata[0].data.length > 1 || res.data.Edata[0].data.length == 1) {
+        if (res.data.Edata[0].data!==null&&(res.data.Edata[0].data.length > 1 || res.data.Edata[0].data.length == 1)) {
           console.log("这位大人有" + res.data.Edata[0].data.length + "个桩");
           var defaultDevName;
           for (var i = 0; i < res.data.Edata[0].data.length; i++) {

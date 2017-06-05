@@ -34,6 +34,11 @@ Page({
         console.log(res.data.Edata[0].data)
         console.log((res))
         if(res.data.Edata[0].data==null){
+          that.setData({
+            array: devArray,
+            devName: '',
+            deviceCount: false//没有桩，不显示切换充电桩
+          })
           return;
         }else
         {
@@ -90,6 +95,11 @@ Page({
         console.log(res.data.Edata[0].data)
         console.log((res))
         if (res.data.Edata[0].data == null) {
+          that.setData({
+            array: devArray,
+            devName: '',
+            deviceCount: false//设 默认只有一个设备
+          })
           return;
         } else {
           that.setData({
@@ -118,8 +128,8 @@ Page({
         } else if (res.data.Edata[0].data.length == 1){
           //有一个桩
           var defaultDevName;
-          defaultDevName = res.data.Edata[0].data[i].deviceName;
-          devArray[i] = res.data.Edata[0].data[i].deviceName;
+          defaultDevName = res.data.Edata[0].data[0].deviceName;
+          devArray[0] = res.data.Edata[0].data[0].deviceName;
           that.setData({
             array: devArray,
             devName: defaultDevName,
