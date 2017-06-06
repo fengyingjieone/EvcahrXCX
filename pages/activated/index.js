@@ -19,6 +19,10 @@ Page({
         icon: 'loading',
         duration: 15000
       })
+      if (devicesn.indexOf("sn=") != -1) {
+        var startSeat = devicesn.indexOf("sn=") + 3;
+        devicesn = devicesn.substring(startSeat);
+      }	
       console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + devicesn + '"}')
       var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceSn":"' + devicesn + '"}');
       wx.request({
