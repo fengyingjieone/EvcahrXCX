@@ -10,9 +10,9 @@ Page({
     maskHidden:true
   },
   onShow:function(){
-    this.setData({
-      defaultSms: sms
-    })
+    //this.setData({
+      //defaultSms: sms
+    //})
   },
   onLoad: function (e) {
     this.setData({
@@ -189,6 +189,7 @@ Page({
         console.log((res));
         if (res.data.Edata[0].code == 0) {
           //解绑成功
+          sms='';
           wx.showToast({
             title: "解绑成功",
             icon: 'loading',
@@ -199,7 +200,8 @@ Page({
           that.setData({
             btnstatus: false,
             maskHidden: true,
-            leftBtn: "获取验证码"
+            leftBtn: "获取验证码",
+            defaultSms: sms//验证码设为空
           })
 
         }else{
