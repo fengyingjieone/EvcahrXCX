@@ -204,7 +204,7 @@ Page({
             defaultSms: sms//验证码设为空
           })
 
-        }else{
+        } else if (res.data.Edata[0].code == 1000 || res.data.Edata[0].code == 2000){
             //解绑不成功
             wx.showToast({
               title: res.data.Edata[0].msg,
@@ -212,12 +212,20 @@ Page({
               duration: 1000
             })
             that.listDevice();    
-            clearInterval(intSecond);  
-            that.setData({
-              btnstatus: false,
-              maskHidden: false,
-              leftBtn: "获取验证码"
-            })
+        } else {
+          //解绑不成功
+          wx.showToast({
+            title: res.data.Edata[0].msg,
+            icon: 'loading',
+            duration: 1000
+          })
+          that.listDevice();
+          clearInterval(intSecond);
+          that.setData({
+            btnstatus: false,
+            maskHidden: false,
+            leftBtn: "获取验证码"
+          })
         }
       },
       fail: function (res) {
