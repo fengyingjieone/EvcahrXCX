@@ -29,6 +29,7 @@
   height: 110rpx;
   display: block;
   position: relative;
+  background-color: #fff;
 }
 .listLeftB{
   width:50%;

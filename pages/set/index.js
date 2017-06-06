@@ -133,7 +133,7 @@ Page({
           that.setData({
             array: devArray,
             devName: defaultDevName,
-            deviceCount: true//设 默认只有一个设备
+            deviceCount: false//设 默认只有一个设备  不应该显示切换充电桩栏
           })
         }
 
