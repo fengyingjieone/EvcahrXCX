@@ -11,8 +11,8 @@
 </view>
 <view class="unbundlingMask {{maskHidden?'maskNone':'maskFlex'}}" catchtap="maskBtn"></view>
 <view class="verifyingBox {{maskHidden?'maskNone':'maskFlex'}}">
-    <view class="telInputB" placeholder="请输人验证码">
-      <input  placeholder="请输人验证码" bindinput="getSmsVal" maxlength="6" value="{{defaultSms}}"  focus="{{inputStatus}}"  class="inputcssSms"/>
+    <view class="telInputB" placeholder="请输入验证码">
+      <input  placeholder="请输入验证码" bindinput="getSmsVal" maxlength="6" value="{{defaultSms}}"  focus="{{inputStatus}}"  class="inputcssSms"/>
 		  <button class="getSms"  disabled="{{btnstatus}}"  catchtap="getSms">{{leftBtn}}</button>
     </view>
     <view class="unbundlingBtn" catchtap="unbundling">解绑</view>
