@@ -14,7 +14,7 @@
 	<view class="cutLine"></view>
 	<view class="cutListBox {{owner?'':'hide'}}">
 		<view class="cutListLeft">
-			<image  src="../images/powerIcon.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/powerIcon.png" class="leftIcon icon" ></image>
 			<view>开关</view>
 		</view>
 		<view class="powerBtn">
@@ -24,7 +24,7 @@
 	</view>
 	<view class="cutListBox {{owner?'':'hide'}}">
 		<view class="cutListLeft">
-			<image  src="../images/gongLv.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/gongLv.png"  class="leftIcon icon" ></image>
 			<view>可调功率</view>
 		</view>
 		<view class="powerBtn">
@@ -34,7 +34,7 @@
 	</view>
 	<view class="cutListBox {{owner?'':'hide'}}">
 		<view class="cutListLeft">
-			<image  src="../images/banjiadian.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/banjiadian.png"  class="leftIcon icon" ></image>
 			<view>半价电</view>
 		</view>
 		<view class="powerBtn">
@@ -43,16 +43,17 @@
 	</view>
 	<view class="cutListBox {{owner?'':'hide'}}">
 		<view class="cutListLeft">
-			<image  src="../images/gongxiang.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/gongxiang.png"  class="leftIcon icon"></image>
 			<view>共享</view>
 		</view>
 		<view class="powerBtn">
 			<switch  disabled="{{disonlineB}}"  checked="{{VshareTime}}" bindchange="shareT"  color="#3DCAE6" />
 		</view>	
 	</view>
+  <view class="cutLine"></view>
 	<view class="cutListBox">
 		<view class="cutListLeft">
-			<image  src="../images/wallet.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/wallet.png"  class="leftIcon icon" ></image>
 			<view>我的钱包</view>
 		</view>
 		<view class="powerBtn"  catchtap="toWallet">
@@ -61,7 +62,7 @@
 	</view>
 	<view class="cutListBox {{incomeFlag?'':'hide'}}">
 		<view class="cutListLeft">
-			<image  src="../images/shouYi.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/shouYi.png" class="leftIcon icon"></image>
 			<view>收益查看</view>
 		</view>
 		<view class="powerBtn" catchtap="toIncome">
@@ -70,13 +71,23 @@
 	</view>
 	<view class="cutListBox">
 		<view class="cutListLeft">
-			<image  src="../images/dingDan.png" mode="widthFix" class="icon"></image>
+			<image  src="../images/dingDan.png" class="leftIcon icon"></image>
 			<view>我的订单</view>
 		</view>
 		<view class="powerBtn" catchtap="toHistoryorder">
 			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
 		</view>	
 	</view>
+  <!--<view class="cutLine"></view>
+  <view class="cutListBox">
+		<view class="cutListLeft">
+			<image  src="../images/set.png" class="leftIcon icon"></image>
+			<view>设置</view>
+		</view>
+		<view class="powerBtn"  catchtap="toSet">
+			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+		</view>	
+	</view>-->
 </view>
 
 

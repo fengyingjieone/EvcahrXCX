@@ -4,6 +4,7 @@ var app = getApp();
 var bankUsername = "";
 var bankId = "";
 var bankName = "";
+var bankNameInfo = "";//支行信息
 var bankMoney = "";
 var yue = 0;
 Page({
@@ -15,6 +16,9 @@ Page({
   },
   getBankname: function (e) {
     bankName = e.detail.value;
+  },
+  getBankNameInfo:function(e){
+    bankNameInfo = e.detail.value;
   },
   getBankmoney: function (e) {
     bankMoney = e.detail.value;
@@ -31,6 +35,7 @@ Page({
     bankId = "";
     bankName = "";
     bankMoney = "";
+    bankNameInfo = "";
   },
   tiXian: function () {
     console.log("点击提现按钮");
@@ -55,13 +60,19 @@ Page({
         icon: 'loading',
         duration: 1000
       })
+    } else if (bankNameInfo == "") {
+      wx.showToast({
+        title: '支行信息不能为空',
+        icon: 'loading',
+        duration: 1000
+      })
     } else if (bankMoney == "") {
       wx.showToast({
         title: '提现金额不能为空',
         icon: 'loading',
         duration: 1000
       })
-    } else if (Number(bankMoney) > Number(yue)) {
+    } else if (Number(bankMoney)  > Number(yue)) {
       console.log(bankMoney)
       console.log(yue)
       wx.showToast({
@@ -76,9 +87,9 @@ Page({
         duration: 1000
       })
     } else {
+      bankName = bankName + bankNameInfo;
       var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","amount":' + Math.floor(bankMoney * 100) + ',"appId":"1003","bankName":"' + bankName + '","bankNo":"' + bankId + '","realName":"' + bankUsername + '"}');
 
-      console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","amount":' + Math.floor(bankMoney * 100) + ',"appId":"1003","bankName":"' + bankName + '","bankNo":"' + bankId + '","realName":"' + bankUsername + '"}')
       console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","amount":' + Math.floor(bankMoney * 100) + ',"appId":"1003","bankName":"' + bankName + '","bankNo":"' + bankId + '","realName":"' + bankUsername + '"}')
       wx.request({
         url: app.getHostURL() + '/getData.php',//php上固定地址
@@ -107,6 +118,12 @@ Page({
                   })
                 }
               }
+            })
+          }else{
+            wx.showToast({
+              title: res.data.Edata[0].msg,
+              icon: 'loading',
+              duration: 1000
             })
           }
         },

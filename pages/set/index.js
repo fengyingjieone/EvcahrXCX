@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+var defaultDevId;
 var app = getApp()
 var devArray = new Array;
 var devArrayAll;
@@ -54,6 +55,7 @@ Page({
             console.log(i)
             if (res.data.Edata[0].data[i].defaultFlag) {
               defaultDevName = res.data.Edata[0].data[i].deviceName;
+              defaultDevId = res.data.Edata[0].data[i].id;
             }
             devArray[i] = res.data.Edata[0].data[i].deviceName;
           }
@@ -64,7 +66,18 @@ Page({
             devName: defaultDevName,
             deviceCount: true//设 默认只有一个设备
           })
-        }
+        } else if (res.data.Edata[0].data.length == 1) {
+          //有一个桩
+          var defaultDevName;
+          defaultDevName = res.data.Edata[0].data[0].deviceName;
+          defaultDevId = res.data.Edata[0].data[0].id;
+          devArray[0] = res.data.Edata[0].data[0].deviceName;
+          that.setData({
+            array: devArray,
+            devName: defaultDevName,
+            deviceCount: false//设 默认只有一个设备  不应该显示切换充电桩栏
+          })
+        } 
 
       },
       fail: function (res) {
@@ -114,6 +127,7 @@ Page({
             console.log(i)
             if (res.data.Edata[0].data[i].defaultFlag) {
               defaultDevName = res.data.Edata[0].data[i].deviceName;
+              defaultDevId = res.data.Edata[0].data[i].id;
             }
             devArray[i] = res.data.Edata[0].data[i].deviceName;
           }
@@ -129,6 +143,7 @@ Page({
           //有一个桩
           var defaultDevName;
           defaultDevName = res.data.Edata[0].data[0].deviceName;
+          defaultDevId = res.data.Edata[0].data[0].id;
           devArray[0] = res.data.Edata[0].data[0].deviceName;
           that.setData({
             array: devArray,
@@ -294,10 +309,12 @@ Page({
     wx.navigateTo({
       url: '../unbundling/index'
     })
+  },
+  toSetShareTime: function () {
+    wx.navigateTo({
+      url: '../setShareTime/index?defaultDevId=' + defaultDevId
+    })
   }
-
-
-
 })
 
 

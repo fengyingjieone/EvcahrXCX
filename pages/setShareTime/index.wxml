@@ -1,0 +1,15 @@
+
+<!--共享时间设置-->
+<view class="fullBoxS">
+<view class="titleTxt centerA">当前共享时间段</view>
+<view class="nowTimeBox centerA">
+  <view class="fontTime centerA">{{startTime}} </view>
+  <view style="padding-left:10rpx; padding-right:10rpx; font-size:35rpx;">至</view>
+  <view class="fontTime centerA"> {{endTime}}</view>
+</view>
+<view class="saveShareTime centerA"  catchtap="toTimeEdit">编辑</view>
+</view>
+
+
+
+

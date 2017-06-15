@@ -17,7 +17,13 @@
 <view class="cutBox">
      <view class="cutBoxleft"> 银 行 :</view>
      <view class="cutBoxright">
-        <input  placeholder="例如：中国银行上海分行西康路支行" class="inputcss" bindblur="getBankname"/>
+        <input  placeholder="例如：中国银行" class="inputcss" bindblur="getBankname"/>
+     </view>
+</view>
+<view class="cutBox">
+     <view class="cutBoxleftB">支行信息:</view>
+     <view class="cutBoxright">
+        <input  placeholder="例如：上海分行西康路支行" class="inputcss" bindblur="getBankNameInfo"/>
      </view>
 </view>
 <view class="cutLine"></view>

@@ -1,0 +1,80 @@
+<view class="cutLine"></view>
+<view class="amTitle centerA">开始时间</view>
+<view class="box-bg">
+<picker-view indicator-style="height: 50px;" class="picker-view-css" value="{{valueOfStart}}" bindchange="bindChangeOfStart">
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view wx:for="{{Hours}}" style="line-height: 50px">{{item}}时</view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px">:</view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view wx:for="{{Minutes}}" style="line-height: 50px">{{item}}分</view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+</picker-view>
+</view>
+<view class="amTitle centerA">结束时间</view>
+<view class="box-bg2">
+<picker-view indicator-style="height: 50px;" class="picker-view-css" value="{{valueOfEnd}}" bindchange="bindChangeOfEnd">
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view wx:for="{{Hours}}" style="line-height: 50px">{{item}}时</view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px">:</view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view wx:for="{{Minutes}}" style="line-height: 50px">{{item}}分</view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+    <picker-view-column class="picker-view-column-css">
+      <view style="line-height: 50px"></view>
+    </picker-view-column>
+  </picker-view>
+</view>
+<view class="btnBox">
+  <view class="btnCancle centerA" catchtap="cancleBtn">取消</view>
+  <view class="btnCancle centerA"  catchtap="saveBtn">保存</view>
+</view>
+
+<!--<view>开始时间：{{startHour}}时{{startMinute}}分</view>
+<view>结束时间：{{endHour}}时{{endMinute}}分</view>-->
+
+<!--<view style="display:none">
+  <view>{{year}}年{{month}}月{{day}}日</view>
+  <picker-view indicator-style="height: 50px;" style="width: 50%; height: 300px;" value="{{value}}" bindchange="bindChange">
+    <picker-view-column>
+      <view wx:for="{{months}}" style="line-height: 50px">{{item}}月</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{days}}" style="line-height: 50px">{{item}}日</view>
+    </picker-view-column>
+  </picker-view>
+  <picker-view indicator-style="height: 50px;" style="width: 50%; height: 300px;" value="{{value}}" bindchange="bindChange">
+    <picker-view-column>
+      <view wx:for="{{months}}" style="line-height: 50px">{{item}}月</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{days}}" style="line-height: 50px">{{item}}日</view>
+    </picker-view-column>
+  </picker-view>
+</view>-->

@@ -59,4 +59,7 @@ switch{margin-right: 24rpx}
 .notOnline{
   font-size:24rpx; text-align: right; margin-right:10rpx;
 }
-
+.leftIcon{
+  width:48rpx;
+  height: 48rpx;
+}

@@ -28,7 +28,9 @@
   "pages/activated/index",
   "pages/activated/checkDeviceSn/index",
   "pages/activated/perfectedData/index",
-  "pages/unbundling/index"
+  "pages/unbundling/index",
+  "pages/setShareTime/index",
+  "pages/setShareTime/timeEdit/index"
 
   ],
   "window":{

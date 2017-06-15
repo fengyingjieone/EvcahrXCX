@@ -8,7 +8,7 @@
         </view>
         <view class="listRightB">
             <view class="colorGary font16 listMoney" >
-                {{devName}} >
+                {{devName}} <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow" style="margin-right:0rpx;"></image>
             </view>
         </view>
 </picker>
@@ -17,9 +17,15 @@
             <view class="colorGary font16 listTitle">消息推送设置</view>
         </view>
         <view class="listRight">
-            <view class="colorGary font16 listMoney" >
-                >
-            </view>
+            <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+        </view>
+</view>
+<view class="listBox {{owner?'':'hide'}}" catchtap="toSetShareTime">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">共享时间设置</view>
+        </view>
+        <view class="listRight">
+            <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
         </view>
 </view>
 <view class="listBox" catchtap="toActivated">
@@ -27,9 +33,7 @@
             <view class="colorGary font16 listTitle">激活</view>
         </view>
         <view class="listRight">
-            <view class="colorGary font16 listMoney" >
-                >
-            </view>
+            <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
         </view>
 </view>
 <view class="listBox" catchtap="toUnbundling">
@@ -37,9 +41,7 @@
             <view class="colorGary font16 listTitle">解绑</view>
         </view>
         <view class="listRight">
-            <view class="colorGary font16 listMoney" >
-                >
-            </view>
+            <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
         </view>
 </view>
 <view class="listBox">
@@ -57,9 +59,7 @@
             <view class="colorGary font16 listTitle">关于我们</view>
         </view>
         <view class="listRight">
-            <view class="colorGary font16 listMoney" >
-                >
-            </view>
+            <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
         </view>
 </view>
 <view class="listBox" catchtap="logout">
