@@ -41,6 +41,7 @@
         <view class="tixianTxtPadding">1、每月1号15号可以提现</view>
         <view class="tixianTxtPadding">2、余额少于50不能提现</view>
         <view class="tixianTxtPadding">3、申请成功后10个工作日内到账</view>
+        <view class="tixianTxtPadding">4、招行卡提现到账更迅速</view>
         <view class="tixianTxtPadding">提现需提交完善信息（姓名、卡号、银行开户行支行信息）</view>
         <view class="tixianTxtPadding">示例：张三</view>
         <view class="tixianTxtPadding">卡号：66563785672678829</view>
