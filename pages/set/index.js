@@ -191,6 +191,7 @@ Page({
         console.log("设置默认桩")
         console.log((res))
         if (res.data.Edata[0].code == 0) {
+          defaultDevId=devArrayAll[e.detail.value].id;
           wx.showToast({
             title: '设置成功',
             icon: 'loading',
