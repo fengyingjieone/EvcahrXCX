@@ -1,6 +1,6 @@
 var app = getApp();
 var defaultDevId;
-var isEnable;
+//var isEnable;
 Page({
   onLoad:function(e){
     console.log(e.defaultDevId);
@@ -11,19 +11,22 @@ Page({
     this.getshareTime();
   },
   toTimeEdit: function () {
-    if (isEnable==1)
-    {
-      wx.navigateTo({
-        url: '../setShareTime/timeEdit/index?defaultDevId=' + defaultDevId
-      })
-    } else if (isEnable == 0){
-      wx.showToast({
-        title: "开启共享开关后才能编辑时间",
-        icon: 'loading',
-        duration: 1500,
-        mask: true
-      })
-    }
+    wx.navigateTo({
+      url: '../setShareTime/timeEdit/index?defaultDevId=' + defaultDevId
+    })
+    // if (isEnable==1)
+    // {
+    //   wx.navigateTo({
+    //     url: '../setShareTime/timeEdit/index?defaultDevId=' + defaultDevId
+    //   })
+    // } else if (isEnable == 0){
+    //   wx.showToast({
+    //     title: "开启共享开关后才能编辑时间",
+    //     icon: 'loading',
+    //     duration: 1500,
+    //     mask: true
+    //   })
+    // }
     
   },
   getshareTime:function(){
@@ -46,7 +49,7 @@ Page({
         console.log(res)
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         if (res.data.Edata[0].code == 0) {
-          isEnable = res.data.Edata[0].data[0].isEnable;
+          //isEnable = res.data.Edata[0].data[0].isEnable;
           that.setData({
             startTime: res.data.Edata[0].data[0].startTime,//开始时间
             endTime: res.data.Edata[0].data[0].endTime,//结束时间
