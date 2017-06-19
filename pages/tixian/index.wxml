@@ -50,8 +50,8 @@
         <view class="tixianTxtPadding">提现需提交完善信息（姓名、卡号、银行开户行支行信息）</view>
         <view class="tixianTxtPadding">示例：张三</view>
         <view class="tixianTxtPadding">卡号：66563785672678829</view>
-        <view class="tixianTxtPadding">银行：招商银行 </view>
-        <view class="tixianTxtPadding">支行信息：北部软件园支行</view>
+        <view class="tixianTxtPadding">银行：中国银行 </view>
+        <view class="tixianTxtPadding">支行信息：上海分行西康路支行</view>
     </view>
 </view>
 
