@@ -33,6 +33,15 @@ Page({
   onLoad: function (e) {
     console.log(e);
     timeCode = e.timeCode;
+    if (timeCode =="startTime"){
+      this.setData({
+        titleTxt: "编辑定时开启时间"
+      })
+    }else{
+      this.setData({
+        titleTxt: "编辑定时关闭时间"
+      })
+    }
     defaultDevId = e.defaultDevId;
   },
   onShow:function(){

@@ -35,7 +35,7 @@
 	<view class="cutListBox {{owner?'':'hide'}}">
 		<view class="cutListLeft">
 			<image  src="../images/banjiadian.png"  class="leftIcon icon" ></image>
-			<view>半价电</view>
+			<view>定时开关</view>
 		</view>
 		<view class="powerBtn">
 			<switch  disabled="{{disonlineB}}" checked="{{VhalfTime}}"  bindchange="halfP" color="#3DCAE6" />

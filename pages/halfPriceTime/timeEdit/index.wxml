@@ -1,5 +1,5 @@
 <view class="cutLine"></view>
-<view class="amTitle centerA">编辑开始时间</view>
+<view class="amTitle centerA">{{titleTxt}}</view>
 <view class="box-bg">
 <picker-view indicator-style="height: 50px;" class="picker-view-css" value="{{valueOfStart}}" bindchange="bindChangeOfStart">
     <picker-view-column class="picker-view-column-css">

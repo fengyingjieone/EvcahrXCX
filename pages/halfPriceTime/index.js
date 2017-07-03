@@ -89,16 +89,16 @@ Page({
       var momentSwitchInside = btnState;
     }
     var that = this;
-    console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":' + startTime + ',"startSwitch":"' + startSwitchInside + '","momentSwitch":"' + momentSwitchInside + '","endTime":"' + endTime + '","endSwitch":' + endSwitchInside + '}');
+    console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":' + defaultDevId + ',"startTime":"' + startTime + '","startSwitch":"' + startSwitchInside + '","momentSwitch":' + momentSwitchInside + ',"endTime":"' + endTime + '","endSwitch":' + endSwitchInside + '}');
 
-    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":"' + startTime + '","startSwitch":' + startSwitchInside + ',"momentSwitch":"' + momentSwitchInside + '","endTime":"' + endTime + '","endSwitch":' + endSwitchInside+'}');
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":' + defaultDevId + ',"startTime":"' + startTime + '","startSwitch":' + startSwitchInside + ',"momentSwitch":' + momentSwitchInside + ',"endTime":"' + endTime + '","endSwitch":' + endSwitchInside+'}');
     wx.request({
       url: app.getHostURL() + '/getData.php',//php上固定地址
       method: 'POST',
       data: {
         'evUrl': '/usercenter/setTimingTime',
         'evheader': evheader,
-        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":"' + startTime + '","startSwitch":' + startSwitchInside + ',"momentSwitch":"' + momentSwitchInside + '","endTime":"' + endTime + '","endSwitch":' + endSwitchInside + '}'
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":' + defaultDevId + ',"startTime":"' + startTime + '","startSwitch":' + startSwitchInside + ',"momentSwitch":' + momentSwitchInside + ',"endTime":"' + endTime + '","endSwitch":' + endSwitchInside + '}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -128,6 +128,7 @@ Page({
         }
       },
       fail: function (res) {
+        that.getHalfpriceTime();
         console.log("获取钱包信息失败")
       }
     })

@@ -764,25 +764,25 @@ Page({
         if (halfTime)//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX当前半价电是开启状态  下面去关闭
         {
             wx.showToast({
-                title: "关闭半价电",
+              title: "关闭定时开关",
                 icon: 'loading',
                 duration: 10000,
                 mask: true
             })
-            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":2,"deviceId":"' + defaultDeviceid + '"}');
+            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}');
             wx.request({
                 url: app.getHostURL() + '/getData.php',//php上固定地址
                 method: 'POST',
                 data: {
-                    'evUrl': '/device/closeTime',
+                  'evUrl': '/device/closeTimingTime',
                     'evheader': evheader,
-                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":2,"deviceId":"' + defaultDeviceid + '"}'
+                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}'
                 },
                 header: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 success: function (res) {
-                    console.log("关闭半价电")
+                    console.log("关闭定时开关")
                     console.log(res)
                     if (res.data.Edata[0].code == 0) {
                         halfTime = false;
@@ -792,6 +792,12 @@ Page({
                         })
                         wx.hideToast();
                     } else {
+                      wx.showToast({
+                        title: "关闭定时开关失败",
+                        icon: 'loading',
+                        duration: 1000,
+                        mask: true
+                      })
                         halfTime = true;
                         that.setData({
                             VhalfTime: true,//半价电  true false
@@ -800,7 +806,12 @@ Page({
                     }
                 },
                 fail: function (res) {
-                    console.log("有错误");
+                  wx.showToast({
+                    title: "关闭定时开关失败",
+                    icon: 'loading',
+                    duration: 1000,
+                    mask: true
+                  })
                     that.setData({
                         VhalfTime: true,//半价电  true false
                         disonlineB: false//让按钮可点击
@@ -809,25 +820,25 @@ Page({
             })
         } else if (!halfTime) {
             wx.showToast({
-                title: "开启半价电",
+                title: "开启定时开关",
                 icon: 'loading',
                 duration: 10000,
                 mask: true
             })
-            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":2,"deviceId":"' + defaultDeviceid + '"}');
+            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}');
             wx.request({
                 url: app.getHostURL() + '/getData.php',//php上固定地址
                 method: 'POST',
                 data: {
-                    'evUrl': '/device/openTime',
+                  'evUrl': '/device/openTimingTime',
                     'evheader': evheader,
-                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":2,"deviceId":"' + defaultDeviceid + '"}'
+                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}'
                 },
                 header: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 success: function (res) {
-                    console.log("开启半价电成功")
+                    console.log("开启定时开关")
                     console.log(res)
                     if (res.data.Edata[0].code == 0) {
                         halfTime = true;
@@ -838,7 +849,7 @@ Page({
                         wx.hideToast();
                     } else {
                         wx.showToast({
-                            title: "开启半价电失败",
+                            title: "开启定时开关电失败",
                             icon: 'loading',
                             duration: 1000,
                             mask: true
@@ -851,7 +862,12 @@ Page({
                     }
                 },
                 fail: function (res) {
-                    console.log("有错误")
+                  wx.showToast({
+                    title: "开启定时开关电失败",
+                    icon: 'loading',
+                    duration: 1000,
+                    mask: true
+                  })
                     that.setData({
                         VhalfTime: false,//半价电  true false
                         disonlineB: false//让按钮可点击
@@ -903,6 +919,12 @@ Page({
                         wx.hideToast();
 
                     } else {
+                      wx.showToast({
+                        title: "关闭共享失败",
+                        icon: 'loading',
+                        duration: 10000,
+                        mask: true
+                      })
                         shareTime = true;
                         that.setData({
                             VshareTime: true,//半价电  true false
@@ -911,7 +933,12 @@ Page({
                     }
                 },
                 fail: function (res) {
-                    console.log("有错误")
+                  wx.showToast({
+                    title: "关闭共享失败",
+                    icon: 'loading',
+                    duration: 10000,
+                    mask: true
+                  })
                     that.setData({
                         VshareTime: true,//半价电  true false
                         disonlineB: false//让按钮可点击
@@ -961,7 +988,12 @@ Page({
                     }
                 },
                 fail: function (res) {
-                    console.log("有错误");
+                  wx.showToast({
+                    title: "开启共享失败",
+                    icon: 'loading',
+                    duration: 10000,
+                    mask: true
+                  })
                     that.setData({
                         VshareTime: false,//半价电  true false
                         disonlineB: false//让按钮可点击

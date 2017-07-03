@@ -30,7 +30,7 @@
 </view>
 <view class="listBox {{owner?'':'hide'}}" catchtap="toHalfPriceTime">
         <view class="listLeft">
-            <view class="colorGary font16 listTitle">半价电时间设置</view>
+            <view class="colorGary font16 listTitle">定时开关设置</view>
         </view>
         <view class="listRight">
             <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
