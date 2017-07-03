@@ -793,7 +793,7 @@ Page({
                         wx.hideToast();
                     } else {
                       wx.showToast({
-                        title: "关闭定时开关失败",
+                        title: res.data.Edata[0].msg,
                         icon: 'loading',
                         duration: 1000,
                         mask: true
@@ -849,7 +849,7 @@ Page({
                         wx.hideToast();
                     } else {
                         wx.showToast({
-                            title: "开启定时开关电失败",
+                          title: res.data.Edata[0].msg,
                             icon: 'loading',
                             duration: 1000,
                             mask: true
