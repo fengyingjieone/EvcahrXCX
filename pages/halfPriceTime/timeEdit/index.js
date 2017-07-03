@@ -119,9 +119,9 @@ Page({
     var that = this;
 
     if (timeCode == "startTime"){
-      var parameter = '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":"' + newStartTimeH + ':' + newStartTimeM+'","startSwitch":"' + startSwitch + '","momentSwitch":"' + momentSwitch + '","endTime":"' + endTime + '","endSwitch":' + endSwitch + '}'
+      var parameter = '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":"' + newStartTimeH + ':' + newStartTimeM +'","startSwitch":true,"momentSwitch":"' + momentSwitch + '","endTime":"' + endTime + '","endSwitch":' + endSwitch + '}'
     } else if (timeCode == "endTime"){
-      var parameter = '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":"' + startTime + '","startSwitch":"' + startSwitch + '","momentSwitch":"' + momentSwitch + '","endTime":"' + newStartTimeH + ':' + newStartTimeM + '","endSwitch":' + endSwitch + '}'
+      var parameter = '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","startTime":"' + startTime + '","startSwitch":"' + startSwitch + '","momentSwitch":"' + momentSwitch + '","endTime":"' + newStartTimeH + ':' + newStartTimeM + '","endSwitch":true}'
     }
     console.log(parameter);
     var evheader = app.EvcharHeader(parameter);
