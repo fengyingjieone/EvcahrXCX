@@ -142,9 +142,9 @@ Page({
         console.log("新时间保存结果")
         console.log(res)
         if (res.data.Edata[0].code==0){
-          //wx.navigateBack({
-            //delta: 1
-          //})
+          wx.navigateBack({
+            delta: 1
+          })
         }else{
           wx.showToast({
             title: res.data.Edata[0].msg,

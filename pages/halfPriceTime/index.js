@@ -8,6 +8,8 @@ var startSwitch;
 var momentSwitch;
 var endTime;
 var endSwitch;
+
+var isEnableState=1;
 Page({
   data: {
     deviceCount: false,//设 默认只有一个设备
@@ -42,6 +44,7 @@ Page({
         console.log(res)
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         if (res.data.Edata[0].code == 0) {
+          isEnableState = res.data.Edata[0].data.isEnable;
           startTime = res.data.Edata[0].data.startTime;
           startSwitch = res.data.Edata[0].data.startTimeSwitch;
           momentSwitch = res.data.Edata[0].data.momentSwitch;
@@ -57,6 +60,7 @@ Page({
             momentCheckedState: res.data.Edata[0].data.momentSwitch
           })
         } else {
+          editLock = res.data.Edata[0].data.isEnable;
           wx.showToast({
             title: res.data.Edata[0].msg,
             icon: 'loading',
@@ -73,8 +77,47 @@ Page({
   setHalfpriceTime:function(e){
     console.log(e.currentTarget.id)
     console.log(e.detail.value);
+    console.log(isEnableState)
     var btnName = e.currentTarget.id;
     var btnState = e.detail.value;
+    if (isEnableState == 0) {
+      wx.showToast({
+        title:"请在个人中心打开定时开关",
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+      if (btnState){
+        if (btnName == "open") {
+          this.setData({         
+            openCheckedState: false//开关状态   开启还是关闭          
+          })
+        } else if (btnName == "close") {
+          this.setData({  
+            closeCheckedState:false//开关状态   开启还是关闭
+          })
+        } else if (btnName == "moment") {
+          this.setData({
+            momentCheckedState:false
+          })
+        }
+      }else{
+        if (btnName == "open") {
+          this.setData({
+              openCheckedState: true//开关状态   开启还是关闭         
+          })
+        } else if (btnName == "close") {
+          this.setData({
+           closeCheckedState: true//开关状态   开启还是关闭
+          })
+        } else if (btnName == "moment") {
+          this.setData({
+            momentCheckedState: true
+          })
+        }
+      }
+      return;
+    }
     if (btnName=="open"){
       var startSwitchInside = btnState;
       var endSwitchInside = endSwitch;
@@ -137,11 +180,29 @@ Page({
     return app.onShareAppMessage();
   },
   toTimeEdit: function () {
+    if (isEnableState == 0){
+      wx.showToast({
+        title: "请在个人中心打开定时开关",
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+      return;
+    }
     wx.navigateTo({
       url: '../halfPriceTime/timeEdit/index?timeCode=startTime&defaultDevId=' + defaultDevId
     })
   },
   toTimeEditEnd: function () {
+    if (isEnableState == 0) {
+      wx.showToast({
+        title: "请在个人中心打开定时开关",
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+      return;
+    }
     wx.navigateTo({
       url: '../halfPriceTime/timeEdit/index?timeCode=endTime&defaultDevId=' + defaultDevId
     })
