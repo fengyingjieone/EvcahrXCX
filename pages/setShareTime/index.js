@@ -31,15 +31,15 @@ Page({
   },
   getshareTime:function(){
     var that=this;
-    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","type":1}');
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '"}');
     console.log("头部信息" + evheader);
     wx.request({
       url: app.getHostURL() + '/getData.php',//php上固定地址
       method: 'POST',
       data: {
-        'evUrl': '/device/queryDeviceTimeConfigs',
+        'evUrl': '/device/getShareTimeInfo',
         'evheader': evheader,
-        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","type":1}'
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -51,8 +51,8 @@ Page({
         if (res.data.Edata[0].code == 0) {
           //isEnable = res.data.Edata[0].data[0].isEnable;
           that.setData({
-            startTime: res.data.Edata[0].data[0].startTime,//开始时间
-            endTime: res.data.Edata[0].data[0].endTime,//结束时间
+            startTime: res.data.Edata[0].data.startTime,//开始时间
+            endTime: res.data.Edata[0].data.endTime,//结束时间
           })
         }else{
           wx.showToast({

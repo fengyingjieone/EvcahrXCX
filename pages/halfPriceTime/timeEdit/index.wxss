@@ -1,0 +1,77 @@
+/**index.wxss**/
+@import "../../images/common.wxss";
+.amTitle{
+  width: 100%;
+  height: 60rpx;  
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  font-size: 48rpx;
+  margin-top: 40rpx;
+}
+.box-bg{
+  width:100%;
+  /*background: repeating-linear-gradient(#fff 0%,#FFF 33.33%,rgba(255, 208, 114, 0.3) 33.33%, rgba(255, 208, 114, 0.3) 66.66%,#FFF 66.66%,#FFF 100%); */
+  /*background: linear-gradient(#FFD693, #FFBF8B); */
+  background:url(http://wx.chongdian.club/images/endTimeBg.png) center center no-repeat; 
+  background-size: 100% 100rpx;
+}
+.box-bg2{
+  width:100%;
+   /*background: repeating-linear-gradient(#fff 0%,#FFF 33.33%,rgba(119, 222, 254, 0.3) 33.33%, rgba(119, 222, 254, 0.3) 66.66%,#FFF 66.66%,#FFF 100%); */
+   /*background: linear-gradient(#83E2FF, #56D3FC);*/
+   background:url(http://wx.chongdian.club/images/endTimeBg.png) center center no-repeat; 
+  background-size: 100% 100rpx;
+}
+.picker-view-css{
+  width: 100%; 
+  height: 300rpx; 
+  margin:0px auto;
+  
+}
+.picker-view-column-css{
+  text-align: center;
+}
+.btnBox{
+  width:100%;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  color: #fff;
+  margin-top: 40rpx;
+}
+.btnCancle{
+  width: 40%;
+  height: 86rpx;
+  background-color: #75DDFE;
+}
+.btnSave{
+  width: 40%;
+  height: 110rpx;
+  background-color: #75DDFE;
+}
+
+
+
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}

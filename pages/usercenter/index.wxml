@@ -50,7 +50,8 @@
 			<switch  disabled="{{disonlineB}}"  checked="{{VshareTime}}" bindchange="shareT"  color="#3DCAE6" />
 		</view>	
 	</view>
-  <view class="cutLine"></view>
+  <!--分割线-->
+  <view class="cutLine {{owner?'':'hide'}}"></view>
 	<view class="cutListBox">
 		<view class="cutListLeft">
 			<image  src="../images/wallet.png"  class="leftIcon icon" ></image>

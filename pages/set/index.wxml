@@ -28,6 +28,14 @@
             <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
         </view>
 </view>
+<view class="listBox {{owner?'':'hide'}}" catchtap="toHalfPriceTime">
+        <view class="listLeft">
+            <view class="colorGary font16 listTitle">半价电时间设置</view>
+        </view>
+        <view class="listRight">
+            <image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
+        </view>
+</view>
 <view class="listBox" catchtap="toActivated">
         <view class="listLeft">
             <view class="colorGary font16 listTitle">激活</view>

@@ -315,6 +315,11 @@ Page({
     wx.navigateTo({
       url: '../setShareTime/index?defaultDevId=' + defaultDevId
     })
+  },
+  toHalfPriceTime: function () {
+    wx.navigateTo({
+      url: '../halfPriceTime/index?defaultDevId=' + defaultDevId
+    })
   }
 })
 

@@ -55,23 +55,23 @@ Page({
   },
   getshareTime: function () {
     var that = this;
-    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","type":1}');
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '"}');
     console.log("头部信息" + evheader);
     wx.request({
       url: app.getHostURL() + '/getData.php',//php上固定地址
       method: 'POST',
       data: {
-        'evUrl': '/device/queryDeviceTimeConfigs',
+        'evUrl': '/device/getShareTimeInfo',
         'evheader': evheader,
-        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '","type":1}'
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDevId + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-        var startTimeArray = (res.data.Edata[0].data[0].startTime).split(":"); //字符分割 
-        var endTimeArray = (res.data.Edata[0].data[0].endTime).split(":"); //字符分割 
+        var startTimeArray = (res.data.Edata[0].data.startTime).split(":"); //字符分割 
+        var endTimeArray = (res.data.Edata[0].data.endTime).split(":"); //字符分割 
         newStartTimeH = startTimeArray[0];
         newStartTimeM = startTimeArray[1];
         newEndTimeH = endTimeArray[0];
@@ -98,8 +98,8 @@ Page({
     //if (newStartTimeM < 10) { newStartTimeM = "0" + newStartTimeM };
     //if (newEndTimeH < 10) { newEndTimeH = "0" + newEndTimeH };
     //if (newEndTimeM < 10) { newEndTimeM = "0" + newEndTimeM };
-    console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","startTime":"' + newStartTimeH + ':' + newStartTimeM + '","endTime":"' + newEndTimeH + ':' +newEndTimeM + '"}')
-    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","startTime":"' + newStartTimeH + ':' + newStartTimeM + '","endTime":"' + newEndTimeH + ':' + newEndTimeM + '"}');
+    console.log('{"accessToken":"' + wx.getStorageSync('accessToken') + '","startTime":"' + newStartTimeH + ':' + newStartTimeM + '","endTime":"' + newEndTimeH + ':' + newEndTimeM + '","deviceId":"' + defaultDevId + '"}')
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","startTime":"' + newStartTimeH + ':' + newStartTimeM + '","endTime":"' + newEndTimeH + ':' + newEndTimeM + '","deviceId":"' + defaultDevId + '"}');
     console.log("头部信息" + evheader);
     wx.request({
       url: app.getHostURL() + '/getData.php',//php上固定地址
@@ -107,7 +107,7 @@ Page({
       data: {
         'evUrl': '/usercenter/setSharetime',
         'evheader': evheader,
-        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","startTime":"' + newStartTimeH + ':' + newStartTimeM + '","endTime":"' + newEndTimeH + ':' + newEndTimeM + '"}'
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","startTime":"' + newStartTimeH + ':' + newStartTimeM + '","endTime":"' + newEndTimeH + ':' + newEndTimeM + '","deviceId":"' + defaultDevId+'"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'

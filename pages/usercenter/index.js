@@ -879,14 +879,14 @@ Page({
                 duration: 10000,
                 mask: true
             })
-            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":1,"deviceId":"' + defaultDeviceid + '"}');
+            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}');
             wx.request({
                 url: app.getHostURL() + '/getData.php',//php上固定地址
                 method: 'POST',
                 data: {
-                    'evUrl': '/device/closeTime',
+                  'evUrl': '/device/closeShareTime',
                     'evheader': evheader,
-                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":1,"deviceId":"' + defaultDeviceid + '"}'
+                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}'
                 },
                 header: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -925,14 +925,14 @@ Page({
                 duration: 10000,
                 mask: true
             })
-            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":1,"deviceId":"' + defaultDeviceid + '"}');
+            var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}');
             wx.request({
                 url: app.getHostURL() + '/getData.php',//php上固定地址
                 method: 'POST',
                 data: {
-                    'evUrl': '/device/openTime',
+                  'evUrl': '/device/openShareTime',
                     'evheader': evheader,
-                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","openType":1,"deviceId":"' + defaultDeviceid + '"}'
+                    'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '"}'
                 },
                 header: {
                     'Content-Type': 'application/x-www-form-urlencoded'

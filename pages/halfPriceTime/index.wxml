@@ -1,0 +1,23 @@
+<!--设置-->
+<view class="cutLine"></view>
+<view class="openTimeBox">
+  <view class="timeTitle font14">定时开</view>
+  <view class="btnBox">
+    <view  catchtap="toTimeEdit">{{startTime}}</view>
+    <switch disabled="{{disabledState}}" checked="{{openCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="open" />
+  </view>
+</view>
+<view class="cutLine"></view>
+<view class="btnBox" style=" color:#000; font-size:36rpx; margin-top:15rpx; margin-bottom:15rpx;">
+    <view catchtap="toTimeEditEnd">区间检测开启设备</view>
+    <switch disabled="{{disabledState}}" checked="{{momentCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="moment" />
+</view>
+<view class="cutLine"></view>
+<view class="closeTimeBox">
+  <view class="timeTitle font14">定时关</view>
+  <view class="btnBox">
+    <view catchtap="toTimeEditEnd">{{endTime}}</view>
+    <switch disabled="{{disabledState}}" checked="{{closeCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="close" />
+  </view>
+</view>
+<view class="promptBox colorGary">温馨提示：点击时间进行编辑,华东滑块定义开关</view>

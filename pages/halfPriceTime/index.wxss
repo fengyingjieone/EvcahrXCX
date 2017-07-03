@@ -1,0 +1,132 @@
+/**index.wxss**/
+@import "../images/common.wxss";
+.openTimeBox{
+  width: 100%; 
+  height: 237rpx;
+  background:url(https://wxtt.evchar.cn/images/hpA.png) center center no-repeat; 
+  background-size:100% auto;
+}
+.timeTitle{
+  width:100%;
+  height: 86rpx;
+  text-indent: 40rpx;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.btnBox{
+  width:90%;
+  height: 63rpx;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  color: #fff;
+  font-size: 48rpx;
+}
+
+
+.closeTimeBox{
+  width: 100%; 
+  height: 237rpx;
+  background:url(https://wxtt.evchar.cn/images/hpB.png) center center no-repeat; 
+  background-size:100% auto;
+}
+.cutLine{
+  width:100%;
+  height:24rpx;
+  background-color: #f2f2f2;
+  border-top: 1rpx #d2d2d2 solid;
+  border-bottom: 1rpx #d2d2d2 solid;
+}
+.promptBox{
+  width: 100%;
+  height: 134rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-indent: 30rpx;
+  font-size: 26rpx;
+}
+
+
+.listCut{
+  height: 45rpx;
+}
+.topBox{
+  width:100%;
+  position:fixed; 
+  top: 0px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+.scrollBox{
+  padding-top: 530rpx;
+}
+
+.listBoxB{
+  width:100%;
+  height: 110rpx;
+  display: block;
+  position: relative;
+  background-color: #fff;
+}
+.listLeftB{
+  width:50%;
+  height: 110rpx;
+  position: absolute;
+  left: 0rpx;
+  top:0rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;  
+  border-bottom: 1rpx #d2d2d2 solid;
+  text-indent:30rpx;
+}
+.listRightB{
+  width:50%;
+  height: 110rpx;
+  position: absolute;
+  right: 0rpx;
+  top:0rpx;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  border-bottom: 1rpx #d2d2d2 solid;  
+}
+
+
+.listBox{
+  width:100%;
+  height: 110rpx;
+  display: flex;
+  background-color: #fff;
+}
+.listLeft{
+  width:50%;
+  height: 110rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;  
+  border-bottom: 1rpx #d2d2d2 solid;
+  text-indent:30rpx;
+}
+.listTitle{padding: 2rpx 0rpx;}
+.listMoney{padding-right:30rpx;}
+.listRight{
+  width:50%;
+  height: 110rpx;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  border-bottom: 1rpx #d2d2d2 solid;  
+}
+.hide{
+    display:none;    
+}
+
