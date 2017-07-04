@@ -20,4 +20,4 @@
     <switch disabled="{{disabledState}}" checked="{{closeCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="close" />
   </view>
 </view>
-<view class="promptBox colorGary">温馨提示：点击时间进行编辑,华东滑块定义开关</view>
+<view class="promptBox colorGary">温馨提示：点击时间进行编辑,滑动滑块定义开关</view>
