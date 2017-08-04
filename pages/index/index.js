@@ -51,35 +51,69 @@ Page({
     if (wx.getStorageSync('clickItemLock') == 6)// 执行收索
     {
       var idArray = wx.getStorageSync('markersArrar')
-      console.log("点击标注后的数组B")
-      console.log(wx.getStorageSync('markersArrar'))
-      console.log(idArray[0].markInfo)
       var devInfo = (idArray[0].markInfo).split("||")
-      that.setData({
-        OneDevName: devInfo[0],
-        oneDevDistance: devInfo[1],
-        ONeDevCount: devInfo[2],
-        OneDevStatus: devInfo[3],
-        OneDevId: devInfo[4]
+      console.log("拆分结果-搜索", devInfo)
+      var deviceIdOfClick = e.markerId;
+      var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","id":"' + devInfo[2] + '","pointType":' + devInfo[3] + '}');
+
+      wx.request({
+        url: app.getHostURL() + '/getData.php',//php上固定地址
+        method: 'POST',
+        data: {
+          'evUrl': '/point/getPointMiddleDetail',
+          'evheader': evheader,
+          'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","id":' + devInfo[2] + ',"pointType":' + devInfo[3] + '}'
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳          
+          console.log("设备摘要信息", res);
+          that.setData({
+            OneDevName: res.data.Edata[0].data.pointName,
+            oneDevDistance: devInfo[0],
+            ONeDevCount: res.data.Edata[0].data.deviceCount,
+            OneDevStatus: devInfo[1],
+            OneDevId: res.data.Edata[0].data.id
+          })
+        },
+        fail: function (res) {
+          console.log("获取设备摘要信息失败")
+        }
       })
     } else {
-      console.log(e)
-      console.log(e.markerId)
       var idArray = wx.getStorageSync('markersArrar')
-      console.log("点击标注后的数组Bc")
-      wx.getStorageSync('clickItemLock')
-      console.log(wx.getStorageSync('markersArrar'))
+      var devInfo = (idArray[e.markerId].markInfo).split("||");
+      console.log("拆分结果A", devInfo)
+      var deviceIdOfClick = e.markerId;
+      var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","id":"' + devInfo[2] + '","pointType":' + devInfo[3] + '}');
 
-      console.log(idArray.markInfo)
-
-      var devInfo = (idArray[e.markerId].markInfo).split("||")
-      console.log(devInfo)
-      that.setData({
-        OneDevName: devInfo[0],
-        oneDevDistance: devInfo[1],
-        ONeDevCount: devInfo[2],
-        OneDevStatus: devInfo[3],
-        OneDevId: devInfo[4]
+      wx.request({
+        url: app.getHostURL() + '/getData.php',//php上固定地址
+        method: 'POST',
+        data: {
+          'evUrl': '/point/getPointMiddleDetail',
+          'evheader': evheader,
+          'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","id":' + devInfo[2] + ',"pointType":' + devInfo[3] + '}'
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳          
+          console.log("设备摘要信息",res);
+          that.setData({
+            OneDevName: res.data.Edata[0].data.pointName,
+            oneDevDistance: devInfo[0],
+            ONeDevCount: res.data.Edata[0].data.deviceCount,
+            OneDevStatus: devInfo[1],
+            OneDevId: res.data.Edata[0].data.id
+          })
+        },
+        fail: function (res) {
+          console.log("获取设备摘要信息失败")
+        }
       })
     }
   },
@@ -117,11 +151,6 @@ Page({
         userInfo: userInfo
       })
     })
-    wx.showToast({
-      title: '加载中..',
-      icon: 'loading',
-      duration: 10000
-    })
     //获取用户openid 并全局缓存openid  开始
     wx.login({
       success: function (res) {
@@ -145,15 +174,13 @@ Page({
                   },
                   success: function (res, ress) {
                     if (res.data.code == 0) {//获取成功  缓存appkey
-                      console.log("验证到平台authAppSecret==")
-                      console.log(res)
-                      wx.setStorageSync('evcharAppkey', res.data.data);//缓存appkey
-                      console.log("去登陆");
+                      console.log("改接口后返回的eappkey",res.data.data.eappKey)
+                      wx.setStorageSync('evcharAppkey', res.data.data.eappKey);//缓存appkey
                       wx.request({
                         url: app.getHostURL()+'/login.php',
                         method: 'POST',
                         data: {
-                          'appKey': wx.getStorageSync('evcharAppkey'),
+                          'eappKey': wx.getStorageSync('evcharAppkey'),
                           'openId': wx.getStorageSync('openid')
                           //'openId':'oUjNms2HzkjxvYOcJSnPTPLMlegQ'
                         },
@@ -161,8 +188,8 @@ Page({
                           'Content-Type': 'application/x-www-form-urlencoded'
                         },
                         success: function (res) {
-                          console.log("登陆结果")
-                          console.log(res);
+                          console.log("登陆结果",res)
+                          console.log({'eappKey': wx.getStorageSync('evcharAppkey'),'openId': wx.getStorageSync('openid')   })
                           var eData = res.data.Edata[0];
                           //登陆失败
                           if (eData.code != 0){
@@ -252,7 +279,7 @@ Page({
       }
     });
     //获取用户openid 并全局缓存openid  结束
-    //验证到惠充电平台，获取并缓存appkeyXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+    //验证到惠充电平台，获取并缓存eappkeyXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
 
   },
   onShow: function () {
@@ -331,22 +358,20 @@ Page({
     var searchCoordinate = that.qqTobd(wx.getStorageSync('centerLatitude'), wx.getStorageSync('centerLongitude'));
     var myLatLng = that.qqTobd(myLatitude, myLongitude);
     console.log(searchCoordinate)
-    console.log( '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + searchCoordinate[1] + ',"longitude":' + searchCoordinate[0] + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}')
+    console.log( '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + searchCoordinate[1] + ',"longitude":' + searchCoordinate[0] + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}')
     wx.request({
       url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
-        'evUrl': '/device/getAllDevices',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + searchCoordinate[1] + ',"longitude":' + searchCoordinate[0] + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}'
+        'evUrl': '/point/getPointList',
+        'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","areaCode":' + wx.getStorageSync('MareaCode') + ',"deviceTypeList":' + wx.getStorageSync('MdeviceTypeList') + ',"km":' + wx.getStorageSync('Mkm') + ',"latitude":' + searchCoordinate[1] + ',"longitude":' + searchCoordinate[0] + ',"recommend":' + wx.getStorageSync('Mrecommend') + ',"search":' + wx.getStorageSync('Msearch') + ',"statusList":' + wx.getStorageSync('MstatusList') + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
         wx.hideToast();
-        console.log("非加密接口返回的数组")
-        console.log(res)
-        console.log(res.data.data)
+        console.log("非加密接口返回的数组", res)
         var reqData = res.data.data;
         console.log(res.data.msg)
         if (res.data.code != 0) {
@@ -357,10 +382,10 @@ Page({
               'content-type': 'application/json'
             },
             success: function (res, ress) {
-              if (res.data.code == 0) {//获取成功  缓存appkey
+              if (res.data.code == 0) {//获取成功  缓存eappkey
                 console.log("验证到平台authAppSecret==")
                 console.log(res)
-                wx.setStorageSync('evcharAppkey', res.data.data);//缓存appkey
+                wx.setStorageSync('evcharAppkey', res.data.data);//缓存eappkey
               }
             },
             fail: function (res) { }
@@ -369,38 +394,38 @@ Page({
         markersArrar = new Array()
         for (var i = 0; i < reqData.length; i++) {
           var reqDevStatus;
-          if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 3) {
+          if (reqData[i].pointType == 1 && reqData[i].pointStatus == 3) {
             reqDevStatus = "可用";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 2) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 2) {
             reqDevStatus = "被预约";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 4) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 4) {
             reqDevStatus = "充电中";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 5) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 5) {
             reqDevStatus = "插枪";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 1) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 1) {
             reqDevStatus = "不可用";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 6) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 6) {
             reqDevStatus = "不在线";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 3) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 3) {
             reqDevStatus = "可用";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 5) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 5) {
             reqDevStatus = "插枪";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 6) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 6) {
             reqDevStatus = "不在线";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 4) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 4) {
             reqDevStatus = "充电中";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 1) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 1) {
             reqDevStatus = "不可用";
           } else {
             reqDevStatus = "不可用";
           }
-          var infoStr = reqData[i].deviceName + "||" + (reqData[i].distance).toFixed(2) + "||" + reqData[i].deviceCount + "||" + reqDevStatus + "||" + reqData[i].id + "||" + reqData[i].address;
+          var infoStr = (reqData[i].distance).toFixed(2) + "||" + reqDevStatus + "||" + reqData[i].id + "||" + reqData[i].pointType;
           var resCoordinate = that.BdTotencent(Number(reqData[i].longitude), Number(reqData[i].latitude));
-          if (reqData[i].deviceStatus == 6) {
+          if (reqData[i].pointStatus == 6) {
             markersArrar[i] = { iconPath: "/pages/images/gray.png", id: i, latitude: resCoordinate[1], longitude: resCoordinate[0], width: 22, height: 28, markInfo: infoStr }
-          } else if (reqData[i].deviceStatus == 3) {
+          } else if (reqData[i].pointStatus == 3) {
             markersArrar[i] = { iconPath: "/pages/images/blue.png", id: i, latitude: resCoordinate[1], longitude: resCoordinate[0], width: 22, height: 28, markInfo: infoStr }
-          } else if (reqData[i].deviceStatus == 2 || reqData[i].deviceStatus == 4 || reqData[i].deviceStatus == 5 || reqData[i].deviceStatus == 1) {
+          } else if (reqData[i].pointStatus == 2 || reqData[i].pointStatus == 4 || reqData[i].pointStatus == 5 || reqData[i].pointStatus == 1) {
             markersArrar[i] = { iconPath: "/pages/images/yello.png", id: i, latitude: resCoordinate[1], longitude: resCoordinate[0], width: 22, height: 28, markInfo: infoStr }
           } else {
             markersArrar[i] = { iconPath: "/pages/images/gray.png", id: i, latitude: resCoordinate[1], longitude: resCoordinate[0], width: 22, height: 28, markInfo: infoStr }
@@ -441,26 +466,26 @@ Page({
           },
           success: function (res) {
             wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-            wx.showToast({
-              title: '正在开启',
-              icon: 'loading',
-              duration: 20500
-            })
-            console.log("扫码开启后返回的结果")
-            console.log(res)
+            setTimeout(function () {
+              wx.showToast({
+                title: '正在开启',
+                icon: 'loading',
+                duration: 20500
+              })
+            }, 500);            
             if (res.data.Edata[0].code == 0) {
               console.log("开启指令发送成功")
               setIntervalClock = setInterval(function () {
                 clockCount++
                 var that = this;
-                var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}');
+                var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}');
                 wx.request({
                   url: app.getHostURL()+'/getData.php',//php上固定地址
                   method: 'POST',
                   data: {
                     'evUrl': '/device/checkIsCharging',
                     'evheader': evheader,
-                    'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}'
+                    'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}'
                   },
                   header: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -469,7 +494,7 @@ Page({
                     wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                     console.log("检查开启结果")
                     console.log(res)
-                    if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+                    if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                       console.log("开启成功，跳转到充电状态页面")
                       clearInterval(setIntervalClock);
                       wx.switchTab({
@@ -479,41 +504,48 @@ Page({
                       console.log("开启失败，继续检查" + clockCount);
                       if (clockCount == 4) {
                         clearInterval(setIntervalClock);
-                        wx.showToast({
-                          title: '设备开启失败，请扫码重试',
-                          icon: 'loading',
-                          duration: 1500
-                        })
+                        setTimeout(function(){
+                          wx.showToast({
+                            title: '设备开启失败，请扫码重试',
+                            icon: 'loading',
+                            duration: 1500
+                          })
+                        },200)                        
                       }
                     }
                   },
                   fail: function (res) {
                     console.log("开启后，设备没有充电")
-                    wx.showToast({
-                      title: '设备开启失败，请扫码重试',
-                      icon: 'loading',
-                      duration: 1500
-                    })
+                    setTimeout(function(){
+                      wx.showToast({
+                        title: '设备开启失败，请扫码重试',
+                        icon: 'loading',
+                        duration: 1500
+                      })
+                    },600)                    
                     clearInterval(setIntervalClock);
                   }
                 })
               }, 2000)
             } else {
-              wx.showToast({
-                title: res.data.Edata[0].msg,
-                icon: 'loading',
-                duration: 2000
-              })
+              setTimeout(function () {
+                wx.showToast({
+                  title: res.data.Edata[0].msg,
+                  icon: 'loading',
+                  duration: 2000
+                })
+              }, 600);
             }
           },
           fail: function (res) {
             console.log("扫码开启失败")
-            wx.showToast({
-              title: '设备开启失败，请扫码重试',
-              icon: 'loading',
-              duration: 1500
-            })
-            wx.hideToast();
+            setTimeout(function () {
+              wx.showToast({
+                title: '设备开启失败，请扫码重试',
+                icon: 'loading',
+                duration: 1500
+              })
+            }, 600);
           }
         })
       },

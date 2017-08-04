@@ -68,8 +68,7 @@ Page({
       },
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-        console.log("充值返回结果");
-        console.log(res);
+        console.log("充值返回结果", res);
         wx.requestPayment({
           'timeStamp': res.data.Edata[0].data.timeStamp,
           'nonceStr': res.data.Edata[0].data.nonceStr,

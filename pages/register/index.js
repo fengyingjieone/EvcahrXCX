@@ -75,14 +75,13 @@ Page({
             }
             
         },1000)
-        console.log("appkey"+wx.getStorageSync('evcharAppkey'))
         console.log("mobile"+tel)
         wx.request({
             url: app.getHostURL()+'/userNameLoginAndRegister.php',//找回密码和注册以及发短信
             method:'POST',
             data: {
               'evUrl':'/sms/verifycode/fetch',
-              'evdata':'{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","mobile":"'+tel+'","smsVerifyCodeType":1}'// 1注册  2找回
+              'evdata':'{"eappKey":"'+wx.getStorageSync('evcharAppkey')+'","mobile":"'+tel+'","smsVerifyCodeType":1}'// 1注册  2找回
             },  
             header: { 
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -149,14 +148,13 @@ Page({
           method:'POST',
           data: {
             'evUrl':'/user/regist',
-            'evdata':'{"appKey":"'+wx.getStorageSync('evcharAppkey')+'","openId":"'+wx.getStorageSync('openid')+'","password":"'+pwd+'","smsVerifyCode":"'+sms+'","userName":"'+tel+'"}'
+            'evdata':'{"eappKey":"'+wx.getStorageSync('evcharAppkey')+'","openId":"'+wx.getStorageSync('openid')+'","password":"'+pwd+'","smsVerifyCode":"'+sms+'","userName":"'+tel+'"}'
           },  
           header: { 
             'Content-Type': 'application/x-www-form-urlencoded'
           },  
           success: function(res) { 
-            console.log("注册成功后返回结果")          
-            console.log((res))
+            console.log("注册成功后返回结果", res)          
             if(res.data.code!=0)
             {
                 wx.showToast({

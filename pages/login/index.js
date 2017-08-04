@@ -80,7 +80,7 @@ Page({
         method: 'POST',
         data: {
           'evUrl': '/sms/verifycode/fetch',
-          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel_index + '","smsVerifyCodeType":3}'
+          'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel_index + '","smsVerifyCodeType":3}'
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,7 +96,6 @@ Page({
     }
   },
   loginBySms: function () {
-    console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '"}')
     wx.showToast({
       title: '正在登陆',
       icon: 'loading',
@@ -106,22 +105,21 @@ Page({
     that.setData({
       inputStatus: false
     })
+    console.log('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '","infoType":4}')
     wx.request({
       url: app.getHostURL() + '/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
         'evUrl': '/user/smsLogin',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '"}'
+        'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '","infoType":4}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","code":"' + sms_index + '","userName":"' + tel_index + '"}')
-        console.log(res)
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-        console.log("登陆结果")
-        console.log(res)
+        console.log("登陆结果", res);
+        //return;
         if (res.data.code == 0) {
           //登陆成功后返回主入口重新登陆
           wx.setStorageSync('logout', 0);//退出识别

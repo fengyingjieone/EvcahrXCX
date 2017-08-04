@@ -27,21 +27,19 @@ Page({
     wx.setStorageSync('password_second', password_second);
   },
   loginWidthUsernameBtn: function () {
-    console.log('{"appKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + password_second + '","userName":"' + userName_second + '"}')
     wx.request({
       url: app.getHostURL() + '/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
-        'evUrl': '/user/login',
-        'evdata': '{"appKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + password_second + '","userName":"' + userName_second + '"}'
+        'evUrl': '/user/userLogin',
+        'evdata': '{"eappKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + password_second + '","userName":"' + userName_second + '","infoType":4}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-        console.log("登陆结果")
-        console.log(res)
+        console.log("账号密码登陆结果", res);
         if (res.data.code == 0) {
           //登陆成功后返回主入口重新登陆
           wx.setStorageSync('logout', 0);//退出识别

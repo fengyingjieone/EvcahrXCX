@@ -38,8 +38,10 @@ Page({
           that.setData({
             array: devArray,
             devName: '',
-            deviceCount: false//没有桩，不显示切换充电桩
+            deviceCount: false,//没有桩，不显示切换充电桩
+            owner: false//是桩主
           })
+          console.log("owner")
           return;
         }else
         {
@@ -111,7 +113,8 @@ Page({
           that.setData({
             array: devArray,
             devName: '',
-            deviceCount: false//设 默认只有一个设备
+            deviceCount: false,//设 默认只有一个设备
+            owner: false//是桩主
           })
           return;
         } else {

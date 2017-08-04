@@ -26,15 +26,14 @@ Page({
         console.log(onDevInfo)
         console.log(onDevInfo[0])
         var that = this;
-        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceId":' + onDevInfo[0] + '}');
-        console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceId":' + onDevInfo[0] + '}')
+        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceId":' + onDevInfo[0] + '}');
         wx.request({
             url: app.getHostURL() + '/getData.php',//php上固定地址
             method: 'POST',
             data: {
                 'evUrl': '/device/listDeviceAllDetail',
                 'evheader': evheader,
-                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceId":' + onDevInfo[0] + '}'
+                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceId":' + onDevInfo[0] + '}'
             },
             header: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -215,14 +214,14 @@ Page({
                                 setIntervalClock = setInterval(function () {
                                     clockCount++
                                     var that = this;
-                                    var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}');
+                                    var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}');
                                     wx.request({
                                         url: app.getHostURL() + '/getData.php',//php上固定地址
                                         method: 'POST',
                                         data: {
                                             'evUrl': '/device/checkIsCharging',
                                             'evheader': evheader,
-                                            'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}'
+                                            'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + sn + '"}'
                                         },
                                         header: {
                                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -231,7 +230,7 @@ Page({
                                             wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                                             console.log("检查开启结果")
                                             console.log(res)
-                                            if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+                                            if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                                                 console.log("开启成功，跳转到充电状态页面")
                                                 clearInterval(setIntervalClock);
                                                 wx.switchTab({

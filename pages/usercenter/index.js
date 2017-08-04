@@ -190,8 +190,7 @@ Page({
                 },
                 success: function (res) {
                     wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-                    console.log("开启充电返回")
-                    console.log(res)
+                    console.log("开启充电返回makeChargeOrder",res)
                     if (res.data.Edata[0].code != 0) {
                         wx.showToast({
                             title: res.data.Edata[0].msg,
@@ -210,20 +209,20 @@ Page({
                     setTimeout(function () {
                         console.log("第一次")
 
-                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
                         wx.request({
                             url: app.getHostURL() + '/getData.php',//php上固定地址
                             method: 'POST',
                             data: {
                                 'evUrl': '/device/checkIsCharging',
                                 'evheader': evheader,
-                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
                             },
                             header: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
                             success: function (res) {
-                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+                              if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                                     //设备在充电
                                     powerState = true;
                                     that.setData({
@@ -236,20 +235,20 @@ Page({
                                     //设备没有在充电
                                     setTimeout(function () {
                                         console.log("第二次")
-                                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+                                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
                                         wx.request({
                                             url: app.getHostURL() + '/getData.php',//php上固定地址
                                             method: 'POST',
                                             data: {
                                                 'evUrl': '/device/checkIsCharging',
                                                 'evheader': evheader,
-                                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
                                             },
                                             header: {
                                                 'Content-Type': 'application/x-www-form-urlencoded'
                                             },
                                             success: function (res) {
-                                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+                                              if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                                                     //设备在充电
                                                     powerState = true;
                                                     that.setData({
@@ -262,20 +261,20 @@ Page({
                                                     //设备没有在充电
                                                     setTimeout(function () {
                                                         console.log("第三次")
-                                                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+                                                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
                                                         wx.request({
                                                             url: app.getHostURL() + '/getData.php',//php上固定地址
                                                             method: 'POST',
                                                             data: {
                                                                 'evUrl': '/device/checkIsCharging',
                                                                 'evheader': evheader,
-                                                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                                                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
                                                             },
                                                             header: {
                                                                 'Content-Type': 'application/x-www-form-urlencoded'
                                                             },
                                                             success: function (res) {
-                                                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+                                                              if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                                                                     //设备在充电
                                                                     powerState = true;
                                                                     that.setData({
@@ -394,20 +393,20 @@ Page({
                     //下面是检查充电状态
                     setTimeout(function () {
                         console.log("第a1次")
-                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
                         wx.request({
                             url: app.getHostURL() + '/getData.php',//php上固定地址
                             method: 'POST',
                             data: {
                                 'evUrl': '/device/checkIsCharging',
                                 'evheader': evheader,
-                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
                             },
                             header: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
                             success: function (res) {
-                                if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data) {
+                              if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.charging) {
                                     //设备不在充电
                                     powerState = false;
                                     that.setData({
@@ -419,20 +418,20 @@ Page({
                                 } else {
                                     setTimeout(function () {
                                         console.log("第a2次")
-                                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+                                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
                                         wx.request({
                                             url: app.getHostURL() + '/getData.php',//php上固定地址
                                             method: 'POST',
                                             data: {
                                                 'evUrl': '/device/checkIsCharging',
                                                 'evheader': evheader,
-                                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
                                             },
                                             header: {
                                                 'Content-Type': 'application/x-www-form-urlencoded'
                                             },
                                             success: function (res) {
-                                                if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data) {
+                                              if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.charging) {
                                                     //设备不在充电
                                                     powerState = false;
                                                     that.setData({
@@ -444,20 +443,20 @@ Page({
                                                 } else {
                                                     setTimeout(function () {
                                                         console.log("第a3次")
-                                                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+                                                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
                                                         wx.request({
                                                             url: app.getHostURL() + '/getData.php',//php上固定地址
                                                             method: 'POST',
                                                             data: {
                                                                 'evUrl': '/device/checkIsCharging',
                                                                 'evheader': evheader,
-                                                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                                                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
                                                             },
                                                             header: {
                                                                 'Content-Type': 'application/x-www-form-urlencoded'
                                                             },
                                                             success: function (res) {
-                                                                if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data) {
+                                                              if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.charging) {
                                                                     //设备不在充电
                                                                     powerState = false;
                                                                     that.setData({
@@ -589,9 +588,8 @@ Page({
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
                             success: function (res) {
-                                console.log("功率切换检查结果")
-                                console.log(res)
-                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data == 2)//切换高功率成功
+                                console.log("功率切换检查结果",res)
+                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.gear == 2)//切换高功率成功
                                 {
                                     console.log("切换高功率成功")
                                     defaultGonglv = 1;//电桩功率  全局
@@ -699,7 +697,7 @@ Page({
                             success: function (res) {
                                 console.log("功率切换检查结果")
                                 console.log(res)
-                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data == 1)//切换低功率成功//0 不在线 1 低功率 2 高功率  
+                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.gear == 1)//切换低功率成功//0 不在线 1 低功率 2 高功率  
                                 {
                                     clearInterval(setIntervalClockGLLow);
                                     console.log("切换低功率成功")
@@ -1007,20 +1005,20 @@ Page({
         return app.onShareAppMessage();
     },
     checkIsChargingReturn: function () {
-        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
+        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}');
         wx.request({
             url: app.getHostURL() + '/getData.php',//php上固定地址
             method: 'POST',
             data: {
                 'evUrl': '/device/checkIsCharging',
                 'evheader': evheader,
-                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
+                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + defaultSn + '"}'
             },
             header: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
-                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+              if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                     //设备在充电
                 } else {
                     //设备没有在充电

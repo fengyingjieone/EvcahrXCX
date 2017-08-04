@@ -45,11 +45,9 @@ Page({
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log("获取半价电结果")
-        console.log(res)
+        console.log("获取当前共享时间", res)
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         if (res.data.Edata[0].code == 0) {
-          //isEnable = res.data.Edata[0].data[0].isEnable;
           that.setData({
             startTime: res.data.Edata[0].data.startTime,//开始时间
             endTime: res.data.Edata[0].data.endTime,//结束时间
@@ -62,8 +60,6 @@ Page({
             mask: true
           })
         }
-        
-        console.log((res))
       },
       fail: function (res) {
         console.log("获取钱包信息失败")

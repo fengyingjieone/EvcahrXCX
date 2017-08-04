@@ -21,6 +21,8 @@ Page({
   onShow: function () {
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     wx.setStorageSync('clickItemLock', 0);//全局缓存一个桩 选择锁
+    MstatusList = wx.getStorageSync('MstatusList');
+    MdeviceTypeList = wx.getStorageSync('MdeviceTypeList');
   },
   searchBtn: function () {
     wx.showToast({
@@ -40,13 +42,13 @@ Page({
     }
     var searchCoordinate = app.qqTobd(centerLatitude, centerLongitude);
     var myLatLng = app.qqTobd(wx.getStorageSync('myLatitude'), wx.getStorageSync('myLongitude'));
-    var evdata = '{"appKey":"' + evcharAppkey + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
-    console.log(evdata)
+    var evdata = '{"eappKey":"' + evcharAppkey + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
+    console.log('状态列表',evdata)
     wx.request({
       url: app.getHostURL()+'/userNameLoginAndRegister.php',//php上固定地址
       method: 'POST',
       data: {
-        'evUrl': '/device/getAllDevices',
+        'evUrl': '/point/searchPointInfo',
         'evdata': evdata
       },
       header: {
@@ -55,41 +57,42 @@ Page({
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         wx.hideToast();
-        console.log("搜索结果")
-        console.log(res)
+        console.log("搜索结果", res.data.data);
         var reqData = res.data.data;
+        console.log("判断条件", reqData[0].pointType, reqData[0].pointStatus)
         var resArrar = new Array();
         for (var i = 0; i < reqData.length; i++) {
           var reqDevStatus;
-          if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 3) {
+          if (reqData[i].pointType == 1 && reqData[i].pointStatus == 3) {
             reqDevStatus = "可用";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 2) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 2) {
             reqDevStatus = "被预约";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 4) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 4) {
             reqDevStatus = "充电中";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 5) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 5) {
             reqDevStatus = "插枪";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 1) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 1) {
             reqDevStatus = "不可用";
-          } else if (reqData[i].deviceType == 1 && reqData[i].deviceStatus == 6) {
+          } else if (reqData[i].pointType == 1 && reqData[i].pointStatus == 6) {
             reqDevStatus = "不在线";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 3) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 3) {
             reqDevStatus = "可用";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 5) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 5) {
             reqDevStatus = "插枪";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 6) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 6) {
             reqDevStatus = "不在线";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 4) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 4) {
             reqDevStatus = "充电中";
-          } else if (reqData[i].deviceType == 2 && reqData[i].deviceStatus == 1) {
+          } else if (reqData[i].pointType == 2 && reqData[i].pointStatus == 1) {
             reqDevStatus = "不可用";
           } else {
             reqDevStatus = "不可用";
           }
           var resCoordinate = app.BdTotencent(Number(reqData[i].longitude), Number(reqData[i].latitude));
           //resArrar数组 用于循环列出收索结果列表
+          console.log("状态", reqDevStatus)
           resArrar[i] = {
-            deviceName: reqData[i].deviceName,
+            deviceName: reqData[i].pointName,
             distance: (reqData[i].distance).toFixed(2),
             address: reqData[i].address,
             devstatusTxt: reqDevStatus
@@ -97,13 +100,14 @@ Page({
           //resArrar数组 用于循环列出收索结果列表
 
           //searchMark数组  用于点击收索结果列表后画出地图
-          var infoStr = reqData[i].deviceName + "||" + (reqData[i].distance).toFixed(2) + "||" + reqData[i].deviceCount + "||" + reqDevStatus + "||" + reqData[i].id;
+          var infoStr = (reqData[i].distance).toFixed(2) + "||" + reqDevStatus + "||" + reqData[i].id + "||" + reqData[i].pointType;
+          var infoStr = (reqData[i].distance).toFixed(2) + "||" + reqDevStatus + "||" + reqData[i].id + "||" + reqData[i].pointType;
           searchMark[i] = { iconPath: "/pages/images/gray.png", id: i, latitude: Number(resCoordinate[0]), longitude: Number(resCoordinate[1]), width: 22, height: 28, markInfo: infoStr };
-          if (reqData[i].deviceStatus == 6) {
+          if (reqData[i].pointStatus == 6) {
             searchMark[i].iconPath = "/pages/images/gray.png";
-          } else if (reqData[i].deviceStatus == 3) {
+          } else if (reqData[i].pointStatus == 3) {
             searchMark[i].iconPath = "/pages/images/blue.png";
-          } else if (reqData[i].deviceStatus == 1 || reqData[i].deviceStatus == 2 || reqData[i].deviceStatus == 4 || reqData[i].deviceStatus == 5) {
+          } else if (reqData[i].pointStatus == 1 || reqData[i].pointStatus == 2 || reqData[i].pointStatus == 4 || reqData[i].pointStatus == 5) {
             searchMark[i].iconPath = "/pages/images/yello.png";
           } else {
             searchMark[i].iconPath = "/pages/images/gray.png";

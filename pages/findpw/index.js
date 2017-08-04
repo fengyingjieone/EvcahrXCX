@@ -70,7 +70,7 @@ Page({
         method: 'POST',
         data: {
           'evUrl': '/sms/verifycode/fetch',
-          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":2}'
+          'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":2}'
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -119,7 +119,7 @@ Page({
       method: 'POST',
       data: {
         'evUrl': '/user/resetUserPassword',
-        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + pwd + '","code":"' + sms + '","userName":"' + tel + '"}'
+        'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + pwd + '","code":"' + sms + '","userName":"' + tel + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'

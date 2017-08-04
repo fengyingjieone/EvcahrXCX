@@ -251,14 +251,14 @@ Page({
                             var checkTimes = 0;
                             clearInterval(controlSetInterval);
                             controlSetInterval = setInterval(function () {
-                                var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}');
+                                var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}');
                                 wx.request({
                                     url: app.getHostURL() + '/getData.php',//php上固定地址
                                     method: 'POST',
                                     data: {
                                         'evUrl': '/device/checkIsCharging',
                                         'evheader': evheader,
-                                        'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}'
+                                        'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}'
                                     },
                                     header: {
                                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -268,7 +268,7 @@ Page({
                                         console.log(res)
                                         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                                         checkTimes = checkTimes + 1;
-                                        if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data) {
+                                        if (res.data.Edata[0].code == 0 && !res.data.Edata[0].data.charging) {
                                             console.log("接口状态码是0，设备状态是false，说明关机成功，下面取消定时器，下面获取设备列表")
                                             wx.hideToast();
                                             console.log("延迟6秒")
@@ -525,14 +525,14 @@ Page({
                     var checkTimes = 0;
                     clearInterval(controlSetInterval);
                     controlSetInterval = setInterval(function () {
-                        var evheader = app.EvcharHeader('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}');
+                        var evheader = app.EvcharHeader('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}');
                         wx.request({
                             url: app.getHostURL() + '/getData.php',//php上固定地址
                             method: 'POST',
                             data: {
                                 'evUrl': '/device/checkIsCharging',
                                 'evheader': evheader,
-                                'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}'
+                                'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","deviceSn":"' + orderDevSn + '"}'
                             },
                             header: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -542,7 +542,7 @@ Page({
                                 console.log(res)
                                 wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
                                 checkTimes = checkTimes + 1;
-                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data) {
+                                if (res.data.Edata[0].code == 0 && res.data.Edata[0].data.charging) {
                                     console.log("接口状态码是0，设备状态是true，说明开机成功，下面取消定时器，下面获取设备列表")
                                     console.log("开启成功，清除倒计时")
                                     clearInterval(controlSetInterval);

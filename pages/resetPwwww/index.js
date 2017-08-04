@@ -62,13 +62,12 @@ Page({
         }
 
       }, 1000)
-      console.log('{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":3}')
       wx.request({
         url: app.getHostURL() + '/userNameLoginAndRegister.php',//找回密码和注册以及发短信
         method: 'POST',
         data: {
           'evUrl': '/sms/verifycode/fetch',
-          'evdata': '{"appKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":3}'
+          'evdata': '{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","mobile":"' + tel + '","smsVerifyCodeType":3}'
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -89,7 +88,7 @@ Page({
       method: 'POST',
       data: {
         'evUrl': '/user/login',
-        'evdata': '{"appKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + newpassword + '","userName":"' + tel + '"}'
+        'evdata': '{"eappKey":"' + evcharAppkey + '","openId":"' + openId + '","password":"' + newpassword + '","userName":"' + tel + '"}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
