@@ -40,7 +40,7 @@ Page({
       })
       return;
     }
-    var searchCoordinate = app.qqTobd(centerLatitude, centerLongitude);
+    var searchCoordinate = app.qqTobd(wx.getStorageSync('myLatitude'), wx.getStorageSync('myLongitude'));
     var myLatLng = app.qqTobd(wx.getStorageSync('myLatitude'), wx.getStorageSync('myLongitude'));
     var evdata = '{"eappKey":"' + evcharAppkey + '","areaCode":' + MareaCode + ',"deviceTypeList":' + MdeviceTypeList + ',"km":' + Mkm + ',"latitude":"' + searchCoordinate[1] + '","longitude":"' + searchCoordinate[0] + '","recommend":' + Mrecommend + ',"search":"' + searchStr + '","statusList":' + MstatusList + ',"myLatitude":"' + myLatLng[1] + '","myLongitude":"' + myLatLng[0] + '"}';
     console.log('状态列表',evdata)

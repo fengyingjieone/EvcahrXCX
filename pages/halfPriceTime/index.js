@@ -24,6 +24,7 @@ Page({
   },
   onShow: function (e) {
     this.getHalfpriceTime();
+    // 使用 wx.createContext 获取绘图上下文 context   
   },
   getHalfpriceTime:function(){
     var that = this;
@@ -41,7 +42,7 @@ Page({
       },
       success: function (res) {
         console.log("获取半价电结果", res)
-        wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
+        wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳        
         if (res.data.Edata[0].code == 0) {
           isEnableState = res.data.Edata[0].data.isEnable;
           startTime = res.data.Edata[0].data.startTime;
@@ -49,7 +50,7 @@ Page({
           momentSwitch = res.data.Edata[0].data.momentSwitch;
           endTime = res.data.Edata[0].data.endTime;
           endSwitch = res.data.Edata[0].data.endTimeSwitch;
-          
+          that.drawClock(res.data.Edata[0].data.startTime, res.data.Edata[0].data.endTime);
           that.setData({
             startTime: res.data.Edata[0].data.startTime,//开始时间
             endTime: res.data.Edata[0].data.endTime,//结束时间
@@ -205,6 +206,81 @@ Page({
     wx.navigateTo({
       url: '../halfPriceTime/timeEdit/index?timeCode=endTime&defaultDevId=' + defaultDevId
     })
+  },
+  drawClock:function(startTime,endTime){     
+    var minutesSectionStart = Number(startTime.split(":")[0] * 60) + Number(startTime.split(":")[1]);
+    var minutesSectionEnd = Number(endTime.split(":")[0] * 60) + Number(endTime.split(":")[1]);
+    console.log("开始时间", minutesSectionStart);
+    console.log("结束时间", minutesSectionEnd);
+    var clockRadius = 60;//半径
+    var context = wx.createCanvasContext('clock');
+    //画时针
+    setInterval(function () {
+      context.translate(177 / 2, 177 / 2);//对当前坐标系的原点(0, 0)进行变换，默认的坐标系原点为页面左上角。
+      var date = new Date();
+      var hours = date.getHours();   //获取小时数
+      var minutes = date.getMinutes(); //获取分钟数
+      var seconds = date.getSeconds();//获取秒数
+      hours = hours > 12 ? hours - 12 : hours;
+      var hour = hours + minutes / 60;
+      var minute = minutes + seconds / 60;
+      //得到时间 
+      context.save();
+      var theta = (hour - 3) * 2 * Math.PI / 12;
+      context.rotate(theta);
+      context.beginPath();
+      context.moveTo(-10, -2);
+      context.lineTo(-10, 2);
+      context.lineTo(clockRadius * 0.5, 1);
+      context.lineTo(clockRadius * 0.5, -1);
+      //context.setFillStyle('red');
+      context.closePath()
+      context.fill();
+      context.restore();
+
+      context.save();
+      var theta = (minute - 15) * 2 * Math.PI / 60;
+      context.rotate(theta);
+      context.beginPath();
+      context.moveTo(-10, -2);
+      context.lineTo(-10, 2);
+      context.lineTo(clockRadius * 0.8, 1);
+      context.lineTo(clockRadius * 0.8, -1);
+      //context.setFillStyle('red');
+      context.closePath()
+      context.fill();
+      context.restore();
+
+      // draw second 画出秒刻度
+      context.save();
+      var theta = (seconds - 15) * 2 * Math.PI / 60;
+      context.rotate(theta);
+      context.beginPath();
+      context.moveTo(-10, -2);
+      context.lineTo(-10, 2);
+      context.lineTo(clockRadius * 0.9, 1);
+      context.lineTo(clockRadius * 0.9, -1);
+      context.setFillStyle('red');
+      context.closePath()
+      context.fill();
+      context.restore();
+
+      context.restore();
+
+
+
+
+
+
+      context.beginPath()
+      context.setStrokeStyle("#ff0000");//笔触颜色
+      context.setLineWidth(6);//笔触宽度
+      context.moveTo(0, 0);//把路径移动到画布中的指定点，不创建线条。
+      context.arc(0, 0, 1, 0, 2 * Math.PI, true);//创建一个圆可以用 arc() 方法指定其实弧度为0，终止弧度为 2 * Math.PI。
+      context.closePath()
+      context.stroke();//画出当前路径的边框
+      context.draw()
+    }, 1000)
   }
 })
 

@@ -27,13 +27,24 @@ Page({
     tel_third = wx.getStorageSync('tel_third');
     evcharAppkey = wx.getStorageSync('evcharAppkey');
     openId = wx.getStorageSync('openid');
+
+    wx.setStorageSync('sms_third', "");
+    wx.setStorageSync('newpassword_third', "");
+    sms_third="";
+    newpassword_third="";
+    this.setData({
+      tel_third: wx.getStorageSync('tel_third'),
+      sms_third: "",
+      newpassword_third: ""
+    });
   },
   onShow: function () {
     this.setData({
-      tel_third: wx.getStorageSync('tel_third'),
-      sms_third: wx.getStorageSync('sms_third'),
-      newpassword_third: wx.getStorageSync('newpassword_third')
+      tel_third: wx.getStorageSync('tel_third')
     });
+    console.log(tel_third)
+    console.log(sms_third)
+    console.log(newpassword_third)
   },
   findPasswordPage: function () {
     wx.navigateTo({
@@ -117,7 +128,22 @@ Page({
   findPW: function () {
     console.log('{"eappKey":"' + wx.getStorageSync('evcharAppkey') + '","openId":"' + wx.getStorageSync('openid') + '","password":"' + newpassword_third + '","code":"' + sms_third + '","userName":"' + tel_third + '"}')
     var patt1 = /[^a-zA-Z0-9]/;//如果出现字母和数字组合外的字符，为true
-    if (newpassword_third == "" || newpassword_third == undefined) {
+    console.log(tel_third)
+    if (tel_third == '' || tel_third == undefined) {
+      wx.showToast({
+        title: '手机号不能为空',
+        icon: 'loading',
+        duration: 1000
+      })
+      return;
+    } else if (tel_third.length != 11) {
+      wx.showToast({
+        title: '手机号不正确',
+        icon: 'loading',
+        duration: 1000
+      })
+      return;
+    } else  if (newpassword_third == "" || newpassword_third == undefined) {
       wx.showToast({
         title: '密码不能为空',
         icon: 'loading',
@@ -131,7 +157,7 @@ Page({
         duration: 1000
       })
       return;
-    }
+    }else
     if (sms_third == "" || sms_third == undefined) {
       wx.showToast({
         title: '验证码不能为空',

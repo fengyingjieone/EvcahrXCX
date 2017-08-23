@@ -13,7 +13,7 @@
 		<view class="couponTopMoney"><view class="couponTopMoneySup">¥</view>{{item.amount}}</view>
 		<view class="couponTopRight">{{item.couponName}}</view>
 		<view class="couponBottom">
-			<view class="couponBottomLeftOut">失效期：{{item.useTime}}</view>
+			<view class="couponBottomLeftOut">失效期：{{item.expireTime}}</view>
 			<view class="couponBottomRightOut">已使用</view>
 		</view>
 	</view>

@@ -1,38 +1,49 @@
 /**index.wxss**/
 @import "../images/common.wxss";
-.openTimeBox{
-  width: 100%; 
-  height: 237rpx;
-  background:url(https://wxtt.evchar.cn/images/hpA.png) center center no-repeat; 
-  background-size:100% auto;
-}
+
 .timeTitle{
   width:100%;
   height: 86rpx;
   text-indent: 40rpx;
-  color: #fff;
+  color: #3e3e3e;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 30rpx;
+}
+.timeInfo{
+  text-indent: 40rpx;
 }
 .btnBox{
   width:90%;
   height: 63rpx;
   margin: 0px auto;
   display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  color: #3e3e3e;
+  font-size: 52rpx;
+}
+.timeAreaCheckBox{
+  width:100%;
+  height: 178rpx;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content:space-between;
-  color: #fff;
-  font-size: 48rpx;
+  color: #3e3e3e;
+  font-size: 36rpx;
 }
 
 
 .closeTimeBox{
   width: 100%; 
-  height: 237rpx;
-  background:url(https://wxtt.evchar.cn/images/hpB.png) center center no-repeat; 
-  background-size:100% auto;
+  height: 178rpx;
+  border-bottom: 1rpx #d2d2d2 solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
 }
 .cutLine{
   width:100%;
@@ -49,6 +60,7 @@
   align-items: center;
   text-indent: 30rpx;
   font-size: 26rpx;
+  border-top: 1rpx #d2d2d2 solid;
 }
 
 
@@ -128,5 +140,21 @@
 }
 .hide{
     display:none;    
+}
+/*闹钟改版*/
+.topClockBox{
+  width: 100%;
+  height: 177px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center;  
+  background-color: #65D8FC;
+}
+.circleBox{
+  width:177px;
+  height: 177px;  
+  background-image:url(http://wx.chongdian.club/images/circle.png);
+  background-size: 100% 100%;
 }
 

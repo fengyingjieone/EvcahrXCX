@@ -2,41 +2,41 @@
 @import "../images/common.wxss";
 .fullBoxS{
   height:100vh;
-  /*background: repeating-linear-gradient(#35C9F8 0%,#BEEBFE 50%,#35C9F8 100%);*/
-  /*background:url(../images/bg.png) center center cover no-repeat; */
-  /*background:url(../images/bg.png) repeat-x;*/
-  background:url(http://wx.chongdian.club/images/bg.png) center center no-repeat; 
-  background-size: 100% 100%;
+  background-image:url(http://wx.chongdian.club/images/shaTimeImg.png);
+  background-repeat:no-repeat;
+  background-size: 100% auto;
 }
 .titleTxt{
   width: 100%;
   height: 204rpx;  
+  padding-top: 90rpx;
   display: flex;
-  font-size: 48rpx;
+  font-size: 32rpx;
+  font-weight: bold;
   align-items: center;
   border-top: 1px #d2d2d2 solid;
-  color: #fff;
+  color: #3e3e3e;
 }
 .nowTimeBox{
   width: 100%;
   height: 70rpx;  
   font-size: 63rpx;
-  color: #fff;
+  color: #3e3e3e;
 }
 .saveShareTime{
   width: 50%;
   height: 96rpx;
   font-size: 48rpx;
   margin:0px auto;
-  border-radius: 5rpx;
-  margin-top: 125rpx;
-  background-color: #fff;
-  color: #3DCAE6;
+  border-radius: 10rpx;
+  margin-top: 245rpx;
+  background-color: #65D8FC;
+  color: #FFF;
 }
 
 .fontTime{
   font-size: 58rpx;
-  color: #fff;
+  color: #3e3e3e;
   font-weight: bold;
   width: 40%;
 }

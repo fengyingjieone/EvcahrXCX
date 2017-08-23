@@ -535,9 +535,11 @@ Page({
         wx.showToast({
             title: "切换功率",
             icon: 'loading',
-            duration: 15000,
+            duration: 60000,
             mask: true
         })
+        clearInterval(setIntervalClockGLLow);
+        clearInterval(setIntervalClockGLHeight);
         if (defaultGonglv == 0)//当前是低功率  下面切换高功率
         {
             var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","deviceId":"' + defaultDeviceid + '","capacity":2}');

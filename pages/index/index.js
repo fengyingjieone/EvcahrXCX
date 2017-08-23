@@ -214,14 +214,13 @@ Page({
                             type: 'wgs84',
                             success: function (res) {
                               console.log("定位点2:",res);
-                              if(systemInfo.platform != "devtools"){
+                              //if(systemInfo.platform != "devtools"){
                                 //可以获取到 经度 纬度 速度 精度
                                 myLatitude = res.latitude;//我的位置 计算距离用  获取一次，不再变 getAllDevices
                                 myLongitude = res.longitude;//我的位置 计算距离用  获取一次，不再变 getAllDevices 
-                              }
+                              //}
                               wx.setStorageSync('myLatitude', myLatitude);//缓存我的位置
                               wx.setStorageSync('myLongitude', myLongitude);//缓存我的位置
-
                               that.setData({
                                 Vlatitude: myLatitude,
                                 Vlongitude: myLongitude

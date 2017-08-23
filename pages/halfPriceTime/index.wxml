@@ -1,23 +1,27 @@
 <!--设置-->
-<view class="cutLine"></view>
-<view class="openTimeBox">
-  <view class="timeTitle font14">定时开</view>
-  <view class="btnBox">
-    <view  catchtap="toTimeEdit">{{startTime}}</view>
-    <switch disabled="{{disabledState}}" checked="{{openCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="open" />
+<view class="topClockBox">
+  <view class="circleBox">
+    <canvas canvas-id="clock" style="width:177px;height:177px;"></canvas>
   </view>
-</view>
-<view class="cutLine"></view>
-<view class="btnBox" style=" color:#000; font-size:36rpx; margin-top:15rpx; margin-bottom:15rpx;">
-    <view catchtap="toTimeEditEnd">区间检测开启设备</view>
-    <switch disabled="{{disabledState}}" checked="{{momentCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="moment" />
 </view>
 <view class="cutLine"></view>
 <view class="closeTimeBox">
-  <view class="timeTitle font14">定时关</view>
   <view class="btnBox">
-    <view catchtap="toTimeEditEnd">{{endTime}}</view>
-    <switch disabled="{{disabledState}}" checked="{{closeCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="close" />
+    <view class="timeTitle font14">定时开</view>
+    <view  catchtap="toTimeEdit"  class="timeInfo">{{startTime}}</view>
   </view>
+  <switch style="margin-right:35rpx;" disabled="{{disabledState}}" checked="{{openCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="open" />
 </view>
+<view class="closeTimeBox">
+  <view class="btnBox">
+    <view class="timeTitle font14">定时关</view>
+    <view catchtap="toTimeEditEnd" class="timeInfo">{{endTime}}</view>
+  </view>    
+  <switch style="margin-right:35rpx;" disabled="{{disabledState}}" checked="{{closeCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="close" />
+</view>
+<view class="timeAreaCheckBox timeInfo">
+    <view catchtap="toTimeEditEnd" style="width:60%;">区间检测开启设备</view>
+    <switch style="margin-right:35rpx;" disabled="{{disabledState}}" checked="{{momentCheckedState}}"  bindchange="setHalfpriceTime" color="#3DCAE6" id="moment" />
+</view>
+
 <view class="promptBox colorGary">温馨提示：点击时间进行编辑,滑动滑块定义开关</view>
