@@ -178,6 +178,12 @@ Page({
   onShareAppMessage: function () {
     return app.onShareAppMessage();
   },
+  toHistoryorderInfo: function (e) {
+    console.log("输出点击对象" + e.currentTarget.id)
+    wx.navigateTo({
+      url: 'historyorderInfo/index?orderid=' + e.currentTarget.id
+    })
+  }
 })
 
 

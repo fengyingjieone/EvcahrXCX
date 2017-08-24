@@ -11,6 +11,7 @@
     "pages/income/index",    
     "pages/incomeInfo/index",
     "pages/historyOrder/index",
+    "pages/historyOrder/historyorderInfo/index",
     "pages/coupon/index",
     "pages/balance/index",
     "pages/set/index",
