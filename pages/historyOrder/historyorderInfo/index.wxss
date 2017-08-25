@@ -80,6 +80,9 @@
 .margin5{
   margin-right: 5rpx;
 }
+.viewHiden{
+  display: none;
+}
 
 
 
