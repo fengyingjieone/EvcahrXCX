@@ -1,8 +1,8 @@
 <view class="allBox centerB">
-  <view class="cutListBox"><view class="font32">订单编号：</view>{{historyId}}</view>
-  <view class="cutListBox"><view class="font32">订单状态：</view>已结束</view>
-  <view class="cutListBox"><view class="font32">设备编号：</view>{{historydeviceId}}</view>
-  <view class="cutListBox"><view class="font32">订单类型：</view>{{orderType}}</view>
+  <view class="cutListBox"><view class="font32 margin5">订单编号:</view>{{historyId}}</view>
+  <view class="cutListBox"><view class="font32 margin5">订单状态:</view>已结束</view>
+  <view class="cutListBox"><view class="font32 margin5">设备编号:</view>{{historydeviceId}}</view>
+  <view class="cutListBox"><view class="font32 margin5">订单类型:</view>{{orderType}}</view>
   <view class="blueBox centerA">
     <view class="startBox centerB">
       <view class="font32">开始时间</view>
@@ -13,9 +13,9 @@
       <view style="font-size:28rpx;">{{endTime}}</view>
     </view>
   </view>
-  <view class="cutListBox"><view class="font32">总时长：</view>{{timeTotal}}</view>
-  <view class="cutListBox"><view class="font32">总电量：</view>{{electricity}}</view>
-  <view class="cutListBox {{amountHiden?'viewHiden':''}}"><view class="font32">总费用：</view>{{amount}}</view>
+  <view class="cutListBox"><view class="font32 margin5">总时长:</view>{{timeTotal}}</view>
+  <view class="cutListBox"><view class="font32 margin5">总电量:</view>{{electricity}}</view>
+  <view class="cutListBox {{amountHiden?'viewHiden':''}}"><view class="font32 margin5">总费用:</view>{{amount}}</view>
   <view class="canvasTile centerB">
     <view>充电过程电流曲线</view>
     <view style="color:#B9B9C8; font-size:28rpx;margin-top:10rpx;">此数据为传感器采集数据仅供参考</view>
