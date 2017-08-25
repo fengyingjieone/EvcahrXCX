@@ -19,8 +19,8 @@ var config = {
     padding: 12,
     columePadding: 3,
     fontSize: 10,
-    dataPointShape: ['circle', 'diamond', 'triangle', 'rect'],
-    colors: ['#c23531', '#7cb5ec', '#434348', '#90ed7d', '#f15c80', '#8085e9'],
+    dataPointShape: ['diamond', 'circle', 'triangle', 'rect'],
+    colors: ['#C23531', '#f7a35c', '#434348', '#90ed7d', '#f15c80', '#8085e9'],
     pieChartLinePadding: 25,
     pieChartTextPadding: 15,
     xAxisTextPadding: 3,
@@ -122,6 +122,31 @@ function findRange(num, type, limit) {
     return num / multiple;
 }
 
+function isInAngleRange(angle, startAngle, endAngle) {
+    function adjust(angle) {
+        while (angle < 0) {
+            angle += 2 * Math.PI;
+        }
+        while (angle > 2 * Math.PI) {
+            angle -= 2 * Math.PI;
+        }
+
+        return angle;
+    }
+
+    angle = adjust(angle);
+    startAngle = adjust(startAngle);
+    endAngle = adjust(endAngle);
+    if (startAngle > endAngle) {
+        endAngle += 2 * Math.PI;
+        if (angle < startAngle) {
+            angle += 2 * Math.PI;
+        }
+    }
+
+    return angle >= startAngle && angle <= endAngle;
+}
+
 function calRotateTranslate(x, y, h) {
     var xv = x;
     var yv = h - y;
@@ -138,6 +163,15 @@ function calRotateTranslate(x, y, h) {
 }
 
 function createCurveControlPoints(points, i) {
+
+    function isNotMiddlePoint(points, i) {
+        if (points[i - 1] && points[i + 1]) {
+            return points[i].y >= Math.max(points[i - 1].y, points[i + 1].y) || points[i].y <= Math.min(points[i - 1].y, points[i + 1].y);
+        } else {
+            return false;
+        }
+    }
+
     var a = 0.2;
     var b = 0.2;
     var pAx = null;
@@ -160,6 +194,15 @@ function createCurveControlPoints(points, i) {
         pBx = points[i + 1].x - (points[i + 2].x - points[i].x) * b;
         pBy = points[i + 1].y - (points[i + 2].y - points[i].y) * b;
     }
+
+    // fix issue https://github.com/xiaolin3303/wx-charts/issues/79
+    if (isNotMiddlePoint(points, i + 1)) {
+        pBy = points[i + 1].y;
+    }
+    if (isNotMiddlePoint(points, i)) {
+        pAy = points[i].y;
+    }
+
     return {
         ctrA: { x: pAx, y: pAy },
         ctrB: { x: pBx, y: pBy }
@@ -299,10 +342,12 @@ function getRadarCoordinateSeries(length) {
     });
 }
 
-function getToolTipData(seriesData, calPoints, index) {
+function getToolTipData(seriesData, calPoints, index, categories) {
+    var option = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+
     var textList = seriesData.map(function (item) {
         return {
-            text: item.name + ': ' + item.data,
+            text: option.format ? option.format(item, categories[index]) : item.name + ': ' + item.data,
             color: item.color
         };
     });
@@ -388,18 +433,15 @@ function findRadarChartCurrentIndex(currentPoints, radarData, count) {
 function findPieChartCurrentIndex(currentPoints, pieData) {
     var currentIndex = -1;
     if (isInExactPieChartArea(currentPoints, pieData.center, pieData.radius)) {
-        (function () {
-            var angle = Math.atan2(pieData.center.y - currentPoints.y, currentPoints.x - pieData.center.x);
-            if (angle < 0) {
-                angle += 2 * Math.PI;
+        var angle = Math.atan2(pieData.center.y - currentPoints.y, currentPoints.x - pieData.center.x);
+        angle = -angle;
+        for (var i = 0, len = pieData.series.length; i < len; i++) {
+            var item = pieData.series[i];
+            if (isInAngleRange(angle, item._start_, item._start_ + item._proportion_ * 2 * Math.PI)) {
+                currentIndex = i;
+                break;
             }
-            angle = 2 * Math.PI - angle;
-            pieData.series.forEach(function (item, index) {
-                if (angle > item._start_) {
-                    currentIndex = index;
-                }
-            });
-        })();
+        }
     }
 
     return currentIndex;
@@ -548,13 +590,21 @@ function getPieTextMaxLength(series) {
     return maxLength;
 }
 
-function fixColumeData(points, eachSpacing, columnLen, index, config) {
+function fixColumeData(points, eachSpacing, columnLen, index, config, opts) {
     return points.map(function (item) {
         if (item === null) {
             return null;
         }
         item.width = (eachSpacing - 2 * config.columePadding) / columnLen;
-        item.width = Math.min(item.width, 25);
+
+        if (opts.extra.column && opts.extra.column.width && +opts.extra.column.width > 0) {
+            // customer column width
+            item.width = Math.min(item.width, +opts.extra.column.width);
+        } else {
+            // default width should less tran 25px
+            // don't ask me why, I don't know
+            item.width = Math.min(item.width, 25);
+        }
         item.x += (index + 0.5 - columnLen / 2) * item.width;
 
         return item;
@@ -628,27 +678,19 @@ function getYAxisTextList(series, opts, config) {
     var eachRange = (maxRange - minRange) / config.yAxisSplit;
 
     for (var i = 0; i <= config.yAxisSplit; i++) {
-        range.push(eachRange * i);
+        range.push(minRange + eachRange * i);
     }
     return range.reverse();
 }
 
 function calYAxisData(series, opts, config) {
-    // console.log("探索y轴刻度是怎么来的")
-    // console.log("参数series")
-    // console.log(series)
-    // console.log("参数opts")
-    // console.log(opts)
-    // console.log("参数config")
-    // console.log(config)
-    var ranges = getYAxisTextList(series, opts, config);//运行了这个方法
+
+    var ranges = getYAxisTextList(series, opts, config);
     var yAxisWidth = config.yAxisWidth;
     var rangesFormat = ranges.map(function (item) {
         item = util.toFixed(item, 2);
         item = opts.yAxis.format ? opts.yAxis.format(Number(item)) : item;
         yAxisWidth = Math.max(yAxisWidth, measureText(item) + 5);
-        //console.log("AAA")
-        //console.log(item)
         return item;
     });
     if (opts.yAxis.disabled === true) {
@@ -970,7 +1012,6 @@ function drawToolTip(textList, offset, opts, config, context) {
     context.closePath();
 }
 
-//冯营杰 y轴标题
 function drawYAxisTitle(title, opts, config, context) {
     var startX = config.xAxisHeight + (opts.height - config.xAxisHeight - measureText(title)) / 2;
     context.save();
@@ -1002,7 +1043,7 @@ function drawColumnDataPoints(series, opts, config, context) {
     series.forEach(function (eachSeries, seriesIndex) {
         var data = eachSeries.data;
         var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
-        points = fixColumeData(points, eachSpacing, series.length, seriesIndex, config);
+        points = fixColumeData(points, eachSpacing, series.length, seriesIndex, config, opts);
 
         // 绘制柱状数据图
         context.beginPath();
@@ -1021,7 +1062,7 @@ function drawColumnDataPoints(series, opts, config, context) {
     series.forEach(function (eachSeries, seriesIndex) {
         var data = eachSeries.data;
         var points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
-        points = fixColumeData(points, eachSpacing, series.length, seriesIndex, config);
+        points = fixColumeData(points, eachSpacing, series.length, seriesIndex, config, opts);
         if (opts.dataLabel !== false && process === 1) {
             drawPointText(points, eachSeries, config, context);
         }
@@ -1060,7 +1101,7 @@ function drawAreaDataPoints(series, opts, config, context) {
             // 绘制区域数据
             context.beginPath();
             context.setStrokeStyle(eachSeries.color);
-            context.setFillStyle('#3DCAE6');
+            context.setFillStyle(eachSeries.color);
             context.setGlobalAlpha(0.6);
             context.setLineWidth(2);
             if (points.length > 1) {
@@ -1069,25 +1110,13 @@ function drawAreaDataPoints(series, opts, config, context) {
 
                 context.moveTo(firstPoint.x, firstPoint.y);
                 if (opts.extra.lineStyle === 'curve') {
-                    var start_Y=firstPoint.y;//起始点坐标
-                    var start_X=firstPoint.x;//起始点坐标    冯营杰                  
                     points.forEach(function (item, index) {
-                                            
-                        if (index > 0&&start_Y!=item.y) {                            
-                            start_Y=item.y;//改变前一个start_Y
+                        if (index > 0) {
                             var ctrlPoint = createCurveControlPoints(points, index - 1);
-                            console.log(ctrlPoint.ctrB.x-ctrlPoint.ctrA.x)
-                //context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
-                            context.quadraticCurveTo(ctrlPoint.ctrA.x-10, ctrlPoint.ctrA.y,item.x, item.y);
-                        }else{
-                            if (index > 0) {
-                                context.lineTo(item.x, item.y-1);
-                                start_Y=item.y;//改变前一个start_Y
-                             }
+                            context.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
                         }
                     });
                 } else {
-                    
                     points.forEach(function (item, index) {
                         if (index > 0) {
                             context.lineTo(item.x, item.y);
@@ -1230,7 +1259,7 @@ function drawXAxis(categories, opts, config, context) {
             xAxisPoints.forEach(function (item, index) {
                 if (index > 0) {
                     context.moveTo(item - eachSpacing / 2, startY);
-                    context.lineTo(item - eachSpacing / 2, 12);
+                    context.lineTo(item - eachSpacing / 2, startY + 4);
                 }
             });
         } else {
@@ -1284,7 +1313,7 @@ function drawXAxis(categories, opts, config, context) {
         });
     }
 }
-//冯营杰 y轴 分割线
+
 function drawYAxis(series, opts, config, context) {
     if (opts.yAxis.disabled === true) {
         return;
@@ -1292,7 +1321,7 @@ function drawYAxis(series, opts, config, context) {
 
     var _calYAxisData4 = calYAxisData(series, opts, config),
         rangesFormat = _calYAxisData4.rangesFormat;
-        //console.log(rangesFormat)
+
     var yAxisTotalWidth = config.yAxisWidth + config.yAxisTitleWidth;
 
     var spacingValid = opts.height - 2 * config.padding - config.xAxisHeight - config.legendHeight;
@@ -1407,6 +1436,7 @@ function drawLegend(series, opts, config, context) {
 function drawPieDataPoints(series, opts, config, context) {
     var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
 
+    var pieOption = opts.extra.pie || {};
     series = getPieDataPoints(series, process);
     var centerPosition = {
         x: opts.width / 2,
@@ -1418,6 +1448,10 @@ function drawPieDataPoints(series, opts, config, context) {
     } else {
         radius -= 2 * config.padding;
     }
+    series = series.map(function (eachSeries) {
+        eachSeries._start_ += (pieOption.offsetAngle || 0) * Math.PI / 180;
+        return eachSeries;
+    });
     series.forEach(function (eachSeries) {
         context.beginPath();
         context.setLineWidth(2);
@@ -1446,7 +1480,18 @@ function drawPieDataPoints(series, opts, config, context) {
     }
 
     if (opts.dataLabel !== false && process === 1) {
-        drawPieText(series, opts, config, context, radius, centerPosition);
+        // fix https://github.com/xiaolin3303/wx-charts/issues/132
+        var valid = false;
+        for (var i = 0, len = series.length; i < len; i++) {
+            if (series[i].data > 0) {
+                valid = true;
+                break;
+            }
+        }
+
+        if (valid) {
+            drawPieText(series, opts, config, context, radius, centerPosition);
+        }
     }
 
     if (process === 1 && opts.type === 'ring') {
@@ -1628,7 +1673,6 @@ Animation.prototype.stop = function () {
     this.isStop = true;
 };
 
-//入口第二步
 function drawCharts(type, opts, config, context) {
     var _this = this;
 
@@ -1660,13 +1704,13 @@ function drawCharts(type, opts, config, context) {
     var duration = opts.animation ? 1000 : 0;
     this.animationInstance && this.animationInstance.stop();
     switch (type) {
-        case 'line'://捕获到折线图
+        case 'line':
             this.animationInstance = new Animation({
                 timing: 'easeIn',
                 duration: duration,
                 onProcess: function onProcess(process) {
-                    drawYAxis(series, opts, config, context);//y轴分割线
-                    drawXAxis(categories, opts, config, context);//x轴分割线
+                    drawYAxis(series, opts, config, context);
+                    drawXAxis(categories, opts, config, context);
 
                     var _drawLineDataPoints = drawLineDataPoints(series, opts, config, context, process),
                         xAxisPoints = _drawLineDataPoints.xAxisPoints,
@@ -1675,7 +1719,7 @@ function drawCharts(type, opts, config, context) {
                     _this.chartData.xAxisPoints = xAxisPoints;
                     _this.chartData.calPoints = calPoints;
                     drawLegend(opts.series, opts, config, context);
-                    drawCanvas(opts, context);//猜测，画出图片
+                    drawCanvas(opts, context);
                 },
                 onAnimationFinish: function onAnimationFinish() {
                     _this.event.trigger('renderComplete');
@@ -1780,13 +1824,13 @@ Event.prototype.trigger = function () {
 		});
 	}
 };
-//冯营杰 入口
+
 var Charts = function Charts(opts) {
-    opts.title = opts.title || {};//获取参数中的title
-    opts.subtitle = opts.subtitle || {};//
-    opts.yAxis = opts.yAxis || {};//y轴信息
-    opts.xAxis = opts.xAxis || {};//x轴信息
-    opts.extra = opts.extra || {};//
+    opts.title = opts.title || {};
+    opts.subtitle = opts.subtitle || {};
+    opts.yAxis = opts.yAxis || {};
+    opts.xAxis = opts.xAxis || {};
+    opts.extra = opts.extra || {};
     opts.legend = opts.legend === false ? false : true;
     opts.animation = opts.animation === false ? false : true;
     var config$$1 = assign({}, config);
@@ -1828,12 +1872,9 @@ Charts.prototype.addEventListener = function (type, listener) {
 Charts.prototype.getCurrentDataIndex = function (e) {
     if (e.touches && e.touches.length) {
         var _e$touches$ = e.touches[0],
-            x = _e$touches$.x,//得到点击点的x坐标
-            y = _e$touches$.y;//得到点击点的y坐标
-            //console.log("----pppp----")
-            //console.log(x)
-            //console.log(y)
-            //console.log("----pppp----")
+            x = _e$touches$.x,
+            y = _e$touches$.y;
+
         if (this.opts.type === 'pie' || this.opts.type === 'ring') {
             return findPieChartCurrentIndex({ x: x, y: y }, this.chartData.pieData);
         } else if (this.opts.type === 'radar') {
@@ -1856,7 +1897,7 @@ Charts.prototype.showToolTip = function (e) {
             if (seriesData.length === 0) {
                 drawCharts.call(this, opts.type, opts, this.config, this.context);
             } else {
-                var _getToolTipData = getToolTipData(seriesData, this.chartData.calPoints, index),
+                var _getToolTipData = getToolTipData(seriesData, this.chartData.calPoints, index, this.opts.categories, option),
                     textList = _getToolTipData.textList,
                     offset = _getToolTipData.offset;
 

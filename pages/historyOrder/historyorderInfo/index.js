@@ -181,17 +181,17 @@ Page({
         }
       },],
       xAxis: {
-        disableGrid: false,//x轴  分割线    
+        disableGrid: true,//x轴  分割线    
         title: '日期',
         'type': "calibration"
       },
       yAxis: {
         disabled:false,
+        min:10,
         gridColor: "#d3d3d3",
         format: function (val) {
           return val.toFixed(2)+"A";
-        },
-        min: 0
+        }
       },
       width: windowWidth,
       height: 200,
