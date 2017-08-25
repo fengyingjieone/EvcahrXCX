@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-var wxCharts = require('wxcharts.js');
+var wxCharts = require('wxcharts4.js');
 var app = getApp();
 var lineChart = null;
 Page({
@@ -36,34 +36,43 @@ Page({
         success: function (res) {
           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
           console.log("请求结果", res)
-          var orderType;
-          if (res.data.Edata[0].data.orderType == 1) {
-            orderType = "共享收益";
-          } else if (res.data.Edata[0].data.orderType == 2) {
-            orderType = "充电费用";
-          } else if (res.data.Edata[0].data.orderType == 3) {
-            orderType = "预约超时收益";
-          } else if (res.data.Edata[0].data.orderType == 4) {
-            orderType = "免费";
-          } else if (res.data.Edata[0].data.orderType == 5) {
-            orderType = "预约超时扣费";
-          }
-          var days = Math.floor(res.data.Edata[0].data.timeTotal / 1440) == 0 ? "" : Math.floor(res.data.Edata[0].data.timeTotal / 1440) + "天";
-          var hourtime = res.data.Edata[0].data.timeTotal - Math.floor(res.data.Edata[0].data.timeTotal / 1440) * 1440;
-          var hours = Math.floor(hourtime / 60) == 0 ? "" : Math.floor(hourtime / 60) + "小时";
-          var mintime = (hourtime - Math.floor(hourtime / 60) * 60) + "分";
-          var timeTotal = days + hours + mintime;
-          console.log(res.data.Edata[0].data)
-          that.setData({
-            historyId: res.data.Edata[0].data.orderId,
-            historydeviceId: res.data.Edata[0].data.deviceName + "-" + res.data.Edata[0].data.deviceSN,
-            orderType: orderType,
-            startTime: res.data.Edata[0].data.startTime,
-            endTime: res.data.Edata[0].data.endTime,
-            timeTotal: timeTotal,
-            electricity: (res.data.Edata[0].data.electricity * 0.01).toFixed(2) + "kWh",
-            amountHiden: true
-          })
+          if (res.data.Edata[0].code==0){
+            var orderType;
+            if (res.data.Edata[0].data.orderType == 1) {
+              orderType = "共享收益";
+            } else if (res.data.Edata[0].data.orderType == 2) {
+              orderType = "充电费用";
+            } else if (res.data.Edata[0].data.orderType == 3) {
+              orderType = "预约超时收益";
+            } else if (res.data.Edata[0].data.orderType == 4) {
+              orderType = "免费";
+            } else if (res.data.Edata[0].data.orderType == 5) {
+              orderType = "预约超时扣费";
+            }
+            var days = Math.floor(res.data.Edata[0].data.timeTotal / 1440) == 0 ? "" : Math.floor(res.data.Edata[0].data.timeTotal / 1440) + "天";
+            var hourtime = res.data.Edata[0].data.timeTotal - Math.floor(res.data.Edata[0].data.timeTotal / 1440) * 1440;
+            var hours = Math.floor(hourtime / 60) == 0 ? "" : Math.floor(hourtime / 60) + "小时";
+            var mintime = (hourtime - Math.floor(hourtime / 60) * 60) + "分";
+            var timeTotal = days + hours + mintime;
+            console.log(res.data.Edata[0].data)
+            that.setData({
+              historyId: res.data.Edata[0].data.orderId,
+              historydeviceId: res.data.Edata[0].data.deviceName + "-" + res.data.Edata[0].data.deviceSN,
+              orderType: orderType,
+              startTime: res.data.Edata[0].data.startTime,
+              endTime: res.data.Edata[0].data.endTime,
+              timeTotal: timeTotal,
+              electricity: (res.data.Edata[0].data.electricity * 0.01).toFixed(2) + "kWh",
+              amountHiden: true
+            })
+          }else{
+            wx.showToast({
+              title: res.data.Edata[0].msg,
+              icon: 'loading',
+              duration: 1500,
+              mask: true
+            })
+          }          
         },
         fail: function (res) {
           console.log("获取钱包信息失败")
@@ -85,36 +94,46 @@ Page({
         },
         success: function (res) {
           wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-          console.log("请求结果", res)          
-          var orderType;
-          if (res.data.Edata[0].data.orderType==1){
-            orderType="共享收益";
-          } else if (res.data.Edata[0].data.orderType == 2) {
-            orderType = "充电费用";
-          } else if (res.data.Edata[0].data.orderType == 3) {
-            orderType = "预约超时收益";
-          } else if (res.data.Edata[0].data.orderType == 4) {
-            orderType = "免费";
-          } else if (res.data.Edata[0].data.orderType == 5) {
-            orderType = "预约超时扣费";
-          }
-          var days = Math.floor(res.data.Edata[0].data.timeTotal / 1440)==0?"": Math.floor(res.data.Edata[0].data.timeTotal/1440)+"天";
-          var hourtime = res.data.Edata[0].data.timeTotal - Math.floor(res.data.Edata[0].data.timeTotal / 1440)*1440;
-          var hours = Math.floor(hourtime / 60) == 0 ? "" : Math.floor(hourtime / 60)+"小时";
-          var mintime = (hourtime - Math.floor(hourtime / 60) * 60)+"分";
-          var timeTotal = days + hours + mintime;          
-          console.log(res.data.Edata[0].data)
-          that.setData({
-            historyId: res.data.Edata[0].data.orderId,
-            historydeviceId: res.data.Edata[0].data.deviceName + "-" + res.data.Edata[0].data.deviceSN,
-            orderType: orderType,
-            startTime: res.data.Edata[0].data.startTime,
-            endTime: res.data.Edata[0].data.endTime,
-            timeTotal: timeTotal,
-            electricity: (res.data.Edata[0].data.electricity * 0.01).toFixed(2)+"kWh",
-            amount: (res.data.Edata[0].data.expenses[0].amount * 0.01).toFixed(2) + "元",
-            amountHiden: false
-          })
+          console.log("请求结果", res)   
+          if (res.data.Edata[0].code == 0) {
+            var orderType;
+            if (res.data.Edata[0].data.orderType == 1) {
+              orderType = "共享收益";
+            } else if (res.data.Edata[0].data.orderType == 2) {
+              orderType = "充电费用";
+            } else if (res.data.Edata[0].data.orderType == 3) {
+              orderType = "预约超时收益";
+            } else if (res.data.Edata[0].data.orderType == 4) {
+              orderType = "免费";
+            } else if (res.data.Edata[0].data.orderType == 5) {
+              orderType = "预约超时扣费";
+            }
+            var days = Math.floor(res.data.Edata[0].data.timeTotal / 1440) == 0 ? "" : Math.floor(res.data.Edata[0].data.timeTotal / 1440) + "天";
+            var hourtime = res.data.Edata[0].data.timeTotal - Math.floor(res.data.Edata[0].data.timeTotal / 1440) * 1440;
+            var hours = Math.floor(hourtime / 60) == 0 ? "" : Math.floor(hourtime / 60) + "小时";
+            var mintime = (hourtime - Math.floor(hourtime / 60) * 60) + "分";
+            var timeTotal = days + hours + mintime;
+            console.log(res.data.Edata[0].data)
+            that.setData({
+              historyId: res.data.Edata[0].data.orderId,
+              historydeviceId: res.data.Edata[0].data.deviceName + "-" + res.data.Edata[0].data.deviceSN,
+              orderType: orderType,
+              startTime: res.data.Edata[0].data.startTime,
+              endTime: res.data.Edata[0].data.endTime,
+              timeTotal: timeTotal,
+              electricity: (res.data.Edata[0].data.electricity * 0.01).toFixed(2) + "kWh",
+              amount: (res.data.Edata[0].data.expenses[0].amount * 0.01).toFixed(2) + "元",
+              amountHiden: false
+            })
+          }  else{
+            wx.showToast({
+              title: res.data.Edata[0].msg,
+              icon: 'loading',
+              duration: 1500,
+              mask: true
+            })
+          }     
+          
         },
         fail: function (res) {
           console.log("获取钱包信息失败")
@@ -141,13 +160,23 @@ Page({
       success: function (res) {
         wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
         console.log("折线请求结果", res);   
-        var createTime=new Array;
-        var current = new Array;
-        for (var i = 0; i < res.data.Edata[0].data.length;i++){
-          createTime.push((res.data.Edata[0].data[i].createTime).substring(11)) //在数组前面增加元素
-          current.push((res.data.Edata[0].data[i].current*0.01).toFixed(2));
-        }
-        that.drawCanvas(createTime, current)    
+        if (res.data.Edata[0].code == 0) {
+          var createTime = new Array;
+          var current = new Array;
+          for (var i = 0; i < res.data.Edata[0].data.length; i++) {
+            createTime.push((res.data.Edata[0].data[i].createTime).substring(11)) //在数组前面增加元素
+            current.push((res.data.Edata[0].data[i].current * 0.01).toFixed(2));
+          }
+          that.drawCanvas(createTime, current)    
+         } else {
+          wx.showToast({
+            title: res.data.Edata[0].msg,
+            icon: 'loading',
+            duration: 1500,
+            mask: true
+          })
+        } 
+        
       },
       fail: function (res) {
         console.log("获取钱包信息失败")
@@ -181,7 +210,7 @@ Page({
         }
       },],
       xAxis: {
-        disableGrid: true,//x轴  分割线    
+        disableGrid: false,//x轴  分割线    
         title: '日期',
         'type': "calibration"
       },

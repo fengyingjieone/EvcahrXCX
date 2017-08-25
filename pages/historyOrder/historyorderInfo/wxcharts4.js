@@ -649,7 +649,8 @@ function getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts,
 }
 
 function getYAxisTextList(series, opts, config) {
-    var data = dataCombine(series);
+  //console.log(" 冯营杰 处理参数")
+    var data = dataCombine(series);//获取到数据y轴数据
     // remove null from data
     data = data.filter(function (item) {
         return item !== null;
@@ -666,7 +667,8 @@ function getYAxisTextList(series, opts, config) {
     // fix issue https://github.com/xiaolin3303/wx-charts/issues/9
     if (minData === maxData) {
         var rangeSpan = maxData || 1;
-        minData -= rangeSpan;
+        //minData -= rangeSpan;
+        minData = 0;//y轴始终是0开始
         maxData += rangeSpan;
     }
 
@@ -676,6 +678,7 @@ function getYAxisTextList(series, opts, config) {
 
     var range = [];
     var eachRange = (maxRange - minRange) / config.yAxisSplit;
+    //console.log("冯营杰",eachRange)
 
     for (var i = 0; i <= config.yAxisSplit; i++) {
         range.push(minRange + eachRange * i);
@@ -684,6 +687,7 @@ function getYAxisTextList(series, opts, config) {
 }
 
 function calYAxisData(series, opts, config) {
+  //console.log("冯营杰第二步接收到的参数", series, opts, config)
 
     var ranges = getYAxisTextList(series, opts, config);
     var yAxisWidth = config.yAxisWidth;
@@ -696,7 +700,9 @@ function calYAxisData(series, opts, config) {
     if (opts.yAxis.disabled === true) {
         yAxisWidth = 0;
     }
-
+    //console.log("第二步", rangesFormat);
+    //console.log("第二步", ranges);
+    //console.log("第二步", yAxisWidth);
     return { rangesFormat: rangesFormat, ranges: ranges, yAxisWidth: yAxisWidth };
 }
 
@@ -928,6 +934,10 @@ function drawPieText(series, opts, config, context, radius, center) {
 }
 
 function drawToolTipSplitLine(offsetX, opts, config, context) {
+  //console.log("冯营杰",offsetX)
+  //console.log(opts)
+  //console.log(config)
+  //console.log(context)
     var startY = config.padding;
     var endY = opts.height - config.padding - config.xAxisHeight - config.legendHeight;
     context.beginPath();
@@ -940,6 +950,7 @@ function drawToolTipSplitLine(offsetX, opts, config, context) {
 }
 
 function drawToolTip(textList, offset, opts, config, context) {
+  //console.log("冯营杰drawToolTip")
     var legendWidth = 4;
     var legendMarginRight = 5;
     var arrowWidth = 8;
@@ -1027,6 +1038,7 @@ function drawYAxisTitle(title, opts, config, context) {
 }
 
 function drawColumnDataPoints(series, opts, config, context) {
+  //console.log("寻找1calYAxisData")
     var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
 
     var _calYAxisData = calYAxisData(series, opts, config),
@@ -1072,6 +1084,7 @@ function drawColumnDataPoints(series, opts, config, context) {
 }
 
 function drawAreaDataPoints(series, opts, config, context) {
+  //console.log("寻找2calYAxisData")
     var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
 
     var _calYAxisData2 = calYAxisData(series, opts, config),
@@ -1164,6 +1177,7 @@ function drawAreaDataPoints(series, opts, config, context) {
 }
 
 function drawLineDataPoints(series, opts, config, context) {
+  //console.log("寻找3calYAxisData")
     var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
 
     var _calYAxisData3 = calYAxisData(series, opts, config),
@@ -1315,6 +1329,7 @@ function drawXAxis(categories, opts, config, context) {
 }
 
 function drawYAxis(series, opts, config, context) {
+  //console.log("寻找4calYAxisData")
     if (opts.yAxis.disabled === true) {
         return;
     }
@@ -1674,6 +1689,7 @@ Animation.prototype.stop = function () {
 };
 
 function drawCharts(type, opts, config, context) {
+  //console.log("寻找5calYAxisData")
     var _this = this;
 
     var series = opts.series;
