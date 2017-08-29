@@ -167,7 +167,7 @@ Page({
             createTime.push((res.data.Edata[0].data[i].createTime).substring(11)) //在数组前面增加元素
             current.push((res.data.Edata[0].data[i].current * 0.01).toFixed(2));
           }
-          that.drawCanvas(createTime, current)    
+          that.drawCanvasInfo(createTime, current)    
          } else {
           wx.showToast({
             title: res.data.Edata[0].msg,
@@ -183,7 +183,7 @@ Page({
       }
     })
   },
-  drawCanvas: function (timee, datee) {
+  drawCanvasInfo: function (timee, datee) {
     //datee = [1, 2, 3, 4, 5, 6, 6, 5, 6, 5, 6, 5, 3, 4, 6, 4, 5, 6, 4, 5]
     //timee = ["08-1", "08-2", "08-3", "08-4", "08-5", "08-6", "08-7", "08-8", "08-9", "08-10", "08-11", "08-12", "08-13", "08-15", "08-15", "08-16", "08-17", "08-18", "08-19", "08-20"]
     console.log(timee);
@@ -196,7 +196,7 @@ Page({
       console.error('getSystemInfoSync failed!');
     }
     lineChart = new wxCharts({
-      canvasId: 'lineCanvas',//画布ID
+      canvasId: 'lineCanvasInfo',//画布ID
       type: 'line',//面积图
       categories: timee,//x轴  时间轴 是由上面的随机数得来的
       animation: true,//动画效果

@@ -20,7 +20,7 @@
     <view>充电过程电流曲线</view>
     <view style="color:#B9B9C8; font-size:28rpx;margin-top:10rpx;">此数据为传感器采集数据仅供参考</view>
   </view>
-	<view class="canvasBox"><canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas></view>
+	<view class="canvasBox"><canvas canvas-id="lineCanvasInfo" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas></view>
 </view>
 
 

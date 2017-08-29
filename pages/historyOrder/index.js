@@ -3,42 +3,23 @@
 var wxCharts = require('../images/wxcharts.js');
 var app = getApp();
 var lineChart = null;
+var pageNum=1;
+var listArray=new Array;
 Page({
   touchHandler: function (e) {
     console.log(lineChart.getCurrentDataIndex(e));
     lineChart.showToolTip(e, {
       //background: '#7cb5ec'//详细信息的背景色
     });
+  },onShow:function(){
+    pageNum = 1;
+    listArray = new Array;
   },
   onLoad: function () {
+    pageNum = 1;
+    listArray = new Array;
     var that = this;
-    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageNum":1,"pageSize":45}');
-    wx.request({
-      url: app.getHostURL() + '/getData.php',//php上固定地址
-      method: 'POST',
-      data: {
-        'evUrl': '/order/listOrdersApp',
-        'evheader': evheader,
-        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageNum":1,"pageSize":45}'
-      },
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-        wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
-        var listDate = new Array();
-        for (var i = 0; i < (res.data.Edata[0].data).length; i++) {
-          (res.data.Edata[0].data[i]).totalPrice = (Number((res.data.Edata[0].data[i]).totalPrice) * 0.01).toFixed(2);
-          (res.data.Edata[0].data[i]).endDegree = (Number((res.data.Edata[0].data[i]).endDegree) * 0.01).toFixed(2);
-        }
-        that.setData({
-          listArray: res.data.Edata[0].data//明细列表
-        })
-      },
-      fail: function (res) {
-        console.log("获取钱包信息失败")
-      }
-    })
+    that.listOrdersApp(1);
     //下面是折线图
     var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '"}');
     wx.request({
@@ -106,8 +87,6 @@ Page({
         console.log("获取折线图信息失败")
       }
     })
-
-
   },
   timeToTimestamp: function (timee)//日期转时间戳
   {
@@ -182,6 +161,61 @@ Page({
     console.log("输出点击对象" + e.currentTarget.id)
     wx.navigateTo({
       url: 'historyorderInfo/index?orderid=' + e.currentTarget.id
+    })
+  },
+  lower:function(){
+    var that=this;
+    console.log("已经滚动底部");
+    pageNum = pageNum+1
+    that.listOrdersApp(pageNum);
+  },
+  listOrdersApp: function (pageNum){
+    wx.showToast({
+      title: "加载中...",
+      icon: 'loading',
+      duration: 1500,
+      mask: true
+    })
+    var that=this;
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageNum":' + pageNum+',"pageSize":25}');
+    wx.request({
+      url: app.getHostURL() + '/getData.php',//php上固定地址
+      method: 'POST',
+      data: {
+        'evUrl': '/order/listOrdersApp',
+        'evheader': evheader,
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageNum":' + pageNum+',"pageSize":25}'
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        wx.setStorageSync('timestamp', res.data.timestamp);//缓存时间戳
+        console.log(res.data.Edata[0].data);
+        if (res.data.Edata[0].data==null){
+          //没有更多订单了
+          wx.showToast({
+            title: "没有更多历史订单了",
+            icon: 'loading',
+            duration: 1500,
+            mask: true
+          })
+          return;
+        }
+        var listDate = new Array();
+        for (var i = 0; i < (res.data.Edata[0].data).length; i++) {
+          (res.data.Edata[0].data[i]).totalPrice = (Number((res.data.Edata[0].data[i]).totalPrice) * 0.01).toFixed(2);
+          (res.data.Edata[0].data[i]).endDegree = (Number((res.data.Edata[0].data[i]).endDegree) * 0.01).toFixed(2);
+        }
+        listArray = listArray.concat(res.data.Edata[0].data)
+        console.log("1112222",listArray)
+        that.setData({
+          listArray: listArray//明细列表
+        })
+      },
+      fail: function (res) {
+        console.log("获取钱包信息失败");
+      }
     })
   }
 })

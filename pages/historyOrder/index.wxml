@@ -10,7 +10,7 @@
 	<view class="titleTxtE centerA" >金额</view>
 </view>	
 
-	<view class="listBox" style="height:{{scrollHeight}}px">
+	<scroll-view scroll-y class="listBox" style="height:{{scrollHeight}}px"  bindscrolltolower="lower" lower-threshold="5">
 				<view class="cutListBox"   wx:for="{{listArray}}" wx:if="{{item.startTime!=null}}" catchtap="toHistoryorderInfo" id="{{item.id}}||{{item.freeFlag}}">
 					<view class="titleTxtA centerA font28" >{{item.freeFlag==1?"免费":"收费"}}</view>
 					<view class="titleTxtB centerA font28" >{{item.createTime}}</view>
@@ -18,7 +18,7 @@
 					<view class="titleTxtD centerA font28" >{{item.endDegree}}度</view>
 					<view class="titleTxtE centerA font28" >{{item.totalPrice}}元</view>
 				</view>
-	</view>
+	</scroll-view>
 
 
 

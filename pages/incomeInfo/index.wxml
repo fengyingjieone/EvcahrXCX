@@ -12,7 +12,7 @@
 
 
 
-<view class="scrollBox">
+<scroll-view scroll-y style="height:{{scrollHeight}}px"  bindscrolltolower="daylower">
 	<view class="cutListBox" wx:for="{{listArray}}">
 		<view class="cutListLeft">
 			<view class="{{dayMnth?'':'hide'}}">{{item.day}}</view>
@@ -20,22 +20,9 @@
 		</view>
 		<view class="powerBtn" catchtap="toIncomeInfo">
 			<view style="margin-right:30rpx;">{{item.amount}}元</view>
-			<!--<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>-->
 		</view>	
-	</view>
-	<!--
-	<view class="cutListBox">
-		<view class="cutListLeft">
-			<view>2017-01-31</view>
-		</view>
-		<view class="powerBtn" catchtap="toIncomeInfo">
-		23元
-			<image  src="../images/userCenterArrow.png" mode="widthFix" class="iconarrow"></image>
-		</view>	
-	</view>
-	-->
-	   
-</view>
+	</view>	   
+</scroll-view>
 
 
 

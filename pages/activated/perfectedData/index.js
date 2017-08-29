@@ -179,7 +179,16 @@ Page({
         title: '正在激活',
         icon: 'loading',
         duration: 15000
-      })  
+      }) ;
+      if (deviceLat == "" || deviceLat == undefined || deviceLat==null){
+        //
+        wx.showToast({
+          title: "未获取到坐标信息，请重新登录小程序后重试",
+          icon: 'loading',
+          duration: 1500
+        })
+        return;
+      } 
       if (!address){
         wx.showToast({
           title: "详细地址不能为空",

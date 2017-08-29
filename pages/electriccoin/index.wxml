@@ -2,11 +2,11 @@
 <!--电量币-->
 
 
-    <view class="topBox">
+    <view class="topBox" style="height:520rpx;">
         <view class="coinIcon">
             <image  src="../images/moneyIcon.png" class="iconco"></image>
         </view>
-        <view class="colorBlue">{{totalBatteryCoin}}个</view>
+        <view class="colorBlue"  style="height:36rpx;">{{totalBatteryCoin}}个</view>
         <view class="exchangeBtn"catchtap="toRechargeCoin">电量币充值</view>
         <view class="cutLine"></view>
         <view class="scrollTitle">余额明细</view>
@@ -14,7 +14,7 @@
     
 
 
-<view class="scrollBox">
+<scroll-view scroll-y  style="height:{{scrollHeight}}px"  bindscrolltolower="electriccoinlower" lower-threshold="50">
     <view class="listBox" wx:for="{{listArray}}">
         <view class="listLeft">
             <view class="colorGary font16 listTitle">{{item.capitalName}}</view>
@@ -23,20 +23,8 @@
         <view class="listRight">
             <view class="colorGary font16 listMoney" >{{item.capitalType>0?"":"-"}}{{item.amount}}</view>
         </view>
-    </view>
-    <!--
-    <view class="listBox">
-        <view class="listLeft">
-            <view class="colorGary font16 listTitle">充电消费</view>
-            <view  class="colorGary font14 listTitle">2017-01-20 16:55</view>
-        </view>
-        <view class="listRight">
-            <view class="colorGary font16 listMoney" >10.34</view>
-        </view>
-    </view>
-    -->
-                
-</view>
+    </view>                
+</scroll-view>
 
 
 
