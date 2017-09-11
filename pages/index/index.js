@@ -118,6 +118,42 @@ Page({
     }
   },
   onLoad: function (e) {
+    wx.request({
+      url: 'https://wx.chongdian.club/quotationapp.php',//php上固定地址
+      method: 'POST',
+      data: {
+        'evUrl': '/quotation/getProductInfo',
+        'evdata': ''
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("测试测试测试测试",res)
+      },
+      fail: function (res) {
+        console.log("获取钱包信息失败")
+      }
+    })
+    wx.request({
+      url: 'https://wx.chongdian.club/quotationapp.php',//php上固定地址
+      method: 'POST',
+      data: {
+        'evUrl': '/quotation/getHistory',
+        'evdata': '{"userId":33}'
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("测试测试测试测试getHistory", res)
+      },
+      fail: function (res) {
+        console.log("获取钱包信息失败")
+      }
+    })
+
+
     console.log("执行一次 or 执行多次")
     wx.setStorageSync('statusValA', 1);//筛选默认值
     wx.setStorageSync('statusValD', 0);//筛选默认值
@@ -232,6 +268,8 @@ Page({
                             fail: function (res) {
                               console.log("定位失败2" + new Date().getTime())
                               console.log(res);
+                              wx.setStorageSync('myLatitude', myLatitude);
+                              wx.setStorageSync('myLongitude', myLongitude);
                               that.setData({
                                 Vlatitude: myLatitude,
                                 Vlongitude: myLongitude

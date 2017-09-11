@@ -174,7 +174,6 @@ Page({
       address = address.replace(/(^\s+)|(\s+$)/g, "");
       deviceName = deviceName.replace(/(^\s+)|(\s+$)/g, "");
       electricityPrice = electricityPrice.replace(/(^\s+)|(\s+$)/g, "");
-
       wx.showToast({
         title: '正在激活',
         icon: 'loading',

@@ -95,7 +95,7 @@ Page({
                         console.log('在线');
                         nowCapacity = res.data.Edata[0].data.defaultDevice.capacitySwitchStatusMap.capacityHighLow;// 0低功率  1高功率
                         var gonglvTxt;
-                        nowCapacity == 0 ? gonglvTxt = "1.5 kW" : gonglvTxt = "3.5 kW"
+                        nowCapacity == 0 ? gonglvTxt = "低功率" : gonglvTxt = "高功率"
                         that.setData({
                             disonline: false,//在线，开关和功率按钮可用
                             powerState: res.data.Edata[0].data.defaultDevice.chargingFlag,//默认桩充电状态
@@ -567,7 +567,7 @@ Page({
                         })
                         that.setData({
                             capacityStatus: 0,//功率大1小0
-                            disonlineTxtB: "1.5 kW",
+                            disonlineTxtB: "低功率",
                             disonline: false//让按钮可点击
                         })
                         return;
@@ -597,7 +597,7 @@ Page({
                                     defaultGonglv = 1;//电桩功率  全局
                                     that.setData({
                                         capacityStatus: 1,//电桩功率 视图改变
-                                        disonlineTxtB: "3.5 kW",
+                                        disonlineTxtB: "高功率",
                                         disonline: false//让按钮可点击
                                     })
                                     clearInterval(setIntervalClockGLHeight);
@@ -620,7 +620,7 @@ Page({
                                     })
                                     that.setData({
                                         capacityStatus: 0,//电桩功率 视图改变
-                                        disonlineTxtB: "1.5 kW",
+                                        disonlineTxtB: "低功率",
                                         disonline: false//让按钮可点击
                                     })
                                 }
@@ -633,7 +633,7 @@ Page({
                                 clearInterval(setIntervalClockGLHeight);
                                 that.setData({
                                     capacityStatus: 0,//电桩功率 视图改变
-                                    disonlineTxtB: "1.5 kW",
+                                    disonlineTxtB: "低功率",
                                     disonline: false//让按钮可点击
                                 })//恢复原貌    
                             }
@@ -675,7 +675,7 @@ Page({
                         })
                         that.setData({
                             capacityStatus: 1,//功率大1小0
-                            disonlineTxtB: "3.5 kW",
+                            disonlineTxtB: "高功率",
                             disonline: false//让按钮可点击
                         })
                         return;
@@ -728,7 +728,7 @@ Page({
                                     })
                                     that.setData({
                                         capacityStatus: 0,//电桩功率 视图改变
-                                        disonlineTxtB: "3.5 kW",
+                                        disonlineTxtB: "高功率",
                                         disonline: false//让按钮可点击
                                     })
                                 }

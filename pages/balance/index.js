@@ -61,14 +61,14 @@ Page({
   },
   listUserCapitals: function (pageNum){
     var that=this;
-    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageSize":25,"pageNum ":' + pageNum+',"capitalTypeSelect":1}');
+    var evheader = app.EvcharHeader('{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageSize":25,"pageNum":' + pageNum+',"capitalTypeSelect":1}');
     wx.request({
       url: app.getHostURL() + '/getData.php',//php上固定地址
       method: 'POST',
       data: {
         'evUrl': '/capital/listUserCapitals',
         'evheader': evheader,
-        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageSize":25,"pageNum ":' + pageNum+',"capitalTypeSelect":1}'
+        'evdata': '{"accessToken":"' + wx.getStorageSync('accessToken') + '","pageSize":25,"pageNum":' + pageNum+',"capitalTypeSelect":1}'
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -82,7 +82,7 @@ Page({
         }
         listArray = listArray.concat(res.data.Edata[0].data)
         that.setData({
-          listArray: res.data.Edata[0].data//明细列表
+          listArray: listArray//明细列表
         })
       },
       fail: function (res) {
