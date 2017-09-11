@@ -706,7 +706,7 @@ Page({
                                     defaultGonglv = 0;//电桩功率  全局
                                     that.setData({
                                         capacityStatus: 0,//电桩功率 视图改变
-                                        disonlineTxtB: "1.5 kW",
+                                        disonlineTxtB: "低功率",
                                         disonline: false//让按钮可点击
                                     })
                                     wx.hideToast();
